@@ -55,8 +55,48 @@
       1,
       "Carregar",
       true
+    ],
+    [
+      "AM",
+      2165448,
+      "A-1",
+      23,
+      "Carregar",
+      true
+    ],
+    [
+      "AM",
+      2361388,
+      "A-2",
+      23,
+      "Carregar",
+      true
+    ],
+    [
+      "AM",
+      1819328,
+      "A-3",
+      22,
+      "Carregar",
+      true
+    ],
+    [
+      "AM",
+      1552483,
+      "A-4",
+      22,
+      "Carregar",
+      true
+    ],
+    [
+      "AM",
+      1897743,
+      "A-5",
+      1,
+      "Carregar",
+      true
     ]
   ],
-  "lastUpdate": "2026-02-07T14:18:51.184Z",
+  "lastUpdate": "2026-02-07T14:19:47.533Z",
   "estadoSistema": "INICIADO"
 }
