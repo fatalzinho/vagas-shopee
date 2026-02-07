@@ -23,8 +23,16 @@
       100,
       "Carregar",
       true
+    ],
+    [
+      "AM",
+      2165448,
+      "A-1",
+      100,
+      "Carregar",
+      true
     ]
   ],
-  "lastUpdate": "2026-02-07T14:25:56.902Z",
+  "lastUpdate": "2026-02-07T14:26:47.698Z",
   "estadoSistema": "INICIADO"
 }
