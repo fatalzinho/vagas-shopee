@@ -757,7 +757,7 @@
     
     async function carregar() {
       try {
-        const res = await fetch('/api/vagas');
+        const res = await fetch('./vagas.json');
         const json = await res.json();
         
         if (!json.data || json.data.length < 4) {
