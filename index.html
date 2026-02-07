@@ -757,7 +757,9 @@
     
     async function carregar() {
       try {
-        const res = await fetch('./vagas.json?t=' + Date.now());
+        const res = await fetch('./vagas.json?t=' + Date.now(), {
+  cache: 'no-store'
+});
         const json = await res.json();
         
         if (!json.data || json.data.length < 4) {
