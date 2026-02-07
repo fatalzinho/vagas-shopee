@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vagas Guichê</title>
- <style>
+  <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body { 
@@ -15,7 +15,7 @@
     }
     
     .container { 
-      max-width: 1400px; /* Aumentado para desktop */
+      max-width: 1400px;
       margin: 0 auto; 
       background: white;
       border-radius: 15px;
@@ -250,37 +250,6 @@
       transform: rotate(90deg);
     }
     
-    .banner-encerrado {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 25px;
-      text-align: center;
-      font-size: 20px;
-      font-weight: bold;
-      border-left: 5px solid #ffd700;
-      margin: 0;
-      animation: pulse 2s infinite;
-    }
-    
-    .banner-encerrado .emoji {
-      font-size: 48px;
-      display: block;
-      margin-bottom: 15px;
-    }
-    
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.85; }
-    }
-    
-    .tabela-encerrada {
-      opacity: 0.6;
-      pointer-events: none;
-    }
-    
-    /* ============================================ */
-    /* TOASTS DE ATIVIDADE */
-    /* ============================================ */
     .toast-container {
       position: fixed;
       top: 20px;
@@ -340,9 +309,6 @@
       }
     }
     
-    /* ============================================ */
-    /* RESPONSIVIDADE - DESKTOP */
-    /* ============================================ */
     @media (min-width: 768px) {
       body {
         padding: 30px;
@@ -393,9 +359,6 @@
       }
     }
     
-    /* ============================================ */
-    /* RESPONSIVIDADE - MOBILE */
-    /* ============================================ */
     @media (max-width: 767px) {
       .header h1 {
         font-size: 24px;
@@ -437,9 +400,6 @@
       }
     }
     
-    /* ============================================ */
-    /* TELAS ULTRA LARGAS */
-    /* ============================================ */
     @media (min-width: 1600px) {
       .header h1 {
         font-size: 48px;
@@ -457,7 +417,6 @@
   </style>
 </head>
 <body>
-  <!-- Container de Toasts -->
   <div class="toast-container" id="toastContainer"></div>
 
   <div class="container">
@@ -503,7 +462,7 @@
             <option value="Y">Y</option>
             <option value="Z">Z</option>
           </select>
-          <select id="numeroSelect" style="padding: 10px; border: 2px solid #1a5490; border-radius: 5px; font-size: 16px; font-weight: bold; width: 80px; text-align: center;">
+          <select id="numeroSelect">
             <option value="">Nº</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -559,7 +518,7 @@
         </div>
       </div>
       <button onclick="salvar()" id="btnAtivar">🔔 Ativar Notificações</button>
-      <div id="statusNotif" style="width: 100%; text-align: center; padding: 10px; font-size: 14px; display: none;"></div>
+      <div id="statusNotif"></div>
     </div>
     
     <div id="conteudo" class="loading">
@@ -567,7 +526,24 @@
     </div>
   </div>
 
-  <script>
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+    import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDJBDzZCnjA0n-fm5PAhnMw2pbaUf8HLmU",
+      authDomain: "vagas-ac041.firebaseapp.com",
+      databaseURL: "https://vagas-ac041-default-rtdb.firebaseio.com",
+      projectId: "vagas-ac041",
+      storageBucket: "vagas-ac041.firebasestorage.app",
+      messagingSenderId: "390077549191",
+      appId: "1:390077549191:web:394bdbc4f65d67dcbb8622"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    
     let nome = localStorage.getItem('nome') || '';
     let rota = localStorage.getItem('rota') || '';
     let dadosAnteriores = [];
@@ -577,7 +553,6 @@
       document.getElementById('nomeInput').value = nome;
     }
     
-    // Restaura letra e número dos selects
     const letraSalva = localStorage.getItem('letra');
     const numeroSalvo = localStorage.getItem('numero');
     if (letraSalva) document.getElementById('letraSelect').value = letraSalva;
@@ -594,9 +569,6 @@
       status.style.display = 'block';
     }
     
-    // ============================================
-    // FUNÇÃO NOVA: MOSTRAR TOAST
-    // ============================================
     function mostrarToast(rota, mensagem, tipo = '') {
       const container = document.getElementById('toastContainer');
       
@@ -606,14 +578,13 @@
       
       container.appendChild(toast);
       
-      // Remove depois de 3 segundos
       setTimeout(() => {
         toast.classList.add('saindo');
         setTimeout(() => toast.remove(), 300);
       }, 4000); 
     }
     
-    async function salvar() {
+    window.salvar = async function() {
       nome = document.getElementById('nomeInput').value.trim();
       const letra = document.getElementById('letraSelect').value;
       const numero = document.getElementById('numeroSelect').value;
@@ -635,12 +606,10 @@
       localStorage.setItem('letra', letra);
       localStorage.setItem('numero', numero);
       
-      // Solicita permissão de notificação
       if ("Notification" in window) {
         await Notification.requestPermission();
       }
       
-      // WAKE LOCK - Mantém tela ligada
       let wakeLock = null;
       
       const requestWakeLock = async () => {
@@ -656,14 +625,12 @@
       
       await requestWakeLock();
       
-      // Reativa quando voltar ao app
       document.addEventListener('visibilitychange', async () => {
         if (wakeLock !== null && document.visibilityState === 'visible') {
           await requestWakeLock();
         }
       });
       
-      // Atualiza visual
       const btn = document.getElementById('btnAtivar');
       const status = document.getElementById('statusNotif');
       
@@ -706,7 +673,6 @@
         mensagemAlerta = `🎯 ${nome}!<br>Rota ${rota}<br>VAGA ${vaga}<br>PODE CARREGAR!`;
       }
       
-      // VOZ
       if ('speechSynthesis' in window) {
         const speech = new SpeechSynthesisUtterance(textoVoz);
         speech.lang = 'pt-BR';
@@ -728,7 +694,6 @@
         window.speechSynthesis.speak(speech);
       }
       
-      // NOTIFICAÇÃO
       setTimeout(() => {
         if (Notification.permission === "granted") {
           try {
@@ -751,18 +716,12 @@
         }
       }, 100);
       
-      // ALERTA VISUAL
       alerta(mensagemAlerta);
     }
     
-    async function carregar() {
+    function processar(json) {
       try {
-        const res = await fetch('./vagas.json?t=' + Date.now(), {
-  cache: 'no-store'
-});
-        const json = await res.json();
-        
-        if (!json.data || json.data.length < 4) {
+        if (!json || !json.data || json.data.length < 4) {
           const mensagem = `<div class="loading">
             <p style="font-size: 48px; margin-bottom: 15px;">🌙</p>
             <p style="font-size: 20px; font-weight: bold; color: #1a5490;">Operações encerradas hoje</p>
@@ -788,22 +747,16 @@
           const ant = dadosAnteriores.find(d => d.chave === chave);
           const ehMinha = rota && r && r.toUpperCase() === rota;
           
-          // ============================================
-          // DETECTA MUDANÇAS DE TODAS AS ROTAS (TOAST)
-          // ============================================
           if (!primeira && ant) {
-            // Mudança de status para pátio
             if (s && s.includes('pátio') && (!ant.status || !ant.status.includes('pátio'))) {
               mostrarToast(r, 'Entrar no pátio', 'patio');
             }
             
-            // Mudança de vaga
             if (v && v !== '-' && ant.vaga !== v) {
               mostrarToast(r, `Vaga ${v}`, 'vaga');
             }
           }
           
-          // Notificação personalizada (só para a rota do usuário)
           if (ehMinha && !primeira && ant) {
             if (s && s.includes('pátio') && (!ant.status || !ant.status.includes('pátio'))) {
               notificar('patio');
@@ -859,8 +812,14 @@
       }
     }
     
-    carregar();
-    setInterval(carregar, 5000);
+    // FIREBASE REALTIME - Escuta mudanças em tempo real
+    const vagasRef = ref(database, 'vagas');
+    onValue(vagasRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        processar(data);
+      }
+    });
   </script>
 </body>
 </html>
