@@ -44,7 +44,7 @@
       "AM",
       2165448,
       "A-3",
-      66,
+      777,
       "Carregar",
       true
     ],
@@ -57,6 +57,6 @@
       true
     ]
   ],
-  "lastUpdate": "2026-02-07T18:07:26.282Z",
+  "lastUpdate": "2026-02-07T18:08:31.145Z",
   "estadoSistema": "INICIADO"
 }
