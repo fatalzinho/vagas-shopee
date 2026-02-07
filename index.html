@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vagas Guichê</title>
+ <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 10px;
+    }
+    
+    .container { 
+      max-width: 1400px; /* Aumentado para desktop */
+      margin: 0 auto; 
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      overflow: hidden;
+    }
+    
+    .header {
+      background: linear-gradient(135deg, #1a5490 0%, #0d3a6b 100%);
+      color: white;
+      padding: 25px;
+      text-align: center;
+    }
+    
+    .header h1 { 
+      font-size: 32px; 
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .atualizado { 
+      font-size: 14px; 
+      opacity: 0.95;
+      margin-top: 10px;
+      font-weight: 500;
+    }
+    
+    .config {
+      background: #f8f9fa;
+      padding: 20px;
+      border-bottom: 3px solid #1a5490;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      align-items: end;
+    }
+    
+    .config-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .config-group label {
+      font-weight: 600;
+      font-size: 14px;
+      color: #333;
+    }
+    
+    .config input,
+    .config select {
+      padding: 12px;
+      border: 2px solid #1a5490;
+      border-radius: 8px;
+      font-size: 16px;
+      text-transform: uppercase;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    
+    .config input:focus,
+    .config select:focus {
+      outline: none;
+      border-color: #4CAF50;
+      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+    }
+    
+    .rota-inputs {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .rota-inputs select {
+      flex: 1;
+    }
+    
+    .config button {
+      padding: 14px 30px;
+      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 16px;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+    }
+    
+    .config button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+    }
+    
+    .config button:active {
+      transform: translateY(0);
+    }
+    
+    #statusNotif {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 15px;
+      background: #e8f5e9;
+      border-radius: 8px;
+      font-size: 14px;
+      display: none;
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 60px 20px;
+      color: #666;
+      font-size: 18px;
+    }
+    
+    .table-wrapper {
+      overflow-x: auto;
+      padding: 20px;
+    }
+    
+    table { 
+      width: 100%; 
+      border-collapse: collapse;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    th, td { 
+      padding: 15px 12px;
+      text-align: center;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    
+    th { 
+      background: linear-gradient(135deg, #1a5490 0%, #0d3a6b 100%);
+      color: white;
+      font-weight: 600;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    
+    tbody tr {
+      transition: all 0.2s;
+    }
+    
+    tbody tr:hover {
+      background: #f5f5f5;
+      transform: scale(1.01);
+    }
+    
+    .minha-linha {
+      background: #fff3cd !important;
+      border-left: 5px solid #ff9800;
+      font-weight: 600;
+    }
+    
+    .minha-linha:hover {
+      background: #ffe8a1 !important;
+    }
+    
+    .vaga { 
+      background: #333; 
+      color: white; 
+      font-weight: bold;
+      font-size: 20px;
+      border-radius: 5px;
+    }
+    
+    .carregar { 
+      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+    
+    .patio { 
+      background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+    
+    .alerta-rota {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+      color: white;
+      padding: 40px 60px;
+      border-radius: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+      z-index: 10000;
+      text-align: center;
+      animation: alertaPulse 0.5s ease-out;
+    }
+    
+    @keyframes alertaPulse {
+      from {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
+    }
+    
+    .alerta-rota .btn-fechar {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(255,255,255,0.3);
+      border: none;
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .alerta-rota .btn-fechar:hover {
+      background: rgba(255,255,255,0.5);
+      transform: rotate(90deg);
+    }
+    
+    .banner-encerrado {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 25px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      border-left: 5px solid #ffd700;
+      margin: 0;
+      animation: pulse 2s infinite;
+    }
+    
+    .banner-encerrado .emoji {
+      font-size: 48px;
+      display: block;
+      margin-bottom: 15px;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.85; }
+    }
+    
+    .tabela-encerrada {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    
+    /* ============================================ */
+    /* TOASTS DE ATIVIDADE */
+    /* ============================================ */
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      pointer-events: none;
+      max-width: 350px;
+    }
+    
+    .toast {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 18px 24px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+      font-weight: 600;
+      font-size: 16px;
+      animation: slideIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      pointer-events: auto;
+      backdrop-filter: blur(10px);
+    }
+    
+    .toast.vaga {
+      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    }
+    
+    .toast.patio {
+      background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+    }
+    
+    .toast.saindo {
+      animation: slideOut 0.3s ease-in forwards;
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    @keyframes slideOut {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+    }
+    
+    /* ============================================ */
+    /* RESPONSIVIDADE - DESKTOP */
+    /* ============================================ */
+    @media (min-width: 768px) {
+      body {
+        padding: 30px;
+      }
+      
+      .header h1 {
+        font-size: 42px;
+      }
+      
+      .header {
+        padding: 35px;
+      }
+      
+      .config {
+        padding: 30px;
+        grid-template-columns: auto auto 1fr auto;
+        gap: 20px;
+      }
+      
+      #statusNotif {
+        grid-column: 1 / -1;
+      }
+      
+      .table-wrapper {
+        padding: 30px;
+      }
+      
+      th, td {
+        padding: 18px 15px;
+        font-size: 16px;
+      }
+      
+      th {
+        font-size: 15px;
+      }
+      
+      .vaga {
+        font-size: 24px;
+      }
+      
+      .toast-container {
+        max-width: 400px;
+      }
+      
+      .toast {
+        padding: 20px 28px;
+        font-size: 18px;
+      }
+    }
+    
+    /* ============================================ */
+    /* RESPONSIVIDADE - MOBILE */
+    /* ============================================ */
+    @media (max-width: 767px) {
+      .header h1 {
+        font-size: 24px;
+      }
+      
+      .config {
+        grid-template-columns: 1fr;
+      }
+      
+      .config button {
+        width: 100%;
+      }
+      
+      th, td {
+        padding: 10px 8px;
+        font-size: 13px;
+      }
+      
+      .vaga {
+        font-size: 16px;
+      }
+      
+      .toast-container {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+      }
+      
+      .toast {
+        font-size: 14px;
+        padding: 14px 18px;
+      }
+      
+      .alerta-rota {
+        padding: 30px 40px;
+        font-size: 22px;
+        max-width: 90%;
+      }
+    }
+    
+    /* ============================================ */
+    /* TELAS ULTRA LARGAS */
+    /* ============================================ */
+    @media (min-width: 1600px) {
+      .header h1 {
+        font-size: 48px;
+      }
+      
+      th, td {
+        padding: 20px 18px;
+        font-size: 18px;
+      }
+      
+      .vaga {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Container de Toasts -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <div class="container">
+    <div class="header">
+      <h1>🚚 Vagas Guichê</h1>
+      <div class="atualizado" id="atualizado">⏳ Conectando ao sistema...</div>
+    </div>
+    
+    <div class="config">
+      <div class="config-group">
+        <label>Seu nome:</label>
+        <input type="text" id="nomeInput" placeholder="Ex: Fulano" maxlength="20">
+      </div>
+      <div class="config-group">
+        <label>Sua rota:</label>
+        <div class="rota-inputs">
+          <select id="letraSelect">
+            <option value="">Letra</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+            <option value="G">G</option>
+            <option value="H">H</option>
+            <option value="I">I</option>
+            <option value="J">J</option>
+            <option value="K">K</option>
+            <option value="L">L</option>
+            <option value="M">M</option>
+            <option value="N">N</option>
+            <option value="O">O</option>
+            <option value="P">P</option>
+            <option value="Q">Q</option>
+            <option value="R">R</option>
+            <option value="S">S</option>
+            <option value="T">T</option>
+            <option value="U">U</option>
+            <option value="V">V</option>
+            <option value="W">W</option>
+            <option value="X">X</option>
+            <option value="Y">Y</option>
+            <option value="Z">Z</option>
+          </select>
+          <select id="numeroSelect" style="padding: 10px; border: 2px solid #1a5490; border-radius: 5px; font-size: 16px; font-weight: bold; width: 80px; text-align: center;">
+            <option value="">Nº</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+            <option value="31">31</option>
+            <option value="32">32</option>
+            <option value="33">33</option>
+            <option value="34">34</option>
+            <option value="35">35</option>
+            <option value="36">36</option>
+            <option value="37">37</option>
+            <option value="38">38</option>
+            <option value="39">39</option>
+            <option value="40">40</option>
+            <option value="41">41</option>
+            <option value="42">42</option>
+            <option value="43">43</option>
+            <option value="44">44</option>
+            <option value="45">45</option>
+            <option value="46">46</option>
+            <option value="47">47</option>
+            <option value="48">48</option>
+            <option value="49">49</option>
+            <option value="50">50</option>
+          </select>
+        </div>
+      </div>
+      <button onclick="salvar()" id="btnAtivar">🔔 Ativar Notificações</button>
+      <div id="statusNotif" style="width: 100%; text-align: center; padding: 10px; font-size: 14px; display: none;"></div>
+    </div>
+    
+    <div id="conteudo" class="loading">
+      <p>⏳ Carregando...</p>
+    </div>
+  </div>
+
+  <script>
+    let nome = localStorage.getItem('nome') || '';
+    let rota = localStorage.getItem('rota') || '';
+    let dadosAnteriores = [];
+    let primeira = true;
+    
+    if (nome) {
+      document.getElementById('nomeInput').value = nome;
+    }
+    
+    // Restaura letra e número dos selects
+    const letraSalva = localStorage.getItem('letra');
+    const numeroSalvo = localStorage.getItem('numero');
+    if (letraSalva) document.getElementById('letraSelect').value = letraSalva;
+    if (numeroSalvo) document.getElementById('numeroSelect').value = numeroSalvo;
+    
+    if (nome && rota) {
+      const btn = document.getElementById('btnAtivar');
+      const status = document.getElementById('statusNotif');
+      
+      btn.textContent = '✅ Notificações Ativas';
+      btn.style.background = '#2196F3';
+      
+      status.innerHTML = `<span style="color: #4CAF50; font-weight: bold;">🔔 Ativo para ${nome} - Rota ${rota}<br>📱 Tela permanecerá ligada</span>`;
+      status.style.display = 'block';
+    }
+    
+    // ============================================
+    // FUNÇÃO NOVA: MOSTRAR TOAST
+    // ============================================
+    function mostrarToast(rota, mensagem, tipo = '') {
+      const container = document.getElementById('toastContainer');
+      
+      const toast = document.createElement('div');
+      toast.className = `toast ${tipo}`;
+      toast.innerHTML = `<strong>${rota}</strong> → ${mensagem}`;
+      
+      container.appendChild(toast);
+      
+      // Remove depois de 3 segundos
+      setTimeout(() => {
+        toast.classList.add('saindo');
+        setTimeout(() => toast.remove(), 300);
+      }, 4000); 
+    }
+    
+    async function salvar() {
+      nome = document.getElementById('nomeInput').value.trim();
+      const letra = document.getElementById('letraSelect').value;
+      const numero = document.getElementById('numeroSelect').value;
+      
+      if (!nome) {
+        alert('⚠️ Digite seu nome!');
+        return;
+      }
+      
+      if (!letra || !numero) {
+        alert('⚠️ Selecione letra e número da sua rota!');
+        return;
+      }
+      
+      rota = `${letra}-${numero}`;
+      
+      localStorage.setItem('nome', nome);
+      localStorage.setItem('rota', rota);
+      localStorage.setItem('letra', letra);
+      localStorage.setItem('numero', numero);
+      
+      // Solicita permissão de notificação
+      if ("Notification" in window) {
+        await Notification.requestPermission();
+      }
+      
+      // WAKE LOCK - Mantém tela ligada
+      let wakeLock = null;
+      
+      const requestWakeLock = async () => {
+        try {
+          if ('wakeLock' in navigator) {
+            wakeLock = await navigator.wakeLock.request('screen');
+            console.log('✅ Tela permanecerá ligada');
+          }
+        } catch (err) {
+          console.log('Wake Lock não suportado:', err);
+        }
+      };
+      
+      await requestWakeLock();
+      
+      // Reativa quando voltar ao app
+      document.addEventListener('visibilitychange', async () => {
+        if (wakeLock !== null && document.visibilityState === 'visible') {
+          await requestWakeLock();
+        }
+      });
+      
+      // Atualiza visual
+      const btn = document.getElementById('btnAtivar');
+      const status = document.getElementById('statusNotif');
+      
+      btn.textContent = '✅ Notificações Ativas';
+      btn.style.background = '#2196F3';
+      
+      status.innerHTML = `<span style="color: #4CAF50; font-weight: bold;">🔔 Ativo para ${nome} - Rota ${rota}<br>📱 Tela permanecerá ligada</span>`;
+      status.style.display = 'block';
+      
+      alert(`✅ ${nome}, notificações ativadas para rota ${rota}!\n📱 Tela ficará ligada.`);
+      primeira = true;
+    }
+    
+    function alerta(msg) {
+      const div = document.createElement('div');
+      div.className = 'alerta-rota';
+      
+      const btnFechar = document.createElement('button');
+      btnFechar.className = 'btn-fechar';
+      btnFechar.innerHTML = '×';
+      btnFechar.onclick = () => div.remove();
+      
+      div.innerHTML = msg;
+      div.appendChild(btnFechar);
+      document.body.appendChild(div);
+    }
+    
+    function notificar(tipo, vaga) {
+      let titulo, corpo, textoVoz, mensagemAlerta;
+      
+      if (tipo === 'patio') {
+        titulo = `📍 ${nome}!`;
+        corpo = `Rota ${rota} ENTRAR NO PÁTIO`;
+        textoVoz = `${nome}! Rota ${rota}. Entrar no pátio!`;
+        mensagemAlerta = `📍 ${nome}!<br>Rota ${rota}<br>ENTRAR NO PÁTIO`;
+      } else if (tipo === 'vaga') {
+        titulo = `🎯 ${nome}!`;
+        corpo = `Rota ${rota} VAGA ${vaga} PODE CARREGAR!`;
+        textoVoz = `${nome}! Rota ${rota}. Vaga ${vaga}. Pode carregar!`;
+        mensagemAlerta = `🎯 ${nome}!<br>Rota ${rota}<br>VAGA ${vaga}<br>PODE CARREGAR!`;
+      }
+      
+      // VOZ
+      if ('speechSynthesis' in window) {
+        const speech = new SpeechSynthesisUtterance(textoVoz);
+        speech.lang = 'pt-BR';
+        speech.rate = 0.9;
+        speech.pitch = 1.2;
+        speech.volume = 1.0;
+        
+        speech.onend = () => {
+          setTimeout(() => {
+            const speech2 = new SpeechSynthesisUtterance(textoVoz);
+            speech2.lang = 'pt-BR';
+            speech2.rate = 0.9;
+            speech2.pitch = 1.2;
+            speech2.volume = 1.0;
+            window.speechSynthesis.speak(speech2);
+          }, 500);
+        };
+        
+        window.speechSynthesis.speak(speech);
+      }
+      
+      // NOTIFICAÇÃO
+      setTimeout(() => {
+        if (Notification.permission === "granted") {
+          try {
+            const notification = new Notification(titulo, {
+              body: corpo,
+              icon: '/icon-192.png',
+              badge: '/icon-192.png',
+              tag: `${tipo}-${rota}`,
+              requireInteraction: true,
+              vibrate: [200, 100, 200, 100, 200, 100, 200]
+            });
+            
+            notification.onclick = function() {
+              window.focus();
+              this.close();
+            };
+          } catch (err) {
+            console.error('Erro notificação:', err);
+          }
+        }
+      }, 100);
+      
+      // ALERTA VISUAL
+      alerta(mensagemAlerta);
+    }
+    
+    async function carregar() {
+      try {
+        const res = await fetch('/api/vagas');
+        const json = await res.json();
+        
+        if (!json.data || json.data.length < 4) {
+          const mensagem = `<div class="loading">
+            <p style="font-size: 48px; margin-bottom: 15px;">🌙</p>
+            <p style="font-size: 20px; font-weight: bold; color: #1a5490;">Operações encerradas hoje</p>
+            <p style="font-size: 16px; color: #666; margin-top: 10px;">Todas as rotas foram finalizadas.<br><strong>Sistema retorna amanhã às 4:30 da manhã.</strong></p>
+            <p style="font-size: 14px; color: #999; margin-top: 15px;">Bom descanso! 😴</p>
+          </div>`;
+          
+          document.getElementById('conteudo').innerHTML = mensagem;
+          document.getElementById('atualizado').innerHTML = '🌙 Encerrado';
+          return;
+        }
+        
+        const linhas = json.data;
+        const novos = [];
+        
+        let html = '<table><tr><th>TURNO</th><th>ROTA</th><th>VAGA</th><th>STATUS</th><th>CHECK-IN</th></tr>';
+        
+        linhas.slice(3).forEach(linha => {
+          if (!linha || !linha[1]) return;
+          
+          const [turno, , r, v, s, checkin] = linha;
+          const chave = `${turno}-${r}`;
+          const ant = dadosAnteriores.find(d => d.chave === chave);
+          const ehMinha = rota && r && r.toUpperCase() === rota;
+          
+          // ============================================
+          // DETECTA MUDANÇAS DE TODAS AS ROTAS (TOAST)
+          // ============================================
+          if (!primeira && ant) {
+            // Mudança de status para pátio
+            if (s && s.includes('pátio') && (!ant.status || !ant.status.includes('pátio'))) {
+              mostrarToast(r, 'Entrar no pátio', 'patio');
+            }
+            
+            // Mudança de vaga
+            if (v && v !== '-' && ant.vaga !== v) {
+              mostrarToast(r, `Vaga ${v}`, 'vaga');
+            }
+          }
+          
+          // Notificação personalizada (só para a rota do usuário)
+          if (ehMinha && !primeira && ant) {
+            if (s && s.includes('pátio') && (!ant.status || !ant.status.includes('pátio'))) {
+              notificar('patio');
+            }
+            
+            if (v && v !== '-' && ant.vaga !== v) {
+              notificar('vaga', v);
+            }
+          }
+          
+          novos.push({ chave, vaga: v, status: s });
+          
+          let cls = '';
+          if (s && s.includes('Carregar')) cls = 'carregar';
+          else if (s && s.includes('pátio')) cls = 'patio';
+          
+          html += `<tr class="${ehMinha ? 'minha-linha' : ''}">
+            <td>${turno || ''}</td>
+            <td><strong>${r || ''}</strong></td>
+            <td class="vaga">${v || '-'}</td>
+            <td class="${cls}">${s || ''}</td>
+            <td>${checkin === 'TRUE' ? '✅' : checkin === 'FALSE' ? '❌' : ''}</td>
+          </tr>`;
+        });
+        
+        html += '</table>';
+        document.getElementById('conteudo').innerHTML = html;
+        
+        dadosAnteriores = novos;
+        primeira = false;
+        
+        const agora = new Date(json.lastUpdate).toLocaleString('pt-BR');
+        const estadoTexto = json.estadoSistema || '';
+        let estadoEmoji = '';
+        
+        if (estadoTexto.includes('ATIVO')) {
+          estadoEmoji = '🟢 Operando';
+        } else if (estadoTexto === 'AGUARDANDO_AM') {
+          estadoEmoji = '⏳ Aguardando AM';
+        } else if (estadoTexto === 'AM_COMPLETO') {
+          estadoEmoji = '☕ Intervalo';
+        } else if (estadoTexto === 'ENCERRADO' || estadoTexto === 'PM_COMPLETO') {
+          estadoEmoji = '🌙 Encerrado';
+        } else {
+          estadoEmoji = '⏸️ Standby';
+        }
+        
+        document.getElementById('atualizado').innerHTML = `${estadoEmoji} • Atualizado: ${agora}`;
+      } catch (erro) {
+        document.getElementById('conteudo').innerHTML = 
+          '<div class="loading"><p>❌ Erro: ' + erro.message + '</p></div>';
+        console.error(erro);
+      }
+    }
+    
+    carregar();
+    setInterval(carregar, 10000);
+  </script>
+</body>
+</html>
