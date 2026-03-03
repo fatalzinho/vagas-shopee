@@ -4,822 +4,822 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vagas Guichê</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --laranja: #EE4D2D;
+      --laranja2: #ff6b47;
+      --preto: #0d0d0d;
+      --card: #161616;
+      --borda: #2a2a2a;
+      --texto: #f0ece4;
+      --texto-dim: #888;
+      --verde: #22c55e;
+      --azul: #3b82f6;
+      --amarelo: #f59e0b;
+      --vermelho: #ef4444;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    
-    body { 
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+    body {
+      background: var(--preto);
+      color: var(--texto);
+      font-family: 'Noto Sans', sans-serif;
       min-height: 100vh;
-      padding: 10px;
     }
-    
-    .container { 
-      max-width: 1400px;
-      margin: 0 auto; 
-      background: white;
-      border-radius: 15px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-      overflow: hidden;
-    }
-    
+
+    /* HEADER */
     .header {
-      background: linear-gradient(135deg, #1a5490 0%, #0d3a6b 100%);
-      color: white;
-      padding: 25px;
-      text-align: center;
-    }
-    
-    .header h1 { 
-      font-size: 32px; 
-      margin-bottom: 10px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    }
-    
-    .atualizado { 
-      font-size: 14px; 
-      opacity: 0.95;
-      margin-top: 10px;
-      font-weight: 500;
-    }
-    
-    .config {
-      background: #f8f9fa;
-      padding: 20px;
-      border-bottom: 3px solid #1a5490;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-      align-items: end;
-    }
-    
-    .config-group {
+      background: var(--card);
+      border-bottom: 2px solid var(--laranja);
+      padding: 16px 20px;
       display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    
-    .config-group label {
-      font-weight: 600;
-      font-size: 14px;
-      color: #333;
-    }
-    
-    .config input,
-    .config select {
-      padding: 12px;
-      border: 2px solid #1a5490;
-      border-radius: 8px;
-      font-size: 16px;
-      text-transform: uppercase;
-      text-align: center;
-      transition: all 0.3s;
-    }
-    
-    .config input:focus,
-    .config select:focus {
-      outline: none;
-      border-color: #4CAF50;
-      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
-    }
-    
-    .rota-inputs {
-      display: flex;
-      gap: 8px;
-    }
-    
-    .rota-inputs select {
-      flex: 1;
-    }
-    
-    .config button {
-      padding: 14px 30px;
-      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 16px;
-      transition: all 0.3s;
-      box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-    }
-    
-    .config button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
-    }
-    
-    .config button:active {
-      transform: translateY(0);
-    }
-    
-    #statusNotif {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 15px;
-      background: #e8f5e9;
-      border-radius: 8px;
-      font-size: 14px;
-      display: none;
-    }
-    
-    .loading {
-      text-align: center;
-      padding: 60px 20px;
-      color: #666;
-      font-size: 18px;
-    }
-    
-    .table-wrapper {
-      overflow-x: auto;
-      padding: 20px;
-    }
-    
-    table { 
-      width: 100%; 
-      border-collapse: collapse;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    
-    th, td { 
-      padding: 15px 12px;
-      text-align: center;
-      border-bottom: 1px solid #e0e0e0;
-    }
-    
-    th { 
-      background: linear-gradient(135deg, #1a5490 0%, #0d3a6b 100%);
-      color: white;
-      font-weight: 600;
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      align-items: center;
+      justify-content: space-between;
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 100;
     }
-    
-    tbody tr {
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header-logo .dot {
+      width: 10px; height: 10px;
+      background: var(--laranja);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--laranja);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .header-logo h1 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--texto);
+    }
+
+    .header-logo h1 span { color: var(--laranja); }
+
+    .header-status {
+      font-size: 12px;
+      color: var(--texto-dim);
+      text-align: right;
+      line-height: 1.5;
+    }
+
+    .header-status strong {
+      display: block;
+      color: var(--verde);
+      font-size: 11px;
+    }
+
+    /* CHECKIN BAR */
+    .checkin-bar {
+      background: #111;
+      border-bottom: 1px solid var(--borda);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .checkin-info {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .checkin-info p {
+      font-size: 13px;
+      color: var(--texto-dim);
+    }
+
+    .checkin-info strong {
+      font-size: 14px;
+      color: var(--texto);
+    }
+
+    .btn-checkin {
+      background: var(--laranja);
+      color: white;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor: pointer;
       transition: all 0.2s;
+      white-space: nowrap;
     }
-    
-    tbody tr:hover {
-      background: #f5f5f5;
-      transform: scale(1.01);
+
+    .btn-checkin:hover {
+      background: var(--laranja2);
+      transform: translateY(-1px);
     }
-    
-    .minha-linha {
-      background: #fff3cd !important;
-      border-left: 5px solid #ff9800;
+
+    .btn-checkin:disabled {
+      background: #333;
+      color: #666;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
       font-weight: 600;
     }
-    
-    .minha-linha:hover {
-      background: #ffe8a1 !important;
+
+    .status-badge.aguardando {
+      background: rgba(245,158,11,0.15);
+      border: 1px solid var(--amarelo);
+      color: var(--amarelo);
     }
-    
-    .vaga { 
-      background: #333; 
-      color: white; 
-      font-weight: bold;
-      font-size: 20px;
-      border-radius: 5px;
+
+    .status-badge.confirmado {
+      background: rgba(34,197,94,0.15);
+      border: 1px solid var(--verde);
+      color: var(--verde);
     }
-    
-    .carregar { 
-      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-      color: white;
-      font-weight: bold;
-      border-radius: 5px;
-    }
-    
-    .patio { 
-      background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
-      color: white;
-      font-weight: bold;
-      border-radius: 5px;
-    }
-    
-    .alerta-rota {
+
+    /* MODAL */
+    .modal-overlay {
+      display: none;
       position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.9);
-      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-      color: white;
-      padding: 40px 60px;
-      border-radius: 20px;
-      font-size: 28px;
-      font-weight: bold;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-      z-index: 10000;
-      text-align: center;
-      animation: alertaPulse 0.5s ease-out;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
     }
-    
-    @keyframes alertaPulse {
-      from {
-        transform: translate(-50%, -50%) scale(0.8);
-        opacity: 0;
-      }
-      to {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 1;
-      }
+
+    .modal-overlay.ativo { display: flex; }
+
+    .modal {
+      background: var(--card);
+      border: 1px solid var(--borda);
+      border-top: 3px solid var(--laranja);
+      border-radius: 12px;
+      padding: 28px;
+      width: 90%;
+      max-width: 420px;
+      animation: slideUp 0.3s ease;
     }
-    
-    .alerta-rota .btn-fechar {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: rgba(255,255,255,0.3);
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal h2 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      color: var(--texto);
+    }
+
+    .modal h2 span { color: var(--laranja); }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--texto-dim);
+      margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      background: #1e1e1e;
+      border: 1px solid var(--borda);
+      border-radius: 6px;
+      padding: 10px 14px;
+      color: var(--texto);
+      font-family: 'Noto Sans', sans-serif;
+      font-size: 15px;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--laranja);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .modal-btns {
+      display: flex;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .btn-cancelar {
+      flex: 1;
+      background: transparent;
+      border: 1px solid var(--borda);
+      color: var(--texto-dim);
+      padding: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+
+    .btn-cancelar:hover { border-color: #555; color: var(--texto); }
+
+    .btn-enviar {
+      flex: 2;
+      background: var(--laranja);
       border: none;
       color: white;
-      font-size: 28px;
-      font-weight: bold;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
+      padding: 10px;
+      border-radius: 6px;
       cursor: pointer;
-      transition: all 0.3s;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      transition: all 0.2s;
     }
-    
-    .alerta-rota .btn-fechar:hover {
-      background: rgba(255,255,255,0.5);
-      transform: rotate(90deg);
+
+    .btn-enviar:hover { background: var(--laranja2); }
+
+    /* TABELA */
+    .table-wrapper {
+      padding: 16px;
+      overflow-x: auto;
     }
-    
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    thead th {
+      background: #1a1a1a;
+      color: var(--texto-dim);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 10px 14px;
+      text-align: center;
+      border-bottom: 1px solid var(--borda);
+      white-space: nowrap;
+    }
+
+    tbody td {
+      padding: 12px 14px;
+      text-align: center;
+      border-bottom: 1px solid #1e1e1e;
+      vertical-align: middle;
+    }
+
+    tbody tr:hover { background: #161616; }
+
+    .minha-linha {
+      background: rgba(238,77,45,0.07) !important;
+      border-left: 3px solid var(--laranja);
+    }
+
+    .minha-linha:hover {
+      background: rgba(238,77,45,0.12) !important;
+    }
+
+    .tag-vaga {
+      display: inline-block;
+      background: #222;
+      color: var(--texto);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 4px;
+      min-width: 44px;
+    }
+
+    .tag-status {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .tag-status.carregar {
+      background: rgba(34,197,94,0.15);
+      color: var(--verde);
+      border: 1px solid rgba(34,197,94,0.3);
+    }
+
+    .tag-status.patio {
+      background: rgba(59,130,246,0.15);
+      color: var(--azul);
+      border: 1px solid rgba(59,130,246,0.3);
+    }
+
+    .tag-status.outro {
+      background: rgba(255,255,255,0.05);
+      color: var(--texto-dim);
+      border: 1px solid var(--borda);
+    }
+
+    .tag-entrada-saida {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(245,158,11,0.1);
+      color: var(--amarelo);
+      border: 1px solid rgba(245,158,11,0.2);
+      white-space: nowrap;
+    }
+
+    .tag-entrada-saida.vazio {
+      background: transparent;
+      color: var(--texto-dim);
+      border-color: transparent;
+      font-size: 13px;
+    }
+
+    .checkin-col {
+      font-size: 18px;
+    }
+
+    /* TOAST */
     .toast-container {
       position: fixed;
-      top: 20px;
-      right: 20px;
+      top: 16px;
+      right: 16px;
       z-index: 9999;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
       pointer-events: none;
-      max-width: 350px;
     }
-    
+
     .toast {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 18px 24px;
-      border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-      font-weight: 600;
-      font-size: 16px;
-      animation: slideIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      background: var(--card);
+      border: 1px solid var(--borda);
+      border-left: 3px solid var(--laranja);
+      color: var(--texto);
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      animation: toastIn 0.3s ease;
       pointer-events: auto;
-      backdrop-filter: blur(10px);
+      max-width: 300px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
-    
-    .toast.vaga {
-      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-    }
-    
-    .toast.patio {
-      background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
-    }
-    
+
+    .toast.verde { border-left-color: var(--verde); }
+    .toast.azul { border-left-color: var(--azul); }
+
     .toast.saindo {
-      animation: slideOut 0.3s ease-in forwards;
+      animation: toastOut 0.3s ease forwards;
     }
-    
-    @keyframes slideIn {
-      from {
-        transform: translateX(400px);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
+
+    @keyframes toastIn {
+      from { transform: translateX(320px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
     }
-    
-    @keyframes slideOut {
-      from {
-        transform: translateX(0);
-        opacity: 1;
-      }
-      to {
-        transform: translateX(400px);
-        opacity: 0;
-      }
+
+    @keyframes toastOut {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(320px); opacity: 0; }
     }
-    
-    @media (min-width: 768px) {
-      body {
-        padding: 30px;
-      }
-      
-      .header h1 {
-        font-size: 42px;
-      }
-      
-      .header {
-        padding: 35px;
-      }
-      
-      .config {
-        padding: 30px;
-        grid-template-columns: auto auto 1fr auto;
-        gap: 20px;
-      }
-      
-      #statusNotif {
-        grid-column: 1 / -1;
-      }
-      
-      .table-wrapper {
-        padding: 30px;
-      }
-      
-      th, td {
-        padding: 18px 15px;
-        font-size: 16px;
-      }
-      
-      th {
-        font-size: 15px;
-      }
-      
-      .vaga {
-        font-size: 24px;
-      }
-      
-      .toast-container {
-        max-width: 400px;
-      }
-      
-      .toast {
-        padding: 20px 28px;
-        font-size: 18px;
-      }
+
+    /* LOADING */
+    .loading {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--texto-dim);
     }
-    
-    @media (max-width: 767px) {
-      .header h1 {
-        font-size: 24px;
-      }
-      
-      .config {
-        grid-template-columns: 1fr;
-      }
-      
-      .config button {
-        width: 100%;
-      }
-      
-      th, td {
-        padding: 10px 8px;
-        font-size: 13px;
-      }
-      
-      .vaga {
-        font-size: 16px;
-      }
-      
-      .toast-container {
-        top: 10px;
-        right: 10px;
-        left: 10px;
-        max-width: none;
-      }
-      
-      .toast {
-        font-size: 14px;
-        padding: 14px 18px;
-      }
-      
-      .alerta-rota {
-        padding: 30px 40px;
-        font-size: 22px;
-        max-width: 90%;
-      }
+
+    .spinner {
+      width: 32px; height: 32px;
+      border: 3px solid var(--borda);
+      border-top-color: var(--laranja);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
     }
-    
-    @media (min-width: 1600px) {
-      .header h1 {
-        font-size: 48px;
-      }
-      
-      th, td {
-        padding: 20px 18px;
-        font-size: 18px;
-      }
-      
-      .vaga {
-        font-size: 28px;
-      }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ROTA NOME TOPO */
+    .meu-status-bar {
+      background: rgba(238,77,45,0.08);
+      border: 1px solid rgba(238,77,45,0.2);
+      border-radius: 8px;
+      padding: 10px 16px;
+      margin: 12px 16px 0;
+      display: none;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .meu-status-bar.ativo { display: flex; }
+
+    .meu-status-bar .label {
+      font-size: 12px;
+      color: var(--texto-dim);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .meu-status-bar .valor {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--laranja);
+    }
+
+    .separador { color: var(--borda); }
+
+    @media (max-width: 600px) {
+      .header-logo h1 { font-size: 18px; }
+      .table-wrapper { padding: 10px; }
+      table { font-size: 12px; }
+      thead th { font-size: 10px; padding: 8px 8px; }
+      tbody td { padding: 10px 8px; }
+      .tag-vaga { font-size: 15px; padding: 3px 8px; }
+      .tag-status { font-size: 11px; padding: 3px 8px; }
     }
   </style>
 </head>
 <body>
-  <div class="toast-container" id="toastContainer"></div>
 
-  <div class="container">
-    <div class="header">
-      <h1>🚚 Vagas Guichê</h1>
-      <div class="atualizado" id="atualizado">⏳ Conectando ao sistema...</div>
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- MODAL CHECK-IN -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h2>🚚 FAZER <span>CHECK-IN</span></h2>
+    <div class="form-group">
+      <label>ID Driver</label>
+      <input type="number" id="inputId" placeholder="Ex: 2165448">
     </div>
-    
-    <div class="config">
-      <div class="config-group">
-        <label>Seu nome:</label>
-        <input type="text" id="nomeInput" placeholder="Ex: Fulano" maxlength="20">
-      </div>
-      <div class="config-group">
-        <label>Sua rota:</label>
-        <div class="rota-inputs">
-          <select id="letraSelect">
-            <option value="">Letra</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-            <option value="E">E</option>
-            <option value="F">F</option>
-            <option value="G">G</option>
-            <option value="H">H</option>
-            <option value="I">I</option>
-            <option value="J">J</option>
-            <option value="K">K</option>
-            <option value="L">L</option>
-            <option value="M">M</option>
-            <option value="N">N</option>
-            <option value="O">O</option>
-            <option value="P">P</option>
-            <option value="Q">Q</option>
-            <option value="R">R</option>
-            <option value="S">S</option>
-            <option value="T">T</option>
-            <option value="U">U</option>
-            <option value="V">V</option>
-            <option value="W">W</option>
-            <option value="X">X</option>
-            <option value="Y">Y</option>
-            <option value="Z">Z</option>
-          </select>
-          <select id="numeroSelect">
-            <option value="">Nº</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="18">18</option>
-            <option value="19">19</option>
-            <option value="20">20</option>
-            <option value="21">21</option>
-            <option value="22">22</option>
-            <option value="23">23</option>
-            <option value="24">24</option>
-            <option value="25">25</option>
-            <option value="26">26</option>
-            <option value="27">27</option>
-            <option value="28">28</option>
-            <option value="29">29</option>
-            <option value="30">30</option>
-            <option value="31">31</option>
-            <option value="32">32</option>
-            <option value="33">33</option>
-            <option value="34">34</option>
-            <option value="35">35</option>
-            <option value="36">36</option>
-            <option value="37">37</option>
-            <option value="38">38</option>
-            <option value="39">39</option>
-            <option value="40">40</option>
-            <option value="41">41</option>
-            <option value="42">42</option>
-            <option value="43">43</option>
-            <option value="44">44</option>
-            <option value="45">45</option>
-            <option value="46">46</option>
-            <option value="47">47</option>
-            <option value="48">48</option>
-            <option value="49">49</option>
-            <option value="50">50</option>
-          </select>
-        </div>
-      </div>
-      <button onclick="salvar()" id="btnAtivar">🔔 Ativar Notificações</button>
-      <div id="statusNotif"></div>
+    <div class="form-group">
+      <label>Nome</label>
+      <input type="text" id="inputNome" placeholder="Ex: João Silva" maxlength="30">
     </div>
-    
-    <div id="conteudo" class="loading">
-      <p>⏳ Carregando...</p>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Letra da Rota</label>
+        <select id="inputLetra">
+          <option value="">--</option>
+          <script>
+            for(let i=65;i<=90;i++) document.write(`<option value="${String.fromCharCode(i)}">${String.fromCharCode(i)}</option>`);
+          </script>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Número da Rota</label>
+        <select id="inputNumero">
+          <option value="">--</option>
+          <script>
+            for(let i=1;i<=50;i++) document.write(`<option value="${i}">${i}</option>`);
+          </script>
+        </select>
+      </div>
+    </div>
+    <div class="modal-btns">
+      <button class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
+      <button class="btn-enviar" onclick="enviarCheckin()">✓ ENVIAR</button>
     </div>
   </div>
+</div>
 
-  <!-- Firebase SDK -->
-  <script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-    import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+<!-- HEADER -->
+<div class="header">
+  <div class="header-logo">
+    <div class="dot"></div>
+    <h1>VAGAS <span>GUICHÊ</span></h1>
+  </div>
+  <div class="header-status" id="headerStatus">
+    <span>⏳ Conectando...</span>
+  </div>
+</div>
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyDJBDzZCnjA0n-fm5PAhnMw2pbaUf8HLmU",
-      authDomain: "vagas-ac041.firebaseapp.com",
-      databaseURL: "https://vagas-ac041-default-rtdb.firebaseio.com",
-      projectId: "vagas-ac041",
-      storageBucket: "vagas-ac041.firebasestorage.app",
-      messagingSenderId: "390077549191",
-      appId: "1:390077549191:web:394bdbc4f65d67dcbb8622"
-    };
+<!-- CHECKIN BAR -->
+<div class="checkin-bar">
+  <div class="checkin-info">
+    <p>Ainda não fez check-in hoje?</p>
+  </div>
+  <div id="checkinStatusArea">
+    <button class="btn-checkin" id="btnCheckin" onclick="abrirModal()">
+      📋 FAZER CHECK-IN
+    </button>
+  </div>
+</div>
 
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
-    
-    let nome = localStorage.getItem('nome') || '';
-    let rota = localStorage.getItem('rota') || '';
-    let dadosAnteriores = [];
-    let primeira = true;
-    
-    if (nome) {
-      document.getElementById('nomeInput').value = nome;
+<!-- MEU STATUS -->
+<div class="meu-status-bar" id="meuStatusBar">
+  <span class="label">Você:</span>
+  <span class="valor" id="meuNomeDisplay">—</span>
+  <span class="separador">|</span>
+  <span class="label">Rota:</span>
+  <span class="valor" id="minhaRotaDisplay">—</span>
+  <span class="separador">|</span>
+  <span id="meuCheckinStatus"></span>
+</div>
+
+<!-- TABELA -->
+<div class="table-wrapper">
+  <div id="conteudo" class="loading">
+    <div class="spinner"></div>
+    <p>Carregando vagas...</p>
+  </div>
+</div>
+
+<script>
+  // ============================================================
+  // CONFIGURAÇÃO — ajuste antes de subir pro GitHub
+  // ============================================================
+  const GITHUB_USER = 'fatalzinho';
+  const GITHUB_REPO = 'vagas-shopee';
+  const VAGAS_JSON  = 'vagas.json';
+  const CHECKIN_JSON = 'checkin.json';
+  const POLL_MS = 8000; // verifica a cada 8 segundos
+  // ============================================================
+
+  let dadosAnteriores = [];
+  let primeira = true;
+  let meuCheckin = null; // {id, nome, rota} salvo em localStorage
+
+  // Carrega dados salvos
+  const savedCheckin = localStorage.getItem('meuCheckin');
+  if (savedCheckin) {
+    meuCheckin = JSON.parse(savedCheckin);
+    atualizarBarraStatus();
+  }
+
+  // ---- MODAL ----
+  function abrirModal() {
+    // Se já tem dados salvos, preenche
+    if (meuCheckin) {
+      document.getElementById('inputId').value = meuCheckin.id || '';
+      document.getElementById('inputNome').value = meuCheckin.nome || '';
+      const [letra, num] = (meuCheckin.rota || '').split('-');
+      document.getElementById('inputLetra').value = letra || '';
+      document.getElementById('inputNumero').value = num || '';
     }
-    
-    const letraSalva = localStorage.getItem('letra');
-    const numeroSalvo = localStorage.getItem('numero');
-    if (letraSalva) document.getElementById('letraSelect').value = letraSalva;
-    if (numeroSalvo) document.getElementById('numeroSelect').value = numeroSalvo;
-    
-    if (nome && rota) {
-      const btn = document.getElementById('btnAtivar');
-      const status = document.getElementById('statusNotif');
-      
-      btn.textContent = '✅ Notificações Ativas';
-      btn.style.background = '#2196F3';
-      
-      status.innerHTML = `<span style="color: #4CAF50; font-weight: bold;">🔔 Ativo para ${nome} - Rota ${rota}<br>📱 Tela permanecerá ligada</span>`;
-      status.style.display = 'block';
+    document.getElementById('modalOverlay').classList.add('ativo');
+  }
+
+  function fecharModal() {
+    document.getElementById('modalOverlay').classList.remove('ativo');
+  }
+
+  function enviarCheckin() {
+    const id = document.getElementById('inputId').value.trim();
+    const nome = document.getElementById('inputNome').value.trim();
+    const letra = document.getElementById('inputLetra').value;
+    const numero = document.getElementById('inputNumero').value;
+
+    if (!id || !nome || !letra || !numero) {
+      toast('⚠️ Preencha todos os campos!');
+      return;
     }
-    
-    function mostrarToast(rota, mensagem, tipo = '') {
-      const container = document.getElementById('toastContainer');
-      
-      const toast = document.createElement('div');
-      toast.className = `toast ${tipo}`;
-      toast.innerHTML = `<strong>${rota}</strong> → ${mensagem}`;
-      
-      container.appendChild(toast);
-      
-      setTimeout(() => {
-        toast.classList.add('saindo');
-        setTimeout(() => toast.remove(), 300);
-      }, 4000); 
+
+    const rota = `${letra}-${numero}`;
+    meuCheckin = { id, nome, rota, ts: Date.now() };
+    localStorage.setItem('meuCheckin', JSON.stringify(meuCheckin));
+
+    fecharModal();
+    atualizarBarraStatus();
+    toast('✅ Check-in enviado! Aguardando confirmação...', 'verde');
+  }
+
+  function atualizarBarraStatus() {
+    if (!meuCheckin) return;
+
+    document.getElementById('meuNomeDisplay').textContent = meuCheckin.nome;
+    document.getElementById('minhaRotaDisplay').textContent = meuCheckin.rota;
+    document.getElementById('meuStatusBar').classList.add('ativo');
+
+    document.getElementById('btnCheckin').textContent = '✏️ ALTERAR CHECK-IN';
+  }
+
+  // ---- TOAST ----
+  function toast(msg, tipo = '') {
+    const c = document.getElementById('toastContainer');
+    const el = document.createElement('div');
+    el.className = `toast ${tipo}`;
+    el.textContent = msg;
+    c.appendChild(el);
+    setTimeout(() => {
+      el.classList.add('saindo');
+      setTimeout(() => el.remove(), 300);
+    }, 4000);
+  }
+
+  // ---- FETCH JSON ----
+  async function fetchJson(arquivo) {
+    const url = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${arquivo}?t=${Date.now()}`;
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`Erro ${res.status}`);
+    return res.json();
+  }
+
+  // ---- RENDERIZA TABELA ----
+  function renderTabela(vagas, checkins) {
+    const linhas = vagas.data;
+
+    if (!linhas || linhas.length < 4) {
+      document.getElementById('conteudo').innerHTML = `
+        <div style="text-align:center;padding:60px 20px;color:#666;">
+          <p style="font-size:40px;margin-bottom:12px">🌙</p>
+          <p style="font-size:18px;font-weight:600;color:#aaa">Operações encerradas</p>
+          <p style="font-size:14px;margin-top:8px">Sistema retorna amanhã às 4:30</p>
+        </div>`;
+      return;
     }
-    
-    window.salvar = async function() {
-      nome = document.getElementById('nomeInput').value.trim();
-      const letra = document.getElementById('letraSelect').value;
-      const numero = document.getElementById('numeroSelect').value;
-      
-      if (!nome) {
-        alert('⚠️ Digite seu nome!');
-        return;
-      }
-      
-      if (!letra || !numero) {
-        alert('⚠️ Selecione letra e número da sua rota!');
-        return;
-      }
-      
-      rota = `${letra}-${numero}`;
-      
-      localStorage.setItem('nome', nome);
-      localStorage.setItem('rota', rota);
-      localStorage.setItem('letra', letra);
-      localStorage.setItem('numero', numero);
-      
-      if ("Notification" in window) {
-        await Notification.requestPermission();
-      }
-      
-      let wakeLock = null;
-      
-      const requestWakeLock = async () => {
-        try {
-          if ('wakeLock' in navigator) {
-            wakeLock = await navigator.wakeLock.request('screen');
-            console.log('✅ Tela permanecerá ligada');
-          }
-        } catch (err) {
-          console.log('Wake Lock não suportado:', err);
-        }
-      };
-      
-      await requestWakeLock();
-      
-      document.addEventListener('visibilitychange', async () => {
-        if (wakeLock !== null && document.visibilityState === 'visible') {
-          await requestWakeLock();
-        }
+
+    // Mapa de checkins por rota
+    const mapaCheckins = {};
+    if (checkins && checkins.checkins) {
+      checkins.checkins.forEach(c => {
+        mapaCheckins[c.rota] = c;
       });
-      
-      const btn = document.getElementById('btnAtivar');
-      const status = document.getElementById('statusNotif');
-      
-      btn.textContent = '✅ Notificações Ativas';
-      btn.style.background = '#2196F3';
-      
-      status.innerHTML = `<span style="color: #4CAF50; font-weight: bold;">🔔 Ativo para ${nome} - Rota ${rota}<br>📱 Tela permanecerá ligada</span>`;
-      status.style.display = 'block';
-      
-      alert(`✅ ${nome}, notificações ativadas para rota ${rota}!\n📱 Tela ficará ligada.`);
-      primeira = true;
     }
-    
-    function alerta(msg) {
-      const div = document.createElement('div');
-      div.className = 'alerta-rota';
-      
-      const btnFechar = document.createElement('button');
-      btnFechar.className = 'btn-fechar';
-      btnFechar.innerHTML = '×';
-      btnFechar.onclick = () => div.remove();
-      
-      div.innerHTML = msg;
-      div.appendChild(btnFechar);
-      document.body.appendChild(div);
-    }
-    
-    function notificar(tipo, vaga) {
-      let titulo, corpo, textoVoz, mensagemAlerta;
-      
-      if (tipo === 'patio') {
-        titulo = `📍 ${nome}!`;
-        corpo = `Rota ${rota} ENTRAR NO PÁTIO`;
-        textoVoz = `${nome}! Rota ${rota}. Entrar no pátio!`;
-        mensagemAlerta = `📍 ${nome}!<br>Rota ${rota}<br>ENTRAR NO PÁTIO`;
-      } else if (tipo === 'vaga') {
-        titulo = `🎯 ${nome}!`;
-        corpo = `Rota ${rota} VAGA ${vaga} PODE CARREGAR!`;
-        textoVoz = `${nome}! Rota ${rota}. Vaga ${vaga}. Pode carregar!`;
-        mensagemAlerta = `🎯 ${nome}!<br>Rota ${rota}<br>VAGA ${vaga}<br>PODE CARREGAR!`;
-      }
-      
-      if ('speechSynthesis' in window) {
-        const speech = new SpeechSynthesisUtterance(textoVoz);
-        speech.lang = 'pt-BR';
-        speech.rate = 0.9;
-        speech.pitch = 1.2;
-        speech.volume = 1.0;
-        
-        speech.onend = () => {
-          setTimeout(() => {
-            const speech2 = new SpeechSynthesisUtterance(textoVoz);
-            speech2.lang = 'pt-BR';
-            speech2.rate = 0.9;
-            speech2.pitch = 1.2;
-            speech2.volume = 1.0;
-            window.speechSynthesis.speak(speech2);
-          }, 500);
-        };
-        
-        window.speechSynthesis.speak(speech);
-      }
-      
-      setTimeout(() => {
-        if (Notification.permission === "granted") {
-          try {
-            const notification = new Notification(titulo, {
-              body: corpo,
-              icon: '/icon-192.png',
-              badge: '/icon-192.png',
-              tag: `${tipo}-${rota}`,
-              requireInteraction: true,
-              vibrate: [200, 100, 200, 100, 200, 100, 200]
-            });
-            
-            notification.onclick = function() {
-              window.focus();
-              this.close();
-            };
-          } catch (err) {
-            console.error('Erro notificação:', err);
-          }
+
+    let html = `
+      <table>
+        <thead>
+          <tr>
+            <th>Turno</th>
+            <th>Rota</th>
+            <th>Vaga</th>
+            <th>Status</th>
+            <th>Entrada</th>
+            <th>Saída</th>
+            <th>Check-in</th>
+          </tr>
+        </thead>
+        <tbody>`;
+
+    const novos = [];
+
+    linhas.slice(3).forEach(linha => {
+      if (!linha || !linha[2]) return;
+
+      const turno   = linha[0] || '';
+      const rota    = linha[2] || '';
+      const vaga    = linha[3] || '-';
+      const status  = linha[4] || '';
+      const entrada = linha[5] || '';
+      const saida   = linha[6] || '';
+
+      const chave = `${turno}-${rota}`;
+      const ant = dadosAnteriores.find(d => d.chave === chave);
+      const ehMinha = meuCheckin && rota && rota.toUpperCase() === meuCheckin.rota.toUpperCase();
+      const checkinDaRota = mapaCheckins[rota];
+      const checkinOk = checkinDaRota && checkinDaRota.status === 'confirmado';
+
+      // Notificações de mudança
+      if (!primeira && ant) {
+        if (status.toLowerCase().includes('pátio') && (!ant.status || !ant.status.toLowerCase().includes('pátio'))) {
+          toast(`📍 ${rota} → Entrar no pátio`, 'azul');
+          if (ehMinha) falar(`Atenção! Rota ${rota}. Entrar no pátio!`);
         }
-      }, 100);
-      
-      alerta(mensagemAlerta);
-    }
-    
-    function processar(json) {
-      try {
-        if (!json || !json.data || json.data.length < 4) {
-          const mensagem = `<div class="loading">
-            <p style="font-size: 48px; margin-bottom: 15px;">🌙</p>
-            <p style="font-size: 20px; font-weight: bold; color: #1a5490;">Operações encerradas hoje</p>
-            <p style="font-size: 16px; color: #666; margin-top: 10px;">Todas as rotas foram finalizadas.<br><strong>Sistema retorna amanhã às 4:30 da manhã.</strong></p>
-            <p style="font-size: 14px; color: #999; margin-top: 15px;">Bom descanso! 😴</p>
-          </div>`;
-          
-          document.getElementById('conteudo').innerHTML = mensagem;
-          document.getElementById('atualizado').innerHTML = '🌙 Encerrado';
-          return;
+        if (vaga !== '-' && ant.vaga !== vaga) {
+          toast(`🎯 ${rota} → Vaga ${vaga}`, 'verde');
+          if (ehMinha) falar(`Atenção! Rota ${rota}. Vaga ${vaga}. Pode carregar!`);
         }
-        
-        const linhas = json.data;
-        const novos = [];
-        
-        let html = '<table><tr><th>TURNO</th><th>ROTA</th><th>VAGA</th><th>STATUS</th><th>CHECK-IN</th></tr>';
-        
-        linhas.slice(3).forEach(linha => {
-          if (!linha || !linha[1]) return;
-          
-          const [turno, , r, v, s, checkin] = linha;
-          const chave = `${turno}-${r}`;
-          const ant = dadosAnteriores.find(d => d.chave === chave);
-          const ehMinha = rota && r && r.toUpperCase() === rota;
-          
-          if (!primeira && ant) {
-            if (s && s.includes('pátio') && (!ant.status || !ant.status.includes('pátio'))) {
-              mostrarToast(r, 'Entrar no pátio', 'patio');
-            }
-            
-            if (v && v !== '-' && ant.vaga !== v) {
-              mostrarToast(r, `Vaga ${v}`, 'vaga');
-            }
-          }
-          
-          if (ehMinha && !primeira && ant) {
-            if (s && s.includes('pátio') && (!ant.status || !ant.status.includes('pátio'))) {
-              notificar('patio');
-            }
-            
-            if (v && v !== '-' && ant.vaga !== v) {
-              notificar('vaga', v);
-            }
-          }
-          
-          novos.push({ chave, vaga: v, status: s });
-          
-          let cls = '';
-          if (s && s.includes('Carregar')) cls = 'carregar';
-          else if (s && s.includes('pátio')) cls = 'patio';
-          
-          html += `<tr class="${ehMinha ? 'minha-linha' : ''}">
-            <td>${turno || ''}</td>
-            <td><strong>${r || ''}</strong></td>
-            <td class="vaga">${v || '-'}</td>
-            <td class="${cls}">${s || ''}</td>
-            <td>${checkin === 'TRUE' ? '✅' : checkin === 'FALSE' ? '❌' : ''}</td>
-          </tr>`;
-        });
-        
-        html += '</table>';
-        document.getElementById('conteudo').innerHTML = html;
-        
-        dadosAnteriores = novos;
-        primeira = false;
-        
-        const agora = new Date(json.lastUpdate).toLocaleString('pt-BR');
-        const estadoTexto = json.estadoSistema || '';
-        let estadoEmoji = '';
-        
-        if (estadoTexto.includes('ATIVO')) {
-          estadoEmoji = '🟢 Operando';
-        } else if (estadoTexto === 'AGUARDANDO_AM') {
-          estadoEmoji = '⏳ Aguardando AM';
-        } else if (estadoTexto === 'AM_COMPLETO') {
-          estadoEmoji = '☕ Intervalo';
-        } else if (estadoTexto === 'ENCERRADO' || estadoTexto === 'PM_COMPLETO') {
-          estadoEmoji = '🌙 Encerrado';
-        } else {
-          estadoEmoji = '⏸️ Standby';
-        }
-        
-        document.getElementById('atualizado').innerHTML = `${estadoEmoji} • Atualizado: ${agora}`;
-      } catch (erro) {
-        document.getElementById('conteudo').innerHTML = 
-          '<div class="loading"><p>❌ Erro: ' + erro.message + '</p></div>';
-        console.error(erro);
       }
-    }
-    
-    // FIREBASE REALTIME - Escuta mudanças em tempo real
-    const vagasRef = ref(database, 'vagas');
-    onValue(vagasRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        processar(data);
+
+      novos.push({ chave, vaga, status });
+
+      // Status tag
+      let statusCls = 'outro';
+      if (status.toLowerCase().includes('carregar')) statusCls = 'carregar';
+      else if (status.toLowerCase().includes('pátio') || status.toLowerCase().includes('patio')) statusCls = 'patio';
+
+      // Check-in col
+      let checkinHtml = '<span style="color:#444">—</span>';
+      if (checkinOk) {
+        checkinHtml = '<span style="color:#22c55e;font-size:20px">✅</span>';
+      } else if (checkinDaRota && checkinDaRota.status === 'aguardando') {
+        checkinHtml = '<span style="color:#f59e0b;font-size:16px">⏳</span>';
       }
+
+      // Entrada/Saída
+      const entradaHtml = entrada
+        ? `<span class="tag-entrada-saida">${entrada}</span>`
+        : `<span class="tag-entrada-saida vazio">—</span>`;
+      const saidaHtml = saida
+        ? `<span class="tag-entrada-saida">${saida}</span>`
+        : `<span class="tag-entrada-saida vazio">—</span>`;
+
+      html += `
+        <tr class="${ehMinha ? 'minha-linha' : ''}">
+          <td>${turno}</td>
+          <td><strong style="font-family:'Rajdhani',sans-serif;font-size:16px">${rota}</strong></td>
+          <td><span class="tag-vaga">${vaga}</span></td>
+          <td><span class="tag-status ${statusCls}">${status}</span></td>
+          <td>${entradaHtml}</td>
+          <td>${saidaHtml}</td>
+          <td class="checkin-col">${checkinHtml}</td>
+        </tr>`;
     });
-  </script>
+
+    html += '</tbody></table>';
+    document.getElementById('conteudo').innerHTML = html;
+    dadosAnteriores = novos;
+    primeira = false;
+
+    // Atualiza status do meu check-in na barra
+    if (meuCheckin) {
+      const meuC = mapaCheckins[meuCheckin.rota];
+      const statusEl = document.getElementById('meuCheckinStatus');
+      if (meuC && meuC.status === 'confirmado') {
+        statusEl.innerHTML = `<span class="status-badge confirmado">✅ Check-in confirmado</span>`;
+      } else if (meuC && meuC.status === 'aguardando') {
+        statusEl.innerHTML = `<span class="status-badge aguardando">⏳ Aguardando confirmação</span>`;
+      } else {
+        statusEl.innerHTML = `<span class="status-badge aguardando">⏳ Pendente</span>`;
+      }
+    }
+  }
+
+  // ---- VOZ ----
+  function falar(texto) {
+    if (!('speechSynthesis' in window)) return;
+    const u = new SpeechSynthesisUtterance(texto);
+    u.lang = 'pt-BR';
+    u.rate = 0.9;
+    window.speechSynthesis.speak(u);
+  }
+
+  // ---- POLLING ----
+  async function atualizar() {
+    try {
+      const [vagas, checkins] = await Promise.all([
+        fetchJson(VAGAS_JSON),
+        fetchJson(CHECKIN_JSON).catch(() => ({ checkins: [] }))
+      ]);
+
+      renderTabela(vagas, checkins);
+
+      const agora = new Date(vagas.lastUpdate).toLocaleTimeString('pt-BR');
+      document.getElementById('headerStatus').innerHTML =
+        `<strong>🟢 AO VIVO</strong>Atualizado ${agora}`;
+
+    } catch (e) {
+      document.getElementById('headerStatus').innerHTML =
+        `<span style="color:#ef4444">⚠️ Sem conexão</span>`;
+      console.error(e);
+    }
+  }
+
+  // Inicia
+  atualizar();
+  setInterval(atualizar, POLL_MS);
+</script>
 </body>
 </html>
