@@ -13,11 +13,10 @@
       --card: #161616;
       --borda: #2a2a2a;
       --texto: #f0ece4;
-      --texto-dim: #888;
+      --texto-dim: #777;
       --verde: #22c55e;
       --azul: #3b82f6;
       --amarelo: #f59e0b;
-      --vermelho: #ef4444;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -29,11 +28,11 @@
       min-height: 100vh;
     }
 
-    /* HEADER */
+    /* ── HEADER ── */
     .header {
       background: var(--card);
       border-bottom: 2px solid var(--laranja);
-      padding: 16px 20px;
+      padding: 14px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -42,13 +41,9 @@
       z-index: 100;
     }
 
-    .header-logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .header-logo { display: flex; align-items: center; gap: 10px; }
 
-    .header-logo .dot {
+    .dot {
       width: 10px; height: 10px;
       background: var(--laranja);
       border-radius: 50%;
@@ -57,118 +52,132 @@
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.8); }
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:.5; transform:scale(.8); }
     }
 
     .header-logo h1 {
       font-family: 'Rajdhani', sans-serif;
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--texto);
+      font-size: 22px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
     }
 
     .header-logo h1 span { color: var(--laranja); }
 
     .header-status {
-      font-size: 12px;
-      color: var(--texto-dim);
-      text-align: right;
-      line-height: 1.5;
+      font-size: 12px; color: var(--texto-dim);
+      text-align: right; line-height: 1.6;
     }
 
-    .header-status strong {
-      display: block;
-      color: var(--verde);
-      font-size: 11px;
-    }
+    .header-status strong { display: block; color: var(--verde); font-size: 11px; }
 
-    /* CHECKIN BAR */
-    .checkin-bar {
+    /* ── CONFIG BAR ── */
+    .config-bar {
       background: #111;
       border-bottom: 1px solid var(--borda);
-      padding: 14px 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
+      padding: 12px 20px;
     }
 
-    .checkin-info {
-      flex: 1;
-      min-width: 200px;
+    .config-linha1 {
+      display: flex; align-items: center;
+      gap: 10px; flex-wrap: wrap;
     }
 
-    .checkin-info p {
-      font-size: 13px;
-      color: var(--texto-dim);
-    }
-
-    .checkin-info strong {
-      font-size: 14px;
+    .config-bar input,
+    .config-bar select {
+      background: #1e1e1e;
+      border: 1px solid var(--borda);
+      border-radius: 6px;
+      padding: 8px 12px;
       color: var(--texto);
+      font-family: 'Noto Sans', sans-serif;
+      font-size: 14px;
+      transition: border-color .2s;
+      appearance: none; -webkit-appearance: none;
+    }
+
+    .config-bar input { width: 150px; }
+    .config-bar input::placeholder { color: #555; }
+
+    .config-bar input:focus,
+    .config-bar select:focus { outline: none; border-color: var(--laranja); }
+
+    .sel-letra { width: 76px; }
+    .sel-num   { width: 76px; }
+
+    .config-label { font-size: 12px; color: var(--texto-dim); white-space: nowrap; }
+
+    .btn-notif {
+      background: var(--verde); border: none; color: white;
+      padding: 8px 16px; border-radius: 6px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 15px; font-weight: 700; letter-spacing: 1px;
+      cursor: pointer; transition: all .2s; white-space: nowrap;
+    }
+
+    .btn-notif:hover { background: #16a34a; }
+    .btn-notif.ativo { background: var(--azul); }
+
+    /* ── LINHA 2: entrada/saída + checkin ── */
+    .config-linha2 {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      margin-top: 10px; flex-wrap: wrap; gap: 8px;
+    }
+
+    .entrada-saida { display: flex; align-items: center; gap: 20px; }
+
+    .es-item { display: flex; align-items: center; gap: 6px; }
+
+    .es-label {
+      color: var(--texto-dim); font-size: 12px;
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+
+    .es-valor {
+      background: rgba(238,77,45,.12);
+      border: 1px solid rgba(238,77,45,.3);
+      color: var(--laranja);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 15px; font-weight: 700;
+      padding: 3px 12px; border-radius: 4px; letter-spacing: .5px;
+    }
+
+    .es-valor.vazio { background: transparent; border-color: transparent; color: #444; }
+
+    .checkin-area { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 12px; border-radius: 20px;
+      font-size: 12px; font-weight: 600;
+    }
+
+    .badge.aguardando {
+      background: rgba(245,158,11,.15);
+      border: 1px solid var(--amarelo); color: var(--amarelo);
+    }
+
+    .badge.confirmado {
+      background: rgba(34,197,94,.15);
+      border: 1px solid var(--verde); color: var(--verde);
     }
 
     .btn-checkin {
-      background: var(--laranja);
-      color: white;
-      border: none;
-      padding: 10px 22px;
-      border-radius: 6px;
+      background: var(--laranja); border: none; color: white;
+      padding: 9px 20px; border-radius: 6px;
       font-family: 'Rajdhani', sans-serif;
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      cursor: pointer;
-      transition: all 0.2s;
-      white-space: nowrap;
+      font-size: 16px; font-weight: 700; letter-spacing: 1px;
+      cursor: pointer; transition: all .2s; white-space: nowrap;
     }
 
-    .btn-checkin:hover {
-      background: var(--laranja2);
-      transform: translateY(-1px);
-    }
+    .btn-checkin:hover { background: var(--laranja2); transform: translateY(-1px); }
 
-    .btn-checkin:disabled {
-      background: #333;
-      color: #666;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    .status-badge.aguardando {
-      background: rgba(245,158,11,0.15);
-      border: 1px solid var(--amarelo);
-      color: var(--amarelo);
-    }
-
-    .status-badge.confirmado {
-      background: rgba(34,197,94,0.15);
-      border: 1px solid var(--verde);
-      color: var(--verde);
-    }
-
-    /* MODAL */
+    /* ── MODAL ── */
     .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.85); z-index: 1000;
+      align-items: center; justify-content: center;
       backdrop-filter: blur(4px);
     }
 
@@ -178,316 +187,190 @@
       background: var(--card);
       border: 1px solid var(--borda);
       border-top: 3px solid var(--laranja);
-      border-radius: 12px;
-      padding: 28px;
-      width: 90%;
-      max-width: 420px;
-      animation: slideUp 0.3s ease;
+      border-radius: 12px; padding: 28px;
+      width: 90%; max-width: 400px;
+      animation: slideUp .3s ease;
     }
 
     @keyframes slideUp {
       from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+      to   { transform: translateY(0);    opacity: 1; }
     }
 
     .modal h2 {
       font-family: 'Rajdhani', sans-serif;
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      margin-bottom: 20px;
-      color: var(--texto);
+      font-size: 20px; font-weight: 700;
+      letter-spacing: 1px; margin-bottom: 20px;
     }
 
     .modal h2 span { color: var(--laranja); }
 
-    .form-group {
-      margin-bottom: 16px;
-    }
+    .form-group { margin-bottom: 14px; }
 
     .form-group label {
-      display: block;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--texto-dim);
-      margin-bottom: 6px;
+      display: block; font-size: 11px; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase;
+      color: var(--texto-dim); margin-bottom: 5px;
     }
 
     .form-group input,
     .form-group select {
-      width: 100%;
-      background: #1e1e1e;
-      border: 1px solid var(--borda);
-      border-radius: 6px;
-      padding: 10px 14px;
-      color: var(--texto);
-      font-family: 'Noto Sans', sans-serif;
-      font-size: 15px;
-      transition: border-color 0.2s;
-      appearance: none;
+      width: 100%; background: #1e1e1e;
+      border: 1px solid var(--borda); border-radius: 6px;
+      padding: 9px 12px; color: var(--texto);
+      font-family: 'Noto Sans', sans-serif; font-size: 14px;
+      appearance: none; transition: border-color .2s;
     }
 
     .form-group input:focus,
-    .form-group select:focus {
-      outline: none;
-      border-color: var(--laranja);
-    }
+    .form-group select:focus { outline: none; border-color: var(--laranja); }
 
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-    .modal-btns {
-      display: flex;
-      gap: 10px;
-      margin-top: 22px;
-    }
+    .modal-btns { display: flex; gap: 10px; margin-top: 20px; }
 
     .btn-cancelar {
-      flex: 1;
-      background: transparent;
-      border: 1px solid var(--borda);
-      color: var(--texto-dim);
-      padding: 10px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: all 0.2s;
+      flex: 1; background: transparent;
+      border: 1px solid var(--borda); color: var(--texto-dim);
+      padding: 9px; border-radius: 6px; cursor: pointer;
+      font-size: 14px; transition: all .2s;
     }
 
     .btn-cancelar:hover { border-color: #555; color: var(--texto); }
 
     .btn-enviar {
-      flex: 2;
-      background: var(--laranja);
-      border: none;
-      color: white;
-      padding: 10px;
-      border-radius: 6px;
-      cursor: pointer;
+      flex: 2; background: var(--laranja); border: none; color: white;
+      padding: 9px; border-radius: 6px; cursor: pointer;
       font-family: 'Rajdhani', sans-serif;
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      transition: all 0.2s;
+      font-size: 16px; font-weight: 700; letter-spacing: 1px;
+      transition: background .2s;
     }
 
     .btn-enviar:hover { background: var(--laranja2); }
 
-    /* TABELA */
-    .table-wrapper {
-      padding: 16px;
-      overflow-x: auto;
-    }
+    /* ── TABELA ── */
+    .table-wrapper { padding: 16px; overflow-x: auto; }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-    }
+    table { width: 100%; border-collapse: collapse; }
 
-    thead th {
-      background: #1a1a1a;
-      color: var(--texto-dim);
+    th {
+      background: linear-gradient(135deg,#1a3a5c,#0d2440);
+      color: white;
       font-family: 'Rajdhani', sans-serif;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      padding: 10px 14px;
-      text-align: center;
+      font-size: 13px; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase;
+      padding: 12px 14px; text-align: center;
       border-bottom: 1px solid var(--borda);
-      white-space: nowrap;
+      position: sticky; top: 0; z-index: 10; white-space: nowrap;
     }
 
-    tbody td {
-      padding: 12px 14px;
-      text-align: center;
+    td {
+      padding: 12px 14px; text-align: center;
       border-bottom: 1px solid #1e1e1e;
-      vertical-align: middle;
+      vertical-align: middle; font-size: 14px;
     }
 
-    tbody tr:hover { background: #161616; }
+    tbody tr { transition: background .15s; }
+    tbody tr:hover { background: #1a1a1a; }
 
     .minha-linha {
-      background: rgba(238,77,45,0.07) !important;
+      background: rgba(238,77,45,.07) !important;
       border-left: 3px solid var(--laranja);
     }
 
-    .minha-linha:hover {
-      background: rgba(238,77,45,0.12) !important;
-    }
+    .minha-linha:hover { background: rgba(238,77,45,.12) !important; }
 
-    .tag-vaga {
-      display: inline-block;
-      background: #222;
-      color: var(--texto);
+    .vaga-cell {
+      background: #222; color: var(--texto);
       font-family: 'Rajdhani', sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      padding: 4px 12px;
-      border-radius: 4px;
-      min-width: 44px;
+      font-size: 20px; font-weight: 700;
+      border-radius: 4px; display: inline-block;
+      padding: 3px 12px; min-width: 44px;
     }
 
-    .tag-status {
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      white-space: nowrap;
+    .tag-carregar {
+      background: linear-gradient(135deg,#22c55e,#16a34a);
+      color: white; font-weight: bold;
+      border-radius: 5px; padding: 4px 10px; font-size: 13px;
     }
 
-    .tag-status.carregar {
-      background: rgba(34,197,94,0.15);
-      color: var(--verde);
-      border: 1px solid rgba(34,197,94,0.3);
+    .tag-patio {
+      background: linear-gradient(135deg,#3b82f6,#1d4ed8);
+      color: white; font-weight: bold;
+      border-radius: 5px; padding: 4px 10px; font-size: 13px;
     }
 
-    .tag-status.patio {
-      background: rgba(59,130,246,0.15);
-      color: var(--azul);
-      border: 1px solid rgba(59,130,246,0.3);
+    /* ── ALERTA GRANDE ── */
+    .alerta-rota {
+      position: fixed; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      background: linear-gradient(135deg,#22c55e,#16a34a);
+      color: white; padding: 40px 60px; border-radius: 20px;
+      font-size: 26px; font-weight: bold;
+      box-shadow: 0 10px 40px rgba(0,0,0,.5);
+      z-index: 10000; text-align: center;
+      animation: alertaPulse .5s ease-out;
     }
 
-    .tag-status.outro {
-      background: rgba(255,255,255,0.05);
-      color: var(--texto-dim);
-      border: 1px solid var(--borda);
+    @keyframes alertaPulse {
+      from { transform: translate(-50%,-50%) scale(.8); opacity:0; }
+      to   { transform: translate(-50%,-50%) scale(1);  opacity:1; }
     }
 
-    .tag-entrada-saida {
-      display: inline-block;
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 600;
-      background: rgba(245,158,11,0.1);
-      color: var(--amarelo);
-      border: 1px solid rgba(245,158,11,0.2);
-      white-space: nowrap;
+    .alerta-rota .btn-fechar {
+      position: absolute; top: 12px; right: 12px;
+      background: rgba(255,255,255,.3); border: none;
+      color: white; font-size: 24px; font-weight: bold;
+      width: 36px; height: 36px; border-radius: 50%;
+      cursor: pointer; transition: all .3s;
     }
 
-    .tag-entrada-saida.vazio {
-      background: transparent;
-      color: var(--texto-dim);
-      border-color: transparent;
-      font-size: 13px;
+    .alerta-rota .btn-fechar:hover {
+      background: rgba(255,255,255,.5); transform: rotate(90deg);
     }
 
-    .checkin-col {
-      font-size: 18px;
-    }
-
-    /* TOAST */
+    /* ── TOAST ── */
     .toast-container {
-      position: fixed;
-      top: 16px;
-      right: 16px;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      pointer-events: none;
+      position: fixed; top: 16px; right: 16px;
+      z-index: 9999; display: flex; flex-direction: column;
+      gap: 10px; pointer-events: none; max-width: 320px;
     }
 
     .toast {
-      background: var(--card);
-      border: 1px solid var(--borda);
-      border-left: 3px solid var(--laranja);
-      color: var(--texto);
-      padding: 12px 18px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      animation: toastIn 0.3s ease;
-      pointer-events: auto;
-      max-width: 300px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      background: var(--card); border: 1px solid var(--borda);
+      border-left: 3px solid var(--laranja); color: var(--texto);
+      padding: 12px 16px; border-radius: 8px; font-size: 14px;
+      font-weight: 500; animation: toastIn .35s ease;
+      pointer-events: auto; box-shadow: 0 4px 20px rgba(0,0,0,.5);
     }
 
-    .toast.verde { border-left-color: var(--verde); }
-    .toast.azul { border-left-color: var(--azul); }
+    .toast.vaga  { border-left-color: var(--verde); }
+    .toast.patio { border-left-color: var(--azul); }
+    .toast.saindo { animation: toastOut .3s ease forwards; }
 
-    .toast.saindo {
-      animation: toastOut 0.3s ease forwards;
-    }
+    @keyframes toastIn  { from{transform:translateX(340px);opacity:0} to{transform:translateX(0);opacity:1} }
+    @keyframes toastOut { from{transform:translateX(0);opacity:1} to{transform:translateX(340px);opacity:0} }
 
-    @keyframes toastIn {
-      from { transform: translateX(320px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
+    /* ── LOADING ── */
+    .loading { text-align:center; padding:60px 20px; color:var(--texto-dim); font-size:16px; }
 
-    @keyframes toastOut {
-      from { transform: translateX(0); opacity: 1; }
-      to { transform: translateX(320px); opacity: 0; }
-    }
-
-    /* LOADING */
-    .loading {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--texto-dim);
-    }
-
-    .spinner {
-      width: 32px; height: 32px;
-      border: 3px solid var(--borda);
-      border-top-color: var(--laranja);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 16px;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    /* ROTA NOME TOPO */
-    .meu-status-bar {
-      background: rgba(238,77,45,0.08);
-      border: 1px solid rgba(238,77,45,0.2);
-      border-radius: 8px;
-      padding: 10px 16px;
-      margin: 12px 16px 0;
-      display: none;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .meu-status-bar.ativo { display: flex; }
-
-    .meu-status-bar .label {
-      font-size: 12px;
-      color: var(--texto-dim);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .meu-status-bar .valor {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--laranja);
-    }
-
-    .separador { color: var(--borda); }
-
-    @media (max-width: 600px) {
+    /* ── RESPONSIVE ── */
+    @media (max-width:600px) {
       .header-logo h1 { font-size: 18px; }
-      .table-wrapper { padding: 10px; }
-      table { font-size: 12px; }
-      thead th { font-size: 10px; padding: 8px 8px; }
-      tbody td { padding: 10px 8px; }
-      .tag-vaga { font-size: 15px; padding: 3px 8px; }
-      .tag-status { font-size: 11px; padding: 3px 8px; }
+      .config-bar input { width: 120px; }
+      td, th { padding: 9px 8px; font-size: 12px; }
+      .vaga-cell { font-size: 16px; padding: 2px 8px; }
+      .toast-container { top:8px;right:8px;left:8px;max-width:none; }
+    }
+
+    @media (min-width:768px) {
+      td, th { padding: 15px 12px; font-size: 15px; }
+      .vaga-cell { font-size: 22px; }
+    }
+
+    @media (min-width:1600px) {
+      td, th { padding: 18px 16px; font-size: 17px; }
+      .vaga-cell { font-size: 26px; }
     }
   </style>
 </head>
@@ -510,26 +393,16 @@
     <div class="form-row">
       <div class="form-group">
         <label>Letra da Rota</label>
-        <select id="inputLetra">
-          <option value="">--</option>
-          <script>
-            for(let i=65;i<=90;i++) document.write(`<option value="${String.fromCharCode(i)}">${String.fromCharCode(i)}</option>`);
-          </script>
-        </select>
+        <select id="inputLetra"><option value="">--</option></select>
       </div>
       <div class="form-group">
         <label>Número da Rota</label>
-        <select id="inputNumero">
-          <option value="">--</option>
-          <script>
-            for(let i=1;i<=50;i++) document.write(`<option value="${i}">${i}</option>`);
-          </script>
-        </select>
+        <select id="inputNumero"><option value="">--</option></select>
       </div>
     </div>
     <div class="modal-btns">
       <button class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
-      <button class="btn-enviar" onclick="enviarCheckin()">✓ ENVIAR</button>
+      <button class="btn-enviar"   onclick="enviarCheckin()">✓ ENVIAR</button>
     </div>
   </div>
 </div>
@@ -540,73 +413,137 @@
     <div class="dot"></div>
     <h1>VAGAS <span>GUICHÊ</span></h1>
   </div>
-  <div class="header-status" id="headerStatus">
-    <span>⏳ Conectando...</span>
-  </div>
+  <div class="header-status" id="headerStatus"><span>⏳ Conectando...</span></div>
 </div>
 
-<!-- CHECKIN BAR -->
-<div class="checkin-bar">
-  <div class="checkin-info">
-    <p>Ainda não fez check-in hoje?</p>
+<!-- CONFIG BAR -->
+<div class="config-bar">
+  <div class="config-linha1">
+    <span class="config-label">Nome:</span>
+    <input type="text" id="nomeInput" placeholder="Ex: Fulano" maxlength="20">
+    <span class="config-label">Rota:</span>
+    <select id="letraSelect"  class="sel-letra"><option value="">Letra</option></select>
+    <select id="numeroSelect" class="sel-num"  ><option value="">Nº</option></select>
+    <button class="btn-notif" id="btnAtivar" onclick="salvar()">🔔 Ativar Notificações</button>
+    <span id="statusNotif" style="font-size:13px;color:var(--verde);display:none"></span>
   </div>
-  <div id="checkinStatusArea">
-    <button class="btn-checkin" id="btnCheckin" onclick="abrirModal()">
-      📋 FAZER CHECK-IN
-    </button>
-  </div>
-</div>
 
-<!-- MEU STATUS -->
-<div class="meu-status-bar" id="meuStatusBar">
-  <span class="label">Você:</span>
-  <span class="valor" id="meuNomeDisplay">—</span>
-  <span class="separador">|</span>
-  <span class="label">Rota:</span>
-  <span class="valor" id="minhaRotaDisplay">—</span>
-  <span class="separador">|</span>
-  <span id="meuCheckinStatus"></span>
+  <div class="config-linha2">
+    <div class="entrada-saida">
+      <div class="es-item">
+        <span class="es-label">Entrada:</span>
+        <span class="es-valor vazio" id="esEntrada">—</span>
+      </div>
+      <div class="es-item">
+        <span class="es-label">Saída:</span>
+        <span class="es-valor vazio" id="esSaida">—</span>
+      </div>
+    </div>
+    <div class="checkin-area">
+      <span id="checkinBadge"></span>
+      <button class="btn-checkin" id="btnCheckin" onclick="abrirModal()">
+        📋 FAZER CHECK-IN
+      </button>
+    </div>
+  </div>
 </div>
 
 <!-- TABELA -->
 <div class="table-wrapper">
-  <div id="conteudo" class="loading">
-    <div class="spinner"></div>
-    <p>Carregando vagas...</p>
-  </div>
+  <div id="conteudo" class="loading"><p>⏳ Carregando...</p></div>
 </div>
 
 <script>
-  // ============================================================
-  // CONFIGURAÇÃO — ajuste antes de subir pro GitHub
-  // ============================================================
-  const GITHUB_USER = 'fatalzinho';
-  const GITHUB_REPO = 'vagas-shopee';
-  const VAGAS_JSON  = 'vagas.json';
+  // ── CONFIG ──
+  const GITHUB_USER  = 'fatalzinho';
+  const GITHUB_REPO  = 'vagas-shopee';
+  const VAGAS_JSON   = 'vagas.json';
   const CHECKIN_JSON = 'checkin.json';
-  const POLL_MS = 8000; // verifica a cada 8 segundos
-  // ============================================================
+  const POLL_MS      = 8000;
 
-  let dadosAnteriores = [];
-  let primeira = true;
-  let meuCheckin = null; // {id, nome, rota} salvo em localStorage
-
-  // Carrega dados salvos
-  const savedCheckin = localStorage.getItem('meuCheckin');
-  if (savedCheckin) {
-    meuCheckin = JSON.parse(savedCheckin);
-    atualizarBarraStatus();
+  // Preenche selects de letra e número
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(l => {
+    ['letraSelect','inputLetra'].forEach(id => {
+      const o = document.createElement('option');
+      o.value = l; o.textContent = l;
+      document.getElementById(id).appendChild(o);
+    });
+  });
+  for (let i=1;i<=50;i++) {
+    ['numeroSelect','inputNumero'].forEach(id => {
+      const o = document.createElement('option');
+      o.value = i; o.textContent = i;
+      document.getElementById(id).appendChild(o);
+    });
   }
 
-  // ---- MODAL ----
+  // Estado
+  let nome = localStorage.getItem('nome') || '';
+  let rota = localStorage.getItem('rota') || '';
+  let dadosAnteriores = [];
+  let primeira = true;
+  let meuCheckin = null;
+
+  // Restaura dados salvos
+  if (nome) document.getElementById('nomeInput').value = nome;
+  const letraSalva = localStorage.getItem('letra');
+  const numSalvo   = localStorage.getItem('numero');
+  if (letraSalva) document.getElementById('letraSelect').value = letraSalva;
+  if (numSalvo)   document.getElementById('numeroSelect').value = numSalvo;
+
+  const saved = localStorage.getItem('meuCheckin');
+  if (saved) { meuCheckin = JSON.parse(saved); atualizarBotao(); }
+
+  if (nome && rota) {
+    document.getElementById('btnAtivar').textContent = '✅ Notificações Ativas';
+    document.getElementById('btnAtivar').classList.add('ativo');
+    document.getElementById('statusNotif').textContent = `🔔 ${nome} — Rota ${rota}`;
+    document.getElementById('statusNotif').style.display = 'inline';
+  }
+
+  // ── SALVAR NOTIFICAÇÕES ──
+  async function salvar() {
+    nome = document.getElementById('nomeInput').value.trim();
+    const letra  = document.getElementById('letraSelect').value;
+    const numero = document.getElementById('numeroSelect').value;
+
+    if (!nome)           { alert('⚠️ Digite seu nome!'); return; }
+    if (!letra || !numero) { alert('⚠️ Selecione letra e número!'); return; }
+
+    rota = `${letra}-${numero}`;
+    localStorage.setItem('nome',   nome);
+    localStorage.setItem('rota',   rota);
+    localStorage.setItem('letra',  letra);
+    localStorage.setItem('numero', numero);
+
+    if ('Notification' in window) await Notification.requestPermission();
+
+    try {
+      if ('wakeLock' in navigator) {
+        await navigator.wakeLock.request('screen');
+        document.addEventListener('visibilitychange', async () => {
+          if (document.visibilityState === 'visible')
+            await navigator.wakeLock.request('screen').catch(()=>{});
+        });
+      }
+    } catch(e) {}
+
+    document.getElementById('btnAtivar').textContent = '✅ Notificações Ativas';
+    document.getElementById('btnAtivar').classList.add('ativo');
+    document.getElementById('statusNotif').textContent = `🔔 ${nome} — Rota ${rota}`;
+    document.getElementById('statusNotif').style.display = 'inline';
+    alert(`✅ ${nome}, notificações ativadas para rota ${rota}!\n📱 Tela ficará ligada.`);
+    primeira = true;
+  }
+
+  // ── MODAL ──
   function abrirModal() {
-    // Se já tem dados salvos, preenche
     if (meuCheckin) {
-      document.getElementById('inputId').value = meuCheckin.id || '';
+      document.getElementById('inputId').value   = meuCheckin.id   || '';
       document.getElementById('inputNome').value = meuCheckin.nome || '';
-      const [letra, num] = (meuCheckin.rota || '').split('-');
-      document.getElementById('inputLetra').value = letra || '';
-      document.getElementById('inputNumero').value = num || '';
+      const [l,n] = (meuCheckin.rota||'').split('-');
+      document.getElementById('inputLetra').value  = l || '';
+      document.getElementById('inputNumero').value = n || '';
     }
     document.getElementById('modalOverlay').classList.add('ativo');
   }
@@ -616,41 +553,30 @@
   }
 
   function enviarCheckin() {
-    const id = document.getElementById('inputId').value.trim();
-    const nome = document.getElementById('inputNome').value.trim();
+    const id    = document.getElementById('inputId').value.trim();
+    const nome2 = document.getElementById('inputNome').value.trim();
     const letra = document.getElementById('inputLetra').value;
-    const numero = document.getElementById('inputNumero').value;
+    const num   = document.getElementById('inputNumero').value;
 
-    if (!id || !nome || !letra || !numero) {
-      toast('⚠️ Preencha todos os campos!');
-      return;
-    }
+    if (!id||!nome2||!letra||!num) { toast('⚠️ Preencha todos os campos!'); return; }
 
-    const rota = `${letra}-${numero}`;
-    meuCheckin = { id, nome, rota, ts: Date.now() };
+    meuCheckin = { id, nome: nome2, rota: `${letra}-${num}`, ts: Date.now() };
     localStorage.setItem('meuCheckin', JSON.stringify(meuCheckin));
-
     fecharModal();
-    atualizarBarraStatus();
-    toast('✅ Check-in enviado! Aguardando confirmação...', 'verde');
+    atualizarBotao();
+    toast('✅ Check-in enviado! Aguardando confirmação...', 'vaga');
   }
 
-  function atualizarBarraStatus() {
-    if (!meuCheckin) return;
-
-    document.getElementById('meuNomeDisplay').textContent = meuCheckin.nome;
-    document.getElementById('minhaRotaDisplay').textContent = meuCheckin.rota;
-    document.getElementById('meuStatusBar').classList.add('ativo');
-
-    document.getElementById('btnCheckin').textContent = '✏️ ALTERAR CHECK-IN';
+  function atualizarBotao() {
+    if (meuCheckin) document.getElementById('btnCheckin').textContent = '✏️ ALTERAR CHECK-IN';
   }
 
-  // ---- TOAST ----
-  function toast(msg, tipo = '') {
-    const c = document.getElementById('toastContainer');
+  // ── TOAST ──
+  function toast(msg, tipo='') {
+    const c  = document.getElementById('toastContainer');
     const el = document.createElement('div');
     el.className = `toast ${tipo}`;
-    el.textContent = msg;
+    el.innerHTML = msg;
     c.appendChild(el);
     setTimeout(() => {
       el.classList.add('saindo');
@@ -658,166 +584,198 @@
     }, 4000);
   }
 
-  // ---- FETCH JSON ----
-  async function fetchJson(arquivo) {
-    const url = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${arquivo}?t=${Date.now()}`;
-    const res = await fetch(url, { cache: 'no-store' });
-    if (!res.ok) throw new Error(`Erro ${res.status}`);
-    return res.json();
+  // ── ALERTA GRANDE ──
+  function alerta(msg) {
+    const div = document.createElement('div');
+    div.className = 'alerta-rota';
+    const btn = document.createElement('button');
+    btn.className = 'btn-fechar'; btn.innerHTML = '×';
+    btn.onclick = () => div.remove();
+    div.innerHTML = msg; div.appendChild(btn);
+    document.body.appendChild(div);
+    setTimeout(() => { if(div.parentNode) div.remove(); }, 10000);
   }
 
-  // ---- RENDERIZA TABELA ----
-  function renderTabela(vagas, checkins) {
+  // ── VOZ ──
+  function falar(texto) {
+    if (!('speechSynthesis' in window)) return;
+    const u = new SpeechSynthesisUtterance(texto);
+    u.lang='pt-BR'; u.rate=0.9; u.pitch=1.2; u.volume=1.0;
+    u.onend = () => setTimeout(() => {
+      const u2 = new SpeechSynthesisUtterance(texto);
+      u2.lang='pt-BR'; u2.rate=0.9; u2.pitch=1.2;
+      window.speechSynthesis.speak(u2);
+    }, 500);
+    window.speechSynthesis.speak(u);
+  }
+
+  function notificar(tipo, vaga) {
+    const textos = tipo === 'patio'
+      ? { voz: `${nome}! Rota ${rota}. Entrar no pátio!`,
+          alerta: `📍 ${nome}!<br>Rota ${rota}<br>ENTRAR NO PÁTIO`,
+          notif: [`📍 ${nome}!`, `Rota ${rota} ENTRAR NO PÁTIO`] }
+      : { voz: `${nome}! Rota ${rota}. Vaga ${vaga}. Pode carregar!`,
+          alerta: `🎯 ${nome}!<br>Rota ${rota}<br>VAGA ${vaga}<br>PODE CARREGAR!`,
+          notif: [`🎯 ${nome}!`, `Rota ${rota} VAGA ${vaga} PODE CARREGAR!`] };
+
+    falar(textos.voz);
+    if (Notification.permission === 'granted') {
+      try {
+        const n = new Notification(textos.notif[0], {
+          body: textos.notif[1], tag: `${tipo}-${rota}`,
+          requireInteraction: true, vibrate: [200,100,200,100,200]
+        });
+        n.onclick = () => { window.focus(); n.close(); };
+      } catch(e) {}
+    }
+    alerta(textos.alerta);
+  }
+
+  // ── FETCH ──
+  async function fetchJson(arq) {
+    const url = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${arq}?t=${Date.now()}`;
+    const r = await fetch(url, { cache: 'no-store' });
+    if (!r.ok) throw new Error(r.status);
+    return r.json();
+  }
+
+  // ── ATUALIZA ENTRADA/SAÍDA NA BARRA ──
+  function atualizarES(entrada, saida) {
+    const eEl = document.getElementById('esEntrada');
+    const sEl = document.getElementById('esSaida');
+    if (entrada) { eEl.textContent = entrada; eEl.classList.remove('vazio'); }
+    else         { eEl.textContent = '—';     eEl.classList.add('vazio');    }
+    if (saida)   { sEl.textContent = saida;   sEl.classList.remove('vazio'); }
+    else         { sEl.textContent = '—';     sEl.classList.add('vazio');    }
+  }
+
+  // ── PROCESSAR ──
+  function processar(vagas, checkins) {
     const linhas = vagas.data;
 
-    if (!linhas || linhas.length < 2) {
+    if (!linhas || linhas.length < 4) {
       document.getElementById('conteudo').innerHTML = `
-        <div style="text-align:center;padding:60px 20px;color:#666;">
-          <p style="font-size:40px;margin-bottom:12px">🌙</p>
-          <p style="font-size:18px;font-weight:600;color:#aaa">Operações encerradas</p>
-          <p style="font-size:14px;margin-top:8px">Sistema retorna amanhã às 4:30</p>
+        <div class="loading">
+          <p style="font-size:48px;margin-bottom:15px">🌙</p>
+          <p style="font-size:20px;font-weight:bold;color:#aaa">Operações encerradas hoje</p>
+          <p style="font-size:14px;color:#666;margin-top:8px">Sistema retorna amanhã às 4:30 da manhã.</p>
         </div>`;
+      document.getElementById('headerStatus').innerHTML = '🌙 Encerrado';
       return;
     }
 
-    // Mapa de checkins por rota
-    const mapaCheckins = {};
-    if (checkins && checkins.checkins) {
-      checkins.checkins.forEach(c => {
-        mapaCheckins[c.rota] = c;
-      });
+    // Mapa checkins por rota
+    const mapaC = {};
+    if (checkins && checkins.checkins)
+      checkins.checkins.forEach(c => { mapaC[c.rota] = c; });
+
+    // Atualiza barra entrada/saída e badge do MEU checkin
+    if (meuCheckin) {
+      const meuC = mapaC[meuCheckin.rota];
+      if (meuC && meuC.status === 'confirmado') {
+        atualizarES(meuC.entrada, meuC.saida);
+        document.getElementById('checkinBadge').innerHTML =
+          `<span class="badge confirmado">✅ Check-in confirmado</span>`;
+      } else if (meuC && meuC.status === 'aguardando') {
+        atualizarES('', '');
+        document.getElementById('checkinBadge').innerHTML =
+          `<span class="badge aguardando">⏳ Aguardando confirmação</span>`;
+      } else {
+        atualizarES('', '');
+        document.getElementById('checkinBadge').innerHTML =
+          `<span class="badge aguardando">⏳ Pendente</span>`;
+      }
+    } else {
+      atualizarES('', '');
+      document.getElementById('checkinBadge').innerHTML = '';
     }
 
-    let html = `
-      <table>
-        <thead>
-          <tr>
-            <th>Turno</th>
-            <th>Rota</th>
-            <th>Vaga</th>
-            <th>Status</th>
-            <th>Entrada</th>
-            <th>Saída</th>
-            <th>Check-in</th>
-          </tr>
-        </thead>
-        <tbody>`;
-
     const novos = [];
+    let html = `<table>
+      <tr><th>TURNO</th><th>ROTA</th><th>VAGA</th><th>STATUS</th><th>CHECK-IN</th></tr>`;
 
     linhas.slice(3).forEach(linha => {
       if (!linha || !linha[2]) return;
 
       const turno   = linha[0] || '';
-      const rota    = linha[2] || '';
-      const vaga    = linha[3] || '-';
-      const status  = linha[4] || '';
-      const entrada = linha[5] || '';
-      const saida   = linha[6] || '';
+      const r       = linha[2] || '';
+      const v       = linha[3] !== undefined ? linha[3] : '-';
+      const s       = linha[4] || '';
+      const checkin = linha[5];
 
-      const chave = `${turno}-${rota}`;
-      const ant = dadosAnteriores.find(d => d.chave === chave);
-      const ehMinha = meuCheckin && rota && rota.toUpperCase() === meuCheckin.rota.toUpperCase();
-      const checkinDaRota = mapaCheckins[rota];
-      const checkinOk = checkinDaRota && checkinDaRota.status === 'confirmado';
+      const chave   = `${turno}-${r}`;
+      const ant     = dadosAnteriores.find(d => d.chave === chave);
+      const ehMinha = rota && r && r.toUpperCase() === rota.toUpperCase();
 
-      // Notificações de mudança
+      // Toasts gerais
       if (!primeira && ant) {
-        if (status.toLowerCase().includes('pátio') && (!ant.status || !ant.status.toLowerCase().includes('pátio'))) {
-          toast(`📍 ${rota} → Entrar no pátio`, 'azul');
-          if (ehMinha) falar(`Atenção! Rota ${rota}. Entrar no pátio!`);
-        }
-        if (vaga !== '-' && ant.vaga !== vaga) {
-          toast(`🎯 ${rota} → Vaga ${vaga}`, 'verde');
-          if (ehMinha) falar(`Atenção! Rota ${rota}. Vaga ${vaga}. Pode carregar!`);
-        }
+        if (s.toLowerCase().includes('pátio') && (!ant.status||!ant.status.toLowerCase().includes('pátio')))
+          toast(`<strong>${r}</strong> → Entrar no pátio`, 'patio');
+        if (v !== '-' && ant.vaga !== String(v))
+          toast(`<strong>${r}</strong> → Vaga ${v}`, 'vaga');
       }
 
-      novos.push({ chave, vaga, status });
-
-      // Status tag
-      let statusCls = 'outro';
-      if (status.toLowerCase().includes('carregar')) statusCls = 'carregar';
-      else if (status.toLowerCase().includes('pátio') || status.toLowerCase().includes('patio')) statusCls = 'patio';
-
-      // Check-in col
-      let checkinHtml = '<span style="color:#444">—</span>';
-      if (checkinOk) {
-        checkinHtml = '<span style="color:#22c55e;font-size:20px">✅</span>';
-      } else if (checkinDaRota && checkinDaRota.status === 'aguardando') {
-        checkinHtml = '<span style="color:#f59e0b;font-size:16px">⏳</span>';
+      // Notificação pessoal
+      if (ehMinha && !primeira && ant) {
+        if (s.toLowerCase().includes('pátio') && (!ant.status||!ant.status.toLowerCase().includes('pátio')))
+          notificar('patio');
+        if (v !== '-' && ant.vaga !== String(v))
+          notificar('vaga', v);
       }
 
-      // Entrada/Saída
-      const entradaHtml = entrada
-        ? `<span class="tag-entrada-saida">${entrada}</span>`
-        : `<span class="tag-entrada-saida vazio">—</span>`;
-      const saidaHtml = saida
-        ? `<span class="tag-entrada-saida">${saida}</span>`
-        : `<span class="tag-entrada-saida vazio">—</span>`;
+      novos.push({ chave, vaga: String(v), status: s });
 
-      html += `
-        <tr class="${ehMinha ? 'minha-linha' : ''}">
-          <td>${turno}</td>
-          <td><strong style="font-family:'Rajdhani',sans-serif;font-size:16px">${rota}</strong></td>
-          <td><span class="tag-vaga">${vaga}</span></td>
-          <td><span class="tag-status ${statusCls}">${status}</span></td>
-          <td>${entradaHtml}</td>
-          <td>${saidaHtml}</td>
-          <td class="checkin-col">${checkinHtml}</td>
-        </tr>`;
+      let cls = '';
+      if (s.toLowerCase().includes('carregar')) cls = 'tag-carregar';
+      else if (s.toLowerCase().includes('pátio')||s.toLowerCase().includes('patio')) cls = 'tag-patio';
+
+      // CHECK-IN col: usa o valor do JSON (true/false original)
+      let checkinHtml = '';
+      if      (checkin === true  || checkin === 'TRUE')  checkinHtml = '✅';
+      else if (checkin === false || checkin === 'FALSE') checkinHtml = '❌';
+
+      html += `<tr class="${ehMinha ? 'minha-linha' : ''}">
+        <td>${turno}</td>
+        <td><strong>${r}</strong></td>
+        <td><span class="vaga-cell">${v}</span></td>
+        <td><span class="${cls}">${s}</span></td>
+        <td style="font-size:18px">${checkinHtml}</td>
+      </tr>`;
     });
 
-    html += '</tbody></table>';
+    html += '</table>';
     document.getElementById('conteudo').innerHTML = html;
     dadosAnteriores = novos;
     primeira = false;
 
-    // Atualiza status do meu check-in na barra
-    if (meuCheckin) {
-      const meuC = mapaCheckins[meuCheckin.rota];
-      const statusEl = document.getElementById('meuCheckinStatus');
-      if (meuC && meuC.status === 'confirmado') {
-        statusEl.innerHTML = `<span class="status-badge confirmado">✅ Check-in confirmado</span>`;
-      } else if (meuC && meuC.status === 'aguardando') {
-        statusEl.innerHTML = `<span class="status-badge aguardando">⏳ Aguardando confirmação</span>`;
-      } else {
-        statusEl.innerHTML = `<span class="status-badge aguardando">⏳ Pendente</span>`;
-      }
-    }
+    // Header
+    const agora = new Date(vagas.lastUpdate).toLocaleString('pt-BR');
+    const et    = vagas.estadoSistema || '';
+    let emoji   = '⏸️ Standby';
+    if      (et.includes('ATIVO'))                        emoji = '🟢 Operando';
+    else if (et === 'AGUARDANDO_AM')                      emoji = '⏳ Aguardando AM';
+    else if (et === 'AM_COMPLETO')                        emoji = '☕ Intervalo';
+    else if (et === 'ENCERRADO' || et === 'PM_COMPLETO')  emoji = '🌙 Encerrado';
+
+    document.getElementById('headerStatus').innerHTML =
+      `<strong>🟢 AO VIVO</strong>${emoji} • ${agora}`;
   }
 
-  // ---- VOZ ----
-  function falar(texto) {
-    if (!('speechSynthesis' in window)) return;
-    const u = new SpeechSynthesisUtterance(texto);
-    u.lang = 'pt-BR';
-    u.rate = 0.9;
-    window.speechSynthesis.speak(u);
-  }
-
-  // ---- POLLING ----
+  // ── POLLING ──
   async function atualizar() {
     try {
       const [vagas, checkins] = await Promise.all([
         fetchJson(VAGAS_JSON),
         fetchJson(CHECKIN_JSON).catch(() => ({ checkins: [] }))
       ]);
-
-      renderTabela(vagas, checkins);
-
-      const agora = new Date(vagas.lastUpdate).toLocaleTimeString('pt-BR');
-      document.getElementById('headerStatus').innerHTML =
-        `<strong>🟢 AO VIVO</strong>Atualizado ${agora}`;
-
-    } catch (e) {
+      processar(vagas, checkins);
+    } catch(e) {
       document.getElementById('headerStatus').innerHTML =
         `<span style="color:#ef4444">⚠️ Sem conexão</span>`;
       console.error(e);
     }
   }
 
-  // Inicia
   atualizar();
   setInterval(atualizar, POLL_MS);
 </script>
