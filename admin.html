@@ -1,1 +1,850 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Guichê</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --laranja: #EE4D2D;
+      --laranja2: #ff6b47;
+      --preto: #0a0a0a;
+      --card: #141414;
+      --card2: #1a1a1a;
+      --borda: #262626;
+      --texto: #f0ece4;
+      --texto-dim: #777;
+      --verde: #22c55e;
+      --azul: #3b82f6;
+      --amarelo: #f59e0b;
+    }
 
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--preto);
+      color: var(--texto);
+      font-family: 'Noto Sans', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    .header {
+      background: var(--card);
+      border-bottom: 2px solid var(--laranja);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header h1 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .header h1 span { color: var(--laranja); }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .badge-pendentes {
+      background: var(--laranja);
+      color: white;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .header-status {
+      font-size: 12px;
+      color: var(--texto-dim);
+    }
+
+    /* TOKEN SETUP */
+    .token-setup {
+      background: #1a0a00;
+      border: 1px solid rgba(238,77,45,0.3);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 16px;
+    }
+
+    .token-setup h3 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--laranja);
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+
+    .token-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .token-row input {
+      flex: 1;
+      background: #0d0d0d;
+      border: 1px solid var(--borda);
+      border-radius: 6px;
+      padding: 10px 14px;
+      color: var(--texto);
+      font-family: monospace;
+      font-size: 13px;
+    }
+
+    .token-row input:focus {
+      outline: none;
+      border-color: var(--laranja);
+    }
+
+    .btn-salvar-token {
+      background: var(--laranja);
+      border: none;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .btn-salvar-token:hover { background: var(--laranja2); }
+
+    .token-ok {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--verde);
+      margin-top: 8px;
+    }
+
+    .token-ok.ativo { display: flex; }
+
+    /* LAYOUT PRINCIPAL */
+    .main {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 16px;
+      padding: 16px;
+      min-height: calc(100vh - 120px);
+    }
+
+    @media (max-width: 900px) {
+      .main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* PAINEL ESQUERDO — FILA */
+    .painel-fila {
+      background: var(--card);
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+      overflow: hidden;
+      align-self: start;
+    }
+
+    .painel-titulo {
+      background: #1a1a1a;
+      padding: 12px 16px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--texto-dim);
+      border-bottom: 1px solid var(--borda);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .fila-vazia {
+      padding: 40px 20px;
+      text-align: center;
+      color: var(--texto-dim);
+      font-size: 14px;
+    }
+
+    .fila-vazia p:first-child { font-size: 32px; margin-bottom: 8px; }
+
+    /* CARD DE CHECKIN PENDENTE */
+    .checkin-card {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--borda);
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .checkin-card:last-child { border-bottom: none; }
+
+    .checkin-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .checkin-nome {
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .checkin-rota {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--laranja);
+    }
+
+    .checkin-meta {
+      font-size: 12px;
+      color: var(--texto-dim);
+      margin-bottom: 12px;
+    }
+
+    .checkin-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .cf-group label {
+      display: block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--texto-dim);
+      margin-bottom: 4px;
+    }
+
+    .cf-group select,
+    .cf-group input {
+      width: 100%;
+      background: #0f0f0f;
+      border: 1px solid var(--borda);
+      border-radius: 5px;
+      padding: 7px 10px;
+      color: var(--texto);
+      font-family: 'Noto Sans', sans-serif;
+      font-size: 13px;
+      appearance: none;
+    }
+
+    .cf-group select:focus,
+    .cf-group input:focus {
+      outline: none;
+      border-color: var(--laranja);
+    }
+
+    .cf-full { grid-column: 1 / -1; }
+
+    .checkin-gaiola-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .btn-ok {
+      width: 100%;
+      background: var(--verde);
+      border: none;
+      color: white;
+      padding: 9px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      transition: all 0.2s;
+    }
+
+    .btn-ok:hover {
+      background: #16a34a;
+      transform: translateY(-1px);
+    }
+
+    .btn-ok:disabled {
+      background: #333;
+      color: #555;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-rejeitar {
+      width: 100%;
+      background: transparent;
+      border: 1px solid #333;
+      color: var(--texto-dim);
+      padding: 7px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      margin-top: 5px;
+      transition: all 0.2s;
+    }
+
+    .btn-rejeitar:hover {
+      border-color: #ef4444;
+      color: #ef4444;
+    }
+
+    /* PAINEL DIREITO — TABELA */
+    .painel-tabela {
+      background: var(--card);
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .table-scroll { overflow-x: auto; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    thead th {
+      background: #1a1a1a;
+      color: var(--texto-dim);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 10px 12px;
+      text-align: center;
+      border-bottom: 1px solid var(--borda);
+      white-space: nowrap;
+    }
+
+    tbody td {
+      padding: 10px 12px;
+      text-align: center;
+      border-bottom: 1px solid #1a1a1a;
+      vertical-align: middle;
+    }
+
+    tbody tr:hover { background: #161616; }
+
+    .tag-vaga {
+      display: inline-block;
+      background: #222;
+      color: var(--texto);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 4px;
+      min-width: 36px;
+    }
+
+    .tag-status {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .tag-status.carregar {
+      background: rgba(34,197,94,0.12);
+      color: var(--verde);
+      border: 1px solid rgba(34,197,94,0.25);
+    }
+
+    .tag-status.patio {
+      background: rgba(59,130,246,0.12);
+      color: var(--azul);
+      border: 1px solid rgba(59,130,246,0.25);
+    }
+
+    .tag-status.outro {
+      background: rgba(255,255,255,0.04);
+      color: var(--texto-dim);
+      border: 1px solid var(--borda);
+    }
+
+    .tag-es {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(245,158,11,0.1);
+      color: var(--amarelo);
+      border: 1px solid rgba(245,158,11,0.2);
+    }
+
+    .checkin-dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      margin-right: 4px;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: var(--texto-dim);
+    }
+
+    .spinner {
+      width: 28px; height: 28px;
+      border: 2px solid var(--borda);
+      border-top-color: var(--laranja);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 12px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* TOAST */
+    .toast-container {
+      position: fixed;
+      top: 16px; right: 16px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    .toast {
+      background: var(--card);
+      border: 1px solid var(--borda);
+      border-left: 3px solid var(--laranja);
+      color: var(--texto);
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      animation: toastIn 0.3s ease;
+      pointer-events: auto;
+      max-width: 280px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+    }
+
+    .toast.verde { border-left-color: var(--verde); }
+    .toast.erro { border-left-color: #ef4444; }
+    .toast.saindo { animation: toastOut 0.3s ease forwards; }
+
+    @keyframes toastIn {
+      from { transform: translateX(300px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes toastOut {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(300px); opacity: 0; }
+    }
+
+    /* Spinner no botão OK */
+    .btn-ok.carregando { opacity: 0.6; pointer-events: none; }
+  </style>
+</head>
+<body>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>ADMIN <span>GUICHÊ</span></h1>
+  <div class="header-right">
+    <span class="badge-pendentes" id="badgePendentes">0 pendentes</span>
+    <span class="header-status" id="headerStatus">⏳ Conectando...</span>
+  </div>
+</div>
+
+<!-- TOKEN -->
+<div class="token-setup" id="tokenSetup">
+  <h3>🔑 CONFIGURAR TOKEN GITHUB</h3>
+  <div class="token-row">
+    <input type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+    <button class="btn-salvar-token" onclick="salvarToken()">SALVAR</button>
+  </div>
+  <div class="token-ok" id="tokenOk">
+    <span>✅ Token configurado</span>
+    <button onclick="limparToken()" style="background:none;border:none;color:#555;cursor:pointer;font-size:12px;margin-left:8px">trocar</button>
+  </div>
+</div>
+
+<!-- LAYOUT PRINCIPAL -->
+<div class="main">
+
+  <!-- FILA DE PENDENTES -->
+  <div class="painel-fila">
+    <div class="painel-titulo">
+      <span>⏳ CHECK-INS PENDENTES</span>
+      <span id="countPendentes" style="color:var(--laranja)">0</span>
+    </div>
+    <div id="filaCheckins">
+      <div class="fila-vazia">
+        <p>✅</p>
+        <p>Nenhum check-in pendente</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABELA DE VAGAS -->
+  <div class="painel-tabela">
+    <div class="painel-titulo">
+      <span>📋 TABELA DE VAGAS</span>
+      <span id="tsTabela" style="color:var(--texto-dim);font-size:11px"></span>
+    </div>
+    <div class="table-scroll">
+      <div id="tabelaVagas" class="loading">
+        <div class="spinner"></div>
+        <p>Carregando...</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ============================================================
+  // CONFIGURAÇÃO
+  // ============================================================
+  const GITHUB_USER  = 'fatalzinho';
+  const GITHUB_REPO  = 'vagas-shopee';
+  const VAGAS_JSON   = 'vagas.json';
+  const CHECKIN_JSON = 'checkin.json';
+  const POLL_MS = 6000;
+  // ============================================================
+
+  let githubToken = localStorage.getItem('adminToken') || '';
+  let checkinJsonSha = '';
+
+  // Token UI
+  if (githubToken) {
+    document.getElementById('tokenInput').value = githubToken;
+    document.getElementById('tokenOk').classList.add('ativo');
+  }
+
+  function salvarToken() {
+    const t = document.getElementById('tokenInput').value.trim();
+    if (!t) { toast('⚠️ Digite o token!'); return; }
+    githubToken = t;
+    localStorage.setItem('adminToken', t);
+    document.getElementById('tokenOk').classList.add('ativo');
+    toast('✅ Token salvo!', 'verde');
+  }
+
+  function limparToken() {
+    githubToken = '';
+    localStorage.removeItem('adminToken');
+    document.getElementById('tokenInput').value = '';
+    document.getElementById('tokenOk').classList.remove('ativo');
+  }
+
+  // ---- TOAST ----
+  function toast(msg, tipo = '') {
+    const c = document.getElementById('toastContainer');
+    const el = document.createElement('div');
+    el.className = `toast ${tipo}`;
+    el.textContent = msg;
+    c.appendChild(el);
+    setTimeout(() => {
+      el.classList.add('saindo');
+      setTimeout(() => el.remove(), 300);
+    }, 4000);
+  }
+
+  // ---- FETCH ----
+  async function fetchJson(arquivo) {
+    const url = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${arquivo}?t=${Date.now()}`;
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`${res.status}`);
+    return res.json();
+  }
+
+  async function fetchCheckinComSha() {
+    const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${CHECKIN_JSON}`;
+    const res = await fetch(url, {
+      headers: { Authorization: `token ${githubToken}` }
+    });
+    if (!res.ok) throw new Error(`${res.status}`);
+    const data = await res.json();
+    checkinJsonSha = data.sha;
+    return JSON.parse(atob(data.content.replace(/\n/g, '')));
+  }
+
+  async function salvarCheckinJson(checkins) {
+    if (!githubToken) { toast('⚠️ Configure o token primeiro!', 'erro'); return false; }
+
+    const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${CHECKIN_JSON}`;
+    const conteudo = JSON.stringify({ checkins, lastUpdate: new Date().toISOString() }, null, 2);
+
+    const res = await fetch(url, {
+      method: 'PUT',
+      headers: {
+        Authorization: `token ${githubToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: 'Check-in atualizado via admin',
+        content: btoa(unescape(encodeURIComponent(conteudo))),
+        sha: checkinJsonSha
+      })
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.message || res.status);
+    }
+
+    const data = await res.json();
+    checkinJsonSha = data.content.sha;
+    return true;
+  }
+
+  // ---- CONFIRMAR CHECK-IN ----
+  async function confirmarCheckin(rota, btnEl) {
+    if (!githubToken) { toast('⚠️ Configure o token!', 'erro'); return; }
+
+    const gaiola = document.getElementById(`gaiola-${rota}`).value.trim();
+    const entrada = document.getElementById(`entrada-${rota}`).value;
+    const saida = document.getElementById(`saida-${rota}`).value;
+
+    if (!gaiola) { toast('⚠️ Informe o número da gaiola!'); return; }
+    if (!entrada) { toast('⚠️ Selecione a Entrada!'); return; }
+    if (!saida) { toast('⚠️ Selecione a Saída!'); return; }
+
+    btnEl.classList.add('carregando');
+    btnEl.textContent = '⏳ Salvando...';
+
+    try {
+      const dados = await fetchCheckinComSha();
+      const checkins = dados.checkins || [];
+      const idx = checkins.findIndex(c => c.rota === rota);
+
+      if (idx >= 0) {
+        checkins[idx].status = 'confirmado';
+        checkins[idx].gaiola = gaiola;
+        checkins[idx].entrada = entrada;
+        checkins[idx].saida = saida;
+        checkins[idx].confirmedAt = new Date().toISOString();
+      }
+
+      await salvarCheckinJson(checkins);
+      toast(`✅ ${rota} confirmado!`, 'verde');
+
+      // Remove o card da fila
+      const card = document.getElementById(`card-${rota}`);
+      if (card) {
+        card.style.opacity = '0';
+        card.style.transform = 'translateX(-20px)';
+        card.style.transition = 'all 0.3s';
+        setTimeout(() => card.remove(), 300);
+      }
+
+    } catch (e) {
+      toast(`❌ Erro: ${e.message}`, 'erro');
+      btnEl.classList.remove('carregando');
+      btnEl.textContent = '✓ OK — CONFIRMAR';
+    }
+  }
+
+  async function rejeitarCheckin(rota) {
+    if (!confirm(`Remover check-in de ${rota}?`)) return;
+
+    try {
+      const dados = await fetchCheckinComSha();
+      const checkins = (dados.checkins || []).filter(c => c.rota !== rota);
+      await salvarCheckinJson(checkins);
+      toast(`🗑️ Check-in de ${rota} removido`, '');
+    } catch (e) {
+      toast(`❌ Erro: ${e.message}`, 'erro');
+    }
+  }
+
+  // ---- RENDERIZA FILA ----
+  function renderFila(checkins) {
+    const pendentes = (checkins || []).filter(c => c.status === 'aguardando');
+    const container = document.getElementById('filaCheckins');
+    const badge = document.getElementById('badgePendentes');
+    const count = document.getElementById('countPendentes');
+
+    badge.textContent = `${pendentes.length} pendente${pendentes.length !== 1 ? 's' : ''}`;
+    count.textContent = pendentes.length;
+
+    if (pendentes.length === 0) {
+      container.innerHTML = `<div class="fila-vazia"><p>✅</p><p>Nenhum check-in pendente</p></div>`;
+      return;
+    }
+
+    container.innerHTML = pendentes.map(c => {
+      const ts = c.ts ? new Date(c.ts).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) : '';
+      return `
+        <div class="checkin-card" id="card-${c.rota}">
+          <div class="checkin-card-header">
+            <span class="checkin-nome">${c.nome}</span>
+            <span class="checkin-rota">${c.rota}</span>
+          </div>
+          <div class="checkin-meta">ID: ${c.id} ${ts ? '• ' + ts : ''}</div>
+          <div class="checkin-gaiola-row">
+            <div class="cf-group">
+              <label>Gaiola</label>
+              <input type="text" id="gaiola-${c.rota}" placeholder="Ex: C5" maxlength="5">
+            </div>
+            <div></div>
+          </div>
+          <div class="checkin-form">
+            <div class="cf-group">
+              <label>Entrada</label>
+              <select id="entrada-${c.rota}">
+                <option value="">--</option>
+                <option value="Fundos">Fundos</option>
+                <option value="Frente">Frente</option>
+              </select>
+            </div>
+            <div class="cf-group">
+              <label>Saída</label>
+              <select id="saida-${c.rota}">
+                <option value="">--</option>
+                <option value="Fundos">Fundos</option>
+                <option value="Frente">Frente</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn-ok" id="btnOk-${c.rota}" onclick="confirmarCheckin('${c.rota}', this)">
+            ✓ OK — CONFIRMAR
+          </button>
+          <button class="btn-rejeitar" onclick="rejeitarCheckin('${c.rota}')">
+            Remover da fila
+          </button>
+        </div>`;
+    }).join('');
+  }
+
+  // ---- RENDERIZA TABELA ----
+  function renderTabela(vagas, checkins) {
+    const linhas = vagas.data;
+    const mapaCheckins = {};
+    (checkins || []).forEach(c => { mapaCheckins[c.rota] = c; });
+
+    if (!linhas || linhas.length < 4) {
+      document.getElementById('tabelaVagas').innerHTML =
+        '<div class="loading"><p style="color:#666">Sem dados disponíveis</p></div>';
+      return;
+    }
+
+    let html = `
+      <table>
+        <thead>
+          <tr>
+            <th>Turno</th>
+            <th>Driver ID</th>
+            <th>Rota</th>
+            <th>Vaga</th>
+            <th>Status</th>
+            <th>Entrada</th>
+            <th>Saída</th>
+            <th>Check-in</th>
+          </tr>
+        </thead>
+        <tbody>`;
+
+    linhas.slice(3).forEach(linha => {
+      if (!linha || !linha[2]) return;
+
+      const turno   = linha[0] || '';
+      const driver  = linha[1] || '';
+      const rota    = linha[2] || '';
+      const vaga    = linha[3] || '-';
+      const status  = linha[4] || '';
+      const entrada = linha[5] || '';
+      const saida   = linha[6] || '';
+
+      const c = mapaCheckins[rota];
+      const checkinStatus = c ? c.status : null;
+
+      let statusCls = 'outro';
+      if (status.toLowerCase().includes('carregar')) statusCls = 'carregar';
+      else if (status.toLowerCase().includes('pátio') || status.toLowerCase().includes('patio')) statusCls = 'patio';
+
+      let checkinHtml = '<span style="color:#333">—</span>';
+      if (checkinStatus === 'confirmado') {
+        checkinHtml = `<span style="color:var(--verde);font-size:16px">✅</span>`;
+      } else if (checkinStatus === 'aguardando') {
+        checkinHtml = `<span style="color:var(--amarelo);font-size:16px">⏳</span>`;
+      }
+
+      const entradaHtml = entrada ? `<span class="tag-es">${entrada}</span>` : '<span style="color:#333">—</span>';
+      const saidaHtml   = saida   ? `<span class="tag-es">${saida}</span>`   : '<span style="color:#333">—</span>';
+
+      html += `
+        <tr>
+          <td>${turno}</td>
+          <td style="color:var(--texto-dim);font-size:12px">${driver}</td>
+          <td><strong style="font-family:'Rajdhani',sans-serif;font-size:15px">${rota}</strong></td>
+          <td><span class="tag-vaga">${vaga}</span></td>
+          <td><span class="tag-status ${statusCls}">${status}</span></td>
+          <td>${entradaHtml}</td>
+          <td>${saidaHtml}</td>
+          <td>${checkinHtml}</td>
+        </tr>`;
+    });
+
+    html += '</tbody></table>';
+    document.getElementById('tabelaVagas').innerHTML = html;
+
+    const agora = new Date(vagas.lastUpdate).toLocaleTimeString('pt-BR');
+    document.getElementById('tsTabela').textContent = `Atualizado ${agora}`;
+  }
+
+  // ---- POLLING ----
+  async function atualizar() {
+    try {
+      const [vagas, checkinData] = await Promise.all([
+        fetchJson(VAGAS_JSON),
+        fetchJson(CHECKIN_JSON).catch(() => ({ checkins: [] }))
+      ]);
+
+      renderFila(checkinData.checkins || []);
+      renderTabela(vagas, checkinData.checkins || []);
+
+      document.getElementById('headerStatus').innerHTML =
+        `<span style="color:var(--verde)">🟢 AO VIVO</span>`;
+
+    } catch (e) {
+      document.getElementById('headerStatus').innerHTML =
+        `<span style="color:#ef4444">⚠️ Erro</span>`;
+      console.error(e);
+    }
+  }
+
+  atualizar();
+  setInterval(atualizar, POLL_MS);
+</script>
+</body>
+</html>
