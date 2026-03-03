@@ -1,4 +1,14 @@
 {
-  "checkins": [],
-  "lastUpdate": "2026-01-01T00:00:00.000Z"
+  "data": [
+    ["", "", "HUB - LPR-18 Maringá", "", "INICIADO", ""],
+    ["TURNO", "Driver", "ROTA", "VAGA", "STATUS", "Check-in feito?"],
+    ["", "", "", "", "", ""],
+    ["AM", 2165448, "A-1", 82, "Carregar", true],
+    ["AM", 2165448, "A-2", 30, "Carregar", true],
+    ["AM", 2165448, "A-3", 14789, "Carregar", true],
+    ["AM", 2165448, "A-4", 50, "Carregar", true],
+    ["AM", 1425, "A-5", 101, "Carregar", true]
+  ],
+  "lastUpdate": "2026-03-03T11:58:30.520Z",
+  "estadoSistema": "INICIADO"
 }
