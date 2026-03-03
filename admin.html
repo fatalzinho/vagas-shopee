@@ -45,9 +45,6 @@
     }
 
     .header h1 span { color: var(--laranja); }
-
-    .header-right { display: flex; align-items: center; gap: 12px; }
-
     .header-status { font-size: 12px; color: var(--texto-dim); }
 
     /* ── SEÇÕES ── */
@@ -55,7 +52,7 @@
       background: var(--card);
       border: 1px solid var(--borda);
       border-radius: 10px;
-      margin: 14px;
+      margin: 12px 14px;
       overflow: hidden;
     }
 
@@ -70,9 +67,9 @@
       display: flex; align-items: center; justify-content: space-between;
     }
 
-    .secao-body { padding: 14px 16px; }
+    .secao-body { padding: 12px 16px; }
 
-    /* ── INPUTS / SELECTS ── */
+    /* ── INPUTS ── */
     .campo-label {
       font-size: 10px; font-weight: 600;
       letter-spacing: 1px; text-transform: uppercase;
@@ -88,7 +85,6 @@
       font-family: 'Noto Sans', sans-serif;
       font-size: 14px;
       appearance: none; -webkit-appearance: none;
-      cursor: pointer;
       transition: border-color .2s;
     }
 
@@ -100,101 +96,53 @@
       font-family: 'Rajdhani', sans-serif;
       font-weight: 700; letter-spacing: 1px;
       transition: all .2s; white-space: nowrap;
+      display: inline-flex; align-items: center; gap: 5px;
     }
 
     .btn-laranja { background: var(--laranja); color: white; }
     .btn-laranja:hover { background: var(--laranja2); }
-
     .btn-verde { background: var(--verde); color: white; }
     .btn-verde:hover { background: #16a34a; }
-
-    .btn-cinza {
-      background: transparent;
-      border: 1px solid var(--borda) !important;
-      color: var(--texto-dim);
-    }
+    .btn-azul { background: var(--azul); color: white; }
+    .btn-azul:hover { background: #2563eb; }
+    .btn-cinza { background: transparent; border: 1px solid var(--borda) !important; color: var(--texto-dim); }
     .btn-cinza:hover { border-color: #555 !important; color: var(--texto); }
+    .btn-amarelo { background: var(--amarelo); color: #111; }
+    .btn-amarelo:hover { background: #d97706; }
 
-    .btn-vermelho { background: #ef4444; color: white; }
-    .btn-vermelho:hover { background: #dc2626; }
-
-    .btn-lg { padding: 10px 20px; font-size: 16px; }
-    .btn-md { padding: 8px 16px; font-size: 14px; }
-    .btn-sm { padding: 6px 12px; font-size: 13px; }
-
-    .btn:disabled { opacity: .4; cursor: not-allowed; }
+    .btn-lg { padding: 10px 18px; font-size: 15px; }
+    .btn-md { padding: 8px 14px; font-size: 14px; }
+    .btn-sm { padding: 5px 10px; font-size: 12px; }
+    .btn:disabled { opacity: .35; cursor: not-allowed; }
 
     /* ── TOKEN ── */
-    .token-row {
-      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-    }
-
+    .token-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
     .token-row input { flex: 1; min-width: 200px; font-family: monospace; font-size: 13px; }
-
-    .token-ok {
-      display: none; align-items: center; gap: 6px;
-      font-size: 12px; color: var(--verde);
-    }
-
+    .token-ok { display: none; align-items: center; gap: 6px; font-size: 12px; color: var(--verde); }
     .token-ok.ativo { display: flex; }
 
-    /* ── GERADOR DE TURNO ── */
-    .gerador-row {
-      display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap;
-    }
-
-    .gerador-grupo { display: flex; flex-direction: column; gap: 4px; }
-
-    .gerador-grupo select { min-width: 70px; }
-
-    .sel-turno { min-width: 90px; }
-    .sel-letra { min-width: 70px; }
-    .sel-num   { min-width: 70px; }
-
-    .separador-texto {
-      font-size: 12px; color: var(--texto-dim);
-      padding-bottom: 10px; white-space: nowrap;
-    }
-
-    .gerador-btns {
-      display: flex; gap: 8px; align-items: flex-end;
-      padding-bottom: 0;
-    }
-
-    /* ── ENTRADA/SAÍDA GLOBAL ── */
-    .es-row {
-      display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap;
-    }
-
+    /* ── ENTRADA/SAÍDA ── */
+    .es-row { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
     .es-grupo { display: flex; flex-direction: column; gap: 4px; }
     .es-grupo select { min-width: 120px; }
 
-    .es-atual {
-      display: flex; align-items: center; gap: 8px;
-      padding: 8px 14px;
-      background: rgba(238,77,45,.08);
-      border: 1px solid rgba(238,77,45,.2);
-      border-radius: 6px;
-      font-size: 13px;
-    }
-
-    .es-tag {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 15px; font-weight: 700;
-      color: var(--laranja);
-    }
+    /* ── GERADOR ── */
+    .gerador-row { display: flex; align-items: flex-end; gap: 10px; flex-wrap: wrap; }
+    .gerador-grupo { display: flex; flex-direction: column; gap: 4px; }
+    .sep { font-size: 12px; color: var(--texto-dim); padding-bottom: 10px; white-space: nowrap; }
+    .sel-turno { min-width: 80px; }
+    .sel-letra { min-width: 68px; }
+    .sel-num   { min-width: 68px; }
 
     /* ── LAYOUT PRINCIPAL ── */
     .main {
       display: grid;
-      grid-template-columns: 300px 1fr;
+      grid-template-columns: 290px 1fr;
       gap: 14px;
       padding: 0 14px 14px;
     }
 
-    @media (max-width: 860px) {
-      .main { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 860px) { .main { grid-template-columns: 1fr; } }
 
     /* ── FILA ── */
     .painel-fila {
@@ -205,11 +153,7 @@
       align-self: start;
     }
 
-    .fila-vazia {
-      padding: 36px 16px; text-align: center;
-      color: var(--texto-dim); font-size: 13px;
-    }
-
+    .fila-vazia { padding: 36px 16px; text-align: center; color: var(--texto-dim); font-size: 13px; }
     .fila-vazia p:first-child { font-size: 28px; margin-bottom: 8px; }
 
     .checkin-card {
@@ -224,64 +168,34 @@
     }
 
     .checkin-card:last-child { border-bottom: none; }
-
-    .card-top {
-      display: flex; justify-content: space-between;
-      align-items: center; margin-bottom: 4px;
-    }
-
+    .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
     .card-nome { font-weight: 600; font-size: 14px; }
-
-    .card-rota {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 18px; font-weight: 700; color: var(--laranja);
-    }
-
+    .card-rota { font-family: 'Rajdhani', sans-serif; font-size: 18px; font-weight: 700; color: var(--laranja); }
     .card-meta { font-size: 11px; color: var(--texto-dim); margin-bottom: 10px; }
 
     .cf-group { margin-bottom: 8px; }
+    .cf-group label { display: block; font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--texto-dim); margin-bottom: 4px; }
+    .cf-group input { width: 100%; background: #0f0f0f; border: 1px solid var(--borda); border-radius: 5px; padding: 7px 10px; color: var(--texto); font-size: 13px; }
 
-    .cf-group label {
-      display: block; font-size: 10px; font-weight: 600;
-      letter-spacing: 1px; text-transform: uppercase;
-      color: var(--texto-dim); margin-bottom: 4px;
-    }
-
-    .cf-group input {
-      width: 100%; background: #0f0f0f;
-      border: 1px solid var(--borda); border-radius: 5px;
-      padding: 7px 10px; color: var(--texto);
-      font-size: 13px;
-    }
-
-    .btn-ok {
+    .btn-ok-card {
       width: 100%; background: var(--verde); border: none; color: white;
       padding: 9px; border-radius: 6px; cursor: pointer;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 15px; font-weight: 700; letter-spacing: 1px;
+      font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 1px;
       transition: all .2s; margin-top: 2px;
     }
 
-    .btn-ok:hover { background: #16a34a; }
-    .btn-ok:disabled { opacity: .4; cursor: not-allowed; }
+    .btn-ok-card:hover { background: #16a34a; }
+    .btn-ok-card:disabled { opacity: .4; cursor: not-allowed; }
 
-    .btn-rejeitar {
-      width: 100%; background: transparent;
-      border: 1px solid #222; color: var(--texto-dim);
-      padding: 6px; border-radius: 6px; cursor: pointer;
-      font-size: 11px; margin-top: 5px; transition: all .2s;
+    .btn-rejeitar-card {
+      width: 100%; background: transparent; border: 1px solid #222; color: var(--texto-dim);
+      padding: 6px; border-radius: 6px; cursor: pointer; font-size: 11px; margin-top: 5px; transition: all .2s;
     }
 
-    .btn-rejeitar:hover { border-color: #ef4444; color: #ef4444; }
+    .btn-rejeitar-card:hover { border-color: #ef4444; color: #ef4444; }
 
     /* ── TABELA ── */
-    .painel-tabela {
-      background: var(--card);
-      border: 1px solid var(--borda);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
+    .painel-tabela { background: var(--card); border: 1px solid var(--borda); border-radius: 10px; overflow: hidden; }
     .table-scroll { overflow-x: auto; }
 
     table { width: 100%; border-collapse: collapse; }
@@ -291,62 +205,100 @@
       font-family: 'Rajdhani', sans-serif;
       font-size: 11px; font-weight: 600;
       letter-spacing: 1.5px; text-transform: uppercase;
-      padding: 10px 12px; text-align: center;
+      padding: 10px 10px; text-align: center;
       border-bottom: 1px solid var(--borda); white-space: nowrap;
       position: sticky; top: 0; z-index: 10;
     }
 
     tbody td {
-      padding: 9px 12px; text-align: center;
+      padding: 8px 10px; text-align: center;
       border-bottom: 1px solid #1a1a1a;
       vertical-align: middle; font-size: 13px;
     }
 
     tbody tr:hover { background: #161616; }
 
-    .tag-vaga {
-      background: #222; color: var(--texto);
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 15px; font-weight: 700;
-      border-radius: 4px; display: inline-block;
-      padding: 2px 8px; min-width: 34px;
+    /* Tags de status */
+    .tag {
+      display: inline-block; border-radius: 4px;
+      padding: 3px 8px; font-size: 11px; font-weight: 600; white-space: nowrap;
     }
 
-    .tag-carregar {
-      background: rgba(34,197,94,.12); color: var(--verde);
-      border: 1px solid rgba(34,197,94,.25);
-      border-radius: 4px; padding: 2px 8px;
-      font-size: 11px; font-weight: 600;
+    .tag-aguardando { background: rgba(102,102,102,.12); color: var(--texto-dim); border: 1px solid var(--borda); }
+    .tag-patio      { background: rgba(59,130,246,.12);  color: var(--azul);      border: 1px solid rgba(59,130,246,.25); }
+    .tag-carregar   { background: rgba(34,197,94,.12);   color: var(--verde);     border: 1px solid rgba(34,197,94,.25); }
+
+    /* Input gaiola inline */
+    .input-gaiola {
+      background: #111; border: 1px solid var(--borda);
+      border-radius: 4px; padding: 5px 8px;
+      color: var(--texto); font-size: 13px; font-family: 'Rajdhani', sans-serif;
+      font-weight: 700; width: 64px; text-align: center;
+      transition: border-color .2s;
     }
 
-    .tag-patio {
-      background: rgba(59,130,246,.12); color: var(--azul);
-      border: 1px solid rgba(59,130,246,.25);
-      border-radius: 4px; padding: 2px 8px;
-      font-size: 11px; font-weight: 600;
+    .input-gaiola:focus { outline: none; border-color: var(--laranja); }
+    .input-gaiola.preenchido { border-color: rgba(34,197,94,.4); color: var(--verde); }
+
+    /* Botão entrar no pátio inline */
+    .btn-patio {
+      background: rgba(59,130,246,.15); border: 1px solid rgba(59,130,246,.3);
+      color: var(--azul); border-radius: 4px; padding: 4px 8px;
+      font-size: 11px; font-weight: 600; cursor: pointer;
+      transition: all .2s; white-space: nowrap;
+      font-family: 'Noto Sans', sans-serif;
     }
 
-    .tag-aguardando {
-      background: rgba(102,102,102,.12); color: var(--texto-dim);
+    .btn-patio:hover { background: rgba(59,130,246,.25); }
+
+    .btn-voltar-patio {
+      background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.2);
+      color: var(--amarelo); border-radius: 4px; padding: 4px 8px;
+      font-size: 11px; font-weight: 600; cursor: pointer;
+      transition: all .2s; white-space: nowrap;
+      font-family: 'Noto Sans', sans-serif;
+    }
+
+    .btn-voltar-patio:hover { background: rgba(245,158,11,.2); }
+
+    /* ── POPUP GAIOLA ── */
+    .popup-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.8); z-index: 1000;
+      align-items: center; justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .popup-overlay.ativo { display: flex; }
+
+    .popup {
+      background: var(--card);
       border: 1px solid var(--borda);
-      border-radius: 4px; padding: 2px 8px;
-      font-size: 11px;
+      border-top: 3px solid var(--laranja);
+      border-radius: 12px; padding: 24px;
+      width: 90%; max-width: 340px;
+      animation: slideUp .25s ease;
     }
 
-    /* select inline na tabela */
-    .sel-status {
-      background: #111; border: 1px solid var(--borda);
-      border-radius: 4px; padding: 4px 6px;
-      color: var(--texto); font-size: 12px;
-      cursor: pointer; min-width: 120px;
+    @keyframes slideUp {
+      from { transform: translateY(16px); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
     }
 
-    .sel-gaiola {
-      background: #111; border: 1px solid var(--borda);
-      border-radius: 4px; padding: 4px 6px;
-      color: var(--texto); font-size: 12px;
-      width: 60px; text-align: center;
+    .popup h3 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 18px; font-weight: 700; letter-spacing: 1px;
+      margin-bottom: 16px;
     }
+
+    .popup h3 span { color: var(--laranja); }
+
+    .popup-field { margin-bottom: 14px; }
+    .popup-field label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--texto-dim); margin-bottom: 5px; }
+    .popup-field input { width: 100%; background: #1e1e1e; border: 1px solid var(--borda); border-radius: 6px; padding: 9px 12px; color: var(--texto); font-family: 'Rajdhani', sans-serif; font-size: 20px; font-weight: 700; text-align: center; }
+    .popup-field input:focus { outline: none; border-color: var(--laranja); }
+
+    .popup-btns { display: flex; gap: 10px; margin-top: 18px; }
 
     /* ── TOAST ── */
     .toast-container {
@@ -372,7 +324,6 @@
 
     .loading { text-align:center; padding:40px; color:var(--texto-dim); }
 
-    /* badge pendentes */
     .badge-num {
       background: var(--laranja); color: white;
       font-family: 'Rajdhani', sans-serif;
@@ -385,12 +336,26 @@
 
 <div class="toast-container" id="toastContainer"></div>
 
+<!-- POPUP GAIOLA -->
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup">
+    <h3>GAIOLA — <span id="popupRota"></span></h3>
+    <div class="popup-field">
+      <label>Número da Gaiola</label>
+      <input type="text" id="popupGaiola" placeholder="Ex: C5" maxlength="6"
+        onkeydown="if(event.key==='Enter') salvarGaiola()">
+    </div>
+    <div class="popup-btns">
+      <button class="btn btn-cinza btn-md" style="flex:1" onclick="fecharPopup()">Cancelar</button>
+      <button class="btn btn-verde btn-md" style="flex:2" onclick="salvarGaiola()">✓ SALVAR — CARREGAR</button>
+    </div>
+  </div>
+</div>
+
 <!-- HEADER -->
 <div class="header">
   <h1>ADMIN <span>GUICHÊ</span></h1>
-  <div class="header-right">
-    <span class="header-status" id="headerStatus">⏳ Conectando...</span>
-  </div>
+  <div class="header-status" id="headerStatus">⏳ Conectando...</div>
 </div>
 
 <!-- TOKEN -->
@@ -401,7 +366,7 @@
       <input type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
       <button class="btn btn-laranja btn-md" onclick="salvarToken()">Salvar</button>
       <div class="token-ok" id="tokenOk">
-        ✅ Token configurado
+        ✅ Configurado
         <button onclick="limparToken()" style="background:none;border:none;color:#555;cursor:pointer;font-size:11px;margin-left:4px">trocar</button>
       </div>
     </div>
@@ -411,8 +376,8 @@
 <!-- ENTRADA/SAÍDA GLOBAL -->
 <div class="secao">
   <div class="secao-titulo">
-    🚪 ENTRADA / SAÍDA — TODOS OS MOTORISTAS
-    <span id="esAtualDisplay" style="display:none;font-size:11px;color:var(--texto-dim)"></span>
+    🚪 ENTRADA / SAÍDA GLOBAL
+    <span id="esAtualLabel" style="font-size:10px;font-weight:400;letter-spacing:0;color:var(--verde)"></span>
   </div>
   <div class="secao-body">
     <div class="es-row">
@@ -442,7 +407,6 @@
   <div class="secao-titulo">⚙️ GERAR TURNO</div>
   <div class="secao-body">
     <div class="gerador-row">
-
       <div class="gerador-grupo">
         <label class="campo-label">Turno</label>
         <select id="selTurno" class="sel-turno">
@@ -452,31 +416,29 @@
         </select>
       </div>
 
-      <span class="separador-texto">De:</span>
+      <span class="sep">De:</span>
 
       <div class="gerador-grupo">
         <label class="campo-label">Letra</label>
         <select id="selLetraInicio" class="sel-letra"></select>
       </div>
-
       <div class="gerador-grupo">
         <label class="campo-label">Até nº</label>
         <select id="selNumInicio" class="sel-num"></select>
       </div>
 
-      <span class="separador-texto">Até:</span>
+      <span class="sep">Até:</span>
 
       <div class="gerador-grupo">
         <label class="campo-label">Letra</label>
         <select id="selLetraFim" class="sel-letra"></select>
       </div>
-
       <div class="gerador-grupo">
         <label class="campo-label">Até nº</label>
         <select id="selNumFim" class="sel-num"></select>
       </div>
 
-      <div class="gerador-btns">
+      <div style="display:flex;gap:8px;align-items:flex-end">
         <button class="btn btn-laranja btn-lg" onclick="gerarTurno()">🚀 GERAR</button>
         <button class="btn btn-cinza btn-lg" onclick="limparTurno()">🗑️ LIMPAR</button>
       </div>
@@ -487,17 +449,14 @@
 <!-- LAYOUT PRINCIPAL -->
 <div class="main">
 
-  <!-- FILA DE CHECK-INS -->
+  <!-- FILA CHECK-INS -->
   <div class="painel-fila">
     <div class="secao-titulo" style="border-radius:0">
       <span>⏳ CHECK-INS PENDENTES</span>
       <span class="badge-num" id="badgePendentes">0</span>
     </div>
     <div id="filaCheckins">
-      <div class="fila-vazia">
-        <p>✅</p>
-        <p>Nenhum pendente</p>
-      </div>
+      <div class="fila-vazia"><p>✅</p><p>Nenhum pendente</p></div>
     </div>
   </div>
 
@@ -519,14 +478,15 @@
   const GITHUB_USER = 'fatalzinho';
   const GITHUB_REPO = 'vagas-shopee';
   const VAGAS_JSON  = 'vagas.json';
-  const POLL_MS     = 6000;
+  const POLL_MS     = 7000;
+  const LETRAS      = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
-  let githubToken = localStorage.getItem('adminToken') || '';
-  let vagasSha    = '';
-  let vagasCache  = null; // último JSON lido
+  let githubToken  = localStorage.getItem('adminToken') || '';
+  let vagasSha     = '';
+  let rotaPopup    = '';   // rota que abriu o popup de gaiola
+  let salvando     = false; // evita chamadas simultâneas
 
-  // Preenche selects de letra e número
-  const LETRAS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  // Preenche selects de letra/número
   LETRAS.forEach(l => {
     ['selLetraInicio','selLetraFim'].forEach(id => {
       const o = document.createElement('option');
@@ -543,10 +503,10 @@
     });
   }
 
-  // Defaults
-  document.getElementById('selLetraFim').value = 'D';
+  // Defaults razoáveis
+  document.getElementById('selLetraFim').value  = 'D';
   document.getElementById('selNumInicio').value = '28';
-  document.getElementById('selNumFim').value = '10';
+  document.getElementById('selNumFim').value    = '10';
 
   // Token
   if (githubToken) {
@@ -572,14 +532,14 @@
 
   // ── TOAST ──
   function toast(msg, tipo='') {
-    const c  = document.getElementById('toastContainer');
+    const c = document.getElementById('toastContainer');
     const el = document.createElement('div');
     el.className = `toast ${tipo}`; el.textContent = msg;
     c.appendChild(el);
     setTimeout(() => { el.classList.add('saindo'); setTimeout(() => el.remove(), 300); }, 4000);
   }
 
-  // ── FETCH ──
+  // ── API GITHUB ──
   async function fetchJson(arq) {
     const url = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${arq}?t=${Date.now()}`;
     const r = await fetch(url, { cache: 'no-store' });
@@ -610,8 +570,8 @@
       })
     });
     if (!r.ok) { const e = await r.json(); throw new Error(e.message || r.status); }
-    const data = await r.json();
-    vagasSha = data.content.sha;
+    const res = await r.json();
+    vagasSha = res.content.sha;
     return true;
   }
 
@@ -621,7 +581,6 @@
     const entrada = document.getElementById('selEntrada').value;
     const saida   = document.getElementById('selSaida').value;
     if (!entrada || !saida) { toast('⚠️ Selecione Entrada e Saída!'); return; }
-
     try {
       const dados = await fetchVagasComSha();
       dados.entrada    = entrada;
@@ -629,18 +588,8 @@
       dados.lastUpdate = new Date().toISOString();
       await salvarVagasJson(dados);
       toast(`✅ Entrada: ${entrada} | Saída: ${saida}`, 'verde');
-      atualizarEsDisplay(entrada, saida);
-    } catch(e) { toast(`❌ Erro: ${e.message}`, 'erro'); }
-  }
-
-  function atualizarEsDisplay(entrada, saida) {
-    const el = document.getElementById('esAtualDisplay');
-    if (entrada && saida) {
-      el.textContent = `Atual → Entrada: ${entrada} | Saída: ${saida}`;
-      el.style.display = 'inline';
-    } else {
-      el.style.display = 'none';
-    }
+      document.getElementById('esAtualLabel').textContent = `✅ Entrada: ${entrada} | Saída: ${saida}`;
+    } catch(e) { toast(`❌ ${e.message}`, 'erro'); }
   }
 
   // ── GERAR TURNO ──
@@ -648,23 +597,21 @@
     if (!githubToken) { toast('⚠️ Configure o token!', 'erro'); return; }
 
     const turno      = document.getElementById('selTurno').value;
-    const letraInicio = document.getElementById('selLetraInicio').value;
-    const numInicio  = parseInt(document.getElementById('selNumInicio').value);
+    const letraIni   = document.getElementById('selLetraInicio').value;
+    const numIni     = parseInt(document.getElementById('selNumInicio').value);
     const letraFim   = document.getElementById('selLetraFim').value;
     const numFim     = parseInt(document.getElementById('selNumFim').value);
 
-    const idxInicio = LETRAS.indexOf(letraInicio);
-    const idxFim    = LETRAS.indexOf(letraFim);
+    const idxIni = LETRAS.indexOf(letraIni);
+    const idxFim = LETRAS.indexOf(letraFim);
 
-    if (idxFim < idxInicio) { toast('⚠️ Letra final deve ser >= letra inicial!'); return; }
+    if (idxFim < idxIni) { toast('⚠️ Letra final deve ser >= letra inicial!'); return; }
+    if (!confirm(`Gerar turno ${turno}: ${letraIni}1 até ${letraFim}${numFim}?\nIsso substituirá a tabela atual!`)) return;
 
-    if (!confirm(`Gerar turno ${turno}: ${letraInicio}-1 até ${letraFim}-${numFim}?\n\nIsso vai substituir a tabela atual!`)) return;
-
-    // Monta linhas
     const linhas = [];
-    for (let i = idxInicio; i <= idxFim; i++) {
-      const letra   = LETRAS[i];
-      const maxNum  = (i === idxFim) ? numFim : numInicio;
+    for (let i = idxIni; i <= idxFim; i++) {
+      const letra  = LETRAS[i];
+      const maxNum = (i === idxFim) ? numFim : numIni;
       for (let n = 1; n <= maxNum; n++) {
         linhas.push([turno, '', `${letra}-${n}`, '', 'Aguardando', false]);
       }
@@ -672,28 +619,23 @@
 
     try {
       const dados = await fetchVagasComSha();
-
-      // Mantém cabeçalho (primeiras 3 linhas) ou cria novo
-      const cabecalho = [
-        ['', '', `HUB - LPR-18 Maringá`, '', turno, ''],
+      dados.data = [
+        ['', '', 'HUB - LPR-18 Maringá', '', turno, ''],
         ['TURNO', 'Driver', 'ROTA', 'VAGA', 'STATUS', 'Check-in feito?'],
-        ['', '', '', '', '', '']
+        ['', '', '', '', '', ''],
+        ...linhas
       ];
-
-      dados.data        = [...cabecalho, ...linhas];
-      dados.lastUpdate  = new Date().toISOString();
+      dados.lastUpdate    = new Date().toISOString();
       dados.estadoSistema = `${turno}_ATIVO`;
-
       await salvarVagasJson(dados);
-      toast(`✅ Turno ${turno} gerado com ${linhas.length} rotas!`, 'verde');
-    } catch(e) { toast(`❌ Erro: ${e.message}`, 'erro'); }
+      toast(`✅ Turno ${turno} gerado — ${linhas.length} rotas!`, 'verde');
+    } catch(e) { toast(`❌ ${e.message}`, 'erro'); }
   }
 
   // ── LIMPAR TURNO ──
   async function limparTurno() {
     if (!githubToken) { toast('⚠️ Configure o token!', 'erro'); return; }
     if (!confirm('Limpar toda a tabela atual?')) return;
-
     try {
       const dados = await fetchVagasComSha();
       dados.data = [
@@ -705,28 +647,97 @@
       dados.estadoSistema = 'AGUARDANDO';
       await salvarVagasJson(dados);
       toast('🗑️ Tabela limpa!', 'verde');
-    } catch(e) { toast(`❌ Erro: ${e.message}`, 'erro'); }
+    } catch(e) { toast(`❌ ${e.message}`, 'erro'); }
+  }
+
+  // ── POPUP GAIOLA ──
+  function abrirPopupGaiola(rota, gaiola) {
+    rotaPopup = rota;
+    document.getElementById('popupRota').textContent  = rota;
+    document.getElementById('popupGaiola').value      = gaiola || '';
+    document.getElementById('popupOverlay').classList.add('ativo');
+    setTimeout(() => document.getElementById('popupGaiola').focus(), 100);
+  }
+
+  function fecharPopup() {
+    document.getElementById('popupOverlay').classList.remove('ativo');
+    rotaPopup = '';
+  }
+
+  async function salvarGaiola() {
+    if (!rotaPopup) return;
+    if (salvando)  return;
+
+    const gaiola = document.getElementById('popupGaiola').value.trim();
+
+    // Se vazio, muda pra "Entrar no pátio" (motorista desceu, vaga não pronta)
+    const novoStatus = gaiola ? 'Carregar' : 'Entrar no pátio';
+
+    salvando = true;
+    try {
+      const dados  = await fetchVagasComSha();
+      const linhas = dados.data || [];
+      const idx    = linhas.findIndex((l, i) => i >= 3 && l[2] === rotaPopup);
+      if (idx >= 0) {
+        linhas[idx][3] = gaiola;      // vaga/gaiola
+        linhas[idx][4] = novoStatus;  // status automático
+      }
+      dados.data       = linhas;
+      dados.lastUpdate = new Date().toISOString();
+      await salvarVagasJson(dados);
+
+      const msg = gaiola
+        ? `✅ ${rotaPopup} → Gaiola ${gaiola} — Carregar!`
+        : `✅ ${rotaPopup} → Entrar no pátio`;
+      toast(msg, 'verde');
+      fecharPopup();
+    } catch(e) {
+      toast(`❌ ${e.message}`, 'erro');
+    } finally {
+      salvando = false;
+    }
+  }
+
+  // ── MUDAR STATUS MANUAL (Aguardando ↔ Entrar no pátio) ──
+  async function alterarStatus(rota, novoStatus) {
+    if (!githubToken) { toast('⚠️ Configure o token!', 'erro'); return; }
+    if (salvando) return;
+    salvando = true;
+    try {
+      const dados  = await fetchVagasComSha();
+      const linhas = dados.data || [];
+      const idx    = linhas.findIndex((l, i) => i >= 3 && l[2] === rota);
+      if (idx >= 0) linhas[idx][4] = novoStatus;
+      dados.data       = linhas;
+      dados.lastUpdate = new Date().toISOString();
+      await salvarVagasJson(dados);
+      toast(`✅ ${rota} → ${novoStatus}`, 'verde');
+    } catch(e) {
+      toast(`❌ ${e.message}`, 'erro');
+    } finally {
+      salvando = false;
+    }
   }
 
   // ── CONFIRMAR CHECK-IN ──
   async function confirmarCheckin(rota, btnEl) {
     if (!githubToken) { toast('⚠️ Configure o token!', 'erro'); return; }
-    const gaiola = document.getElementById(`gaiola-${rota}`).value.trim();
+    if (salvando) return;
+    const gaiola = document.getElementById(`gaiola-card-${rota}`).value.trim();
     if (!gaiola) { toast('⚠️ Informe a gaiola!'); return; }
 
     btnEl.disabled = true; btnEl.textContent = '⏳...';
+    salvando = true;
 
     try {
       const dados  = await fetchVagasComSha();
       const linhas = dados.data || [];
-
-      // Acha a linha da rota (índice 2 = rota)
-      const idx = linhas.findIndex((l, i) => i >= 3 && l[2] === rota);
+      const idx    = linhas.findIndex((l, i) => i >= 3 && l[2] === rota);
       if (idx >= 0) {
-        linhas[idx][3] = gaiola;  // vaga/gaiola
-        linhas[idx][5] = true;    // check-in = true
+        linhas[idx][3] = gaiola;
+        linhas[idx][4] = 'Carregar';
+        linhas[idx][5] = true;
       }
-
       dados.data       = linhas;
       dados.lastUpdate = new Date().toISOString();
       await salvarVagasJson(dados);
@@ -740,16 +751,15 @@
         setTimeout(() => card.remove(), 300);
       }
     } catch(e) {
-      toast(`❌ Erro: ${e.message}`, 'erro');
+      toast(`❌ ${e.message}`, 'erro');
       btnEl.disabled = false; btnEl.textContent = '✓ OK — CONFIRMAR';
+    } finally {
+      salvando = false;
     }
   }
 
-  async function rejeitarCheckin(rota) {
-    // Só remove do cache local (o check-in fica no localStorage do motorista)
-    // Na tabela, simplesmente deixa como false
+  function rejeitarCheckin(rota) {
     if (!confirm(`Ignorar check-in de ${rota}?`)) return;
-    toast(`Check-in de ${rota} ignorado`);
     const card = document.getElementById(`card-${rota}`);
     if (card) {
       card.style.transition = 'all .3s';
@@ -758,35 +768,16 @@
     }
   }
 
-  // ── ALTERAR STATUS NA TABELA ──
-  async function alterarStatus(rota, novoStatus) {
-    if (!githubToken) { toast('⚠️ Configure o token!', 'erro'); return; }
-    try {
-      const dados  = await fetchVagasComSha();
-      const linhas = dados.data || [];
-      const idx    = linhas.findIndex((l, i) => i >= 3 && l[2] === rota);
-      if (idx >= 0) linhas[idx][4] = novoStatus;
-      dados.data       = linhas;
-      dados.lastUpdate = new Date().toISOString();
-      await salvarVagasJson(dados);
-      toast(`✅ ${rota} → ${novoStatus}`, 'verde');
-    } catch(e) { toast(`❌ Erro: ${e.message}`, 'erro'); }
-  }
-
   // ── RENDERIZA FILA ──
-  // Por enquanto a fila vem do localStorage do admin (simulação)
-  // Quando o motorista fizer check-in pelo site, precisará de solução de backend
-  // TODO: resolver comunicação motorista → admin
   function renderFila(pendentes) {
-    const container = document.getElementById('filaCheckins');
     document.getElementById('badgePendentes').textContent = pendentes.length;
-
     if (!pendentes.length) {
-      container.innerHTML = `<div class="fila-vazia"><p>✅</p><p>Nenhum pendente</p></div>`;
+      document.getElementById('filaCheckins').innerHTML =
+        `<div class="fila-vazia"><p>✅</p><p>Nenhum pendente</p></div>`;
       return;
     }
 
-    container.innerHTML = pendentes.map(c => {
+    document.getElementById('filaCheckins').innerHTML = pendentes.map(c => {
       const ts = c.ts
         ? new Date(c.ts).toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' })
         : '';
@@ -799,14 +790,12 @@
           <div class="card-meta">ID: ${c.id}${ts ? ' • ' + ts : ''}</div>
           <div class="cf-group">
             <label>Gaiola</label>
-            <input type="text" id="gaiola-${c.rota}" placeholder="Ex: C5" maxlength="6">
+            <input type="text" id="gaiola-card-${c.rota}" placeholder="Ex: C5" maxlength="6">
           </div>
-          <button class="btn-ok" onclick="confirmarCheckin('${c.rota}', this)">
+          <button class="btn-ok-card" onclick="confirmarCheckin('${c.rota}', this)">
             ✓ OK — CONFIRMAR
           </button>
-          <button class="btn-rejeitar" onclick="rejeitarCheckin('${c.rota}')">
-            Ignorar
-          </button>
+          <button class="btn-rejeitar-card" onclick="rejeitarCheckin('${c.rota}')">Ignorar</button>
         </div>`;
     }).join('');
   }
@@ -817,44 +806,59 @@
 
     if (!linhas || linhas.length < 4) {
       document.getElementById('tabelaVagas').innerHTML =
-        '<div class="loading"><p style="color:#444">Sem dados — gere um turno</p></div>';
+        '<div class="loading"><p style="color:#444">Sem dados — gere um turno acima</p></div>';
       return;
     }
 
     let html = `<table><thead><tr>
       <th>Turno</th><th>Driver</th><th>Rota</th>
-      <th>Vaga</th><th>Status</th><th>Check-in</th>
+      <th>Gaiola</th><th>Status</th><th>Check-in</th>
     </tr></thead><tbody>`;
 
     linhas.slice(3).forEach(linha => {
       if (!linha || !linha[2]) return;
 
-      const turno  = linha[0] || '';
-      const driver = linha[1] || '';
-      const rota   = linha[2] || '';
-      const vaga   = linha[3] || '';
-      const status = linha[4] || '';
+      const turno   = linha[0] || '';
+      const driver  = linha[1] || '';
+      const rota    = linha[2] || '';
+      const gaiola  = linha[3] || '';
+      const status  = linha[4] || 'Aguardando';
       const checkin = linha[5];
 
+      // Tag de status
+      let tagCls = 'tag-aguardando';
+      if (status === 'Carregar')        tagCls = 'tag-carregar';
+      else if (status === 'Entrar no pátio') tagCls = 'tag-patio';
+
+      // Check-in
       let checkinHtml = '<span style="color:#333">—</span>';
       if      (checkin === true  || checkin === 'TRUE')  checkinHtml = '✅';
       else if (checkin === false || checkin === 'FALSE') checkinHtml = '❌';
+
+      // Botão de ação de status
+      let btnStatusHtml = '';
+      if (status === 'Aguardando') {
+        btnStatusHtml = `<button class="btn-patio" onclick="alterarStatus('${rota}','Entrar no pátio')">▶ Chamar</button>`;
+      } else if (status === 'Entrar no pátio') {
+        btnStatusHtml = `<button class="btn-voltar-patio" onclick="alterarStatus('${rota}','Aguardando')">↩ Aguardar</button>`;
+      } else if (status === 'Carregar') {
+        btnStatusHtml = `<button class="btn-voltar-patio" onclick="alterarStatus('${rota}','Entrar no pátio')">↩ Pátio</button>`;
+      }
 
       html += `<tr>
         <td>${turno}</td>
         <td style="font-size:11px;color:var(--texto-dim)">${driver}</td>
         <td><strong style="font-family:'Rajdhani',sans-serif;font-size:14px">${rota}</strong></td>
         <td>
-          <input class="sel-gaiola" type="text" value="${vaga}"
-            onchange="alterarGaiola('${rota}', this.value)"
-            placeholder="—">
+          <input class="input-gaiola ${gaiola ? 'preenchido' : ''}"
+            type="text" value="${gaiola}"
+            placeholder="—"
+            onclick="abrirPopupGaiola('${rota}','${gaiola}')"
+            readonly>
         </td>
         <td>
-          <select class="sel-status" onchange="alterarStatus('${rota}', this.value)">
-            <option value="Aguardando"   ${status==='Aguardando'  ?'selected':''}>Aguardando</option>
-            <option value="Entrar no pátio" ${status==='Entrar no pátio'?'selected':''}>Entrar no pátio</option>
-            <option value="Carregar"     ${status==='Carregar'    ?'selected':''}>Carregar</option>
-          </select>
+          <span class="tag ${tagCls}" style="margin-right:4px">${status}</span>
+          ${btnStatusHtml}
         </td>
         <td style="font-size:16px">${checkinHtml}</td>
       </tr>`;
@@ -866,39 +870,20 @@
       new Date(vagas.lastUpdate).toLocaleTimeString('pt-BR');
   }
 
-  // Altera gaiola direto na tabela
-  async function alterarGaiola(rota, valor) {
-    if (!githubToken) return;
-    try {
-      const dados  = await fetchVagasComSha();
-      const linhas = dados.data || [];
-      const idx    = linhas.findIndex((l, i) => i >= 3 && l[2] === rota);
-      if (idx >= 0) linhas[idx][3] = valor;
-      dados.data       = linhas;
-      dados.lastUpdate = new Date().toISOString();
-      await salvarVagasJson(dados);
-      toast(`✅ Gaiola ${rota} → ${valor}`, 'verde');
-    } catch(e) { toast(`❌ Erro: ${e.message}`, 'erro'); }
-  }
-
   // ── POLLING ──
   async function atualizar() {
     try {
       const vagas = await fetchJson(VAGAS_JSON);
-      vagasCache  = vagas;
 
       renderTabela(vagas);
+      renderFila([]); // TODO: fila real quando resolver comunicação motorista→admin
 
-      // Entrada/saída atual
       if (vagas.entrada) {
         document.getElementById('selEntrada').value = vagas.entrada;
         document.getElementById('selSaida').value   = vagas.saida || '';
-        atualizarEsDisplay(vagas.entrada, vagas.saida);
+        document.getElementById('esAtualLabel').textContent =
+          `✅ Entrada: ${vagas.entrada} | Saída: ${vagas.saida}`;
       }
-
-      // Fila: por enquanto vazia até resolver comunicação motorista→admin
-      // TODO: quando tiver solução de fila, buscar aqui
-      renderFila([]);
 
       document.getElementById('headerStatus').innerHTML =
         `<span style="color:var(--verde)">🟢 AO VIVO</span> • ${new Date(vagas.lastUpdate).toLocaleTimeString('pt-BR')}`;
