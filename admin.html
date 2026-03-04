@@ -565,7 +565,7 @@
       headers: { Authorization: `token ${githubToken}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         message: 'Admin: atualiza vagas.json',
-        content: btoa(unescape(encodeURIComponent(body))),
+        content: btoa(String.fromCharCode(...new TextEncoder().encode(body))),
         sha: vagasSha
       })
     });
@@ -670,8 +670,8 @@
 
     const gaiola = document.getElementById('popupGaiola').value.trim();
 
-    // Se vazio, muda pra "Entrar no pátio" (motorista desceu, vaga não pronta)
-    const novoStatus = gaiola ? 'Carregar' : 'Entrar no pátio';
+    // Se vazio, muda pra "Entrar no Patio" (motorista desceu, vaga não pronta)
+    const novoStatus = gaiola ? 'Carregar' : 'Entrar no Patio';
 
     salvando = true;
     try {
@@ -688,7 +688,7 @@
 
       const msg = gaiola
         ? `✅ ${rotaPopup} → Gaiola ${gaiola} — Carregar!`
-        : `✅ ${rotaPopup} → Entrar no pátio`;
+        : `✅ ${rotaPopup} → Entrar no Patio`;
       toast(msg, 'verde');
       fecharPopup();
     } catch(e) {
@@ -698,7 +698,7 @@
     }
   }
 
-  // ── MUDAR STATUS MANUAL (Aguardando ↔ Entrar no pátio) ──
+  // ── MUDAR STATUS MANUAL (Aguardando ↔ Entrar no Patio) ──
   async function alterarStatus(rota, novoStatus) {
     if (!githubToken) { toast('⚠️ Configure o token!', 'erro'); return; }
     if (salvando) return;
@@ -828,7 +828,7 @@
       // Tag de status
       let tagCls = 'tag-aguardando';
       if (status === 'Carregar')        tagCls = 'tag-carregar';
-      else if (status === 'Entrar no pátio') tagCls = 'tag-patio';
+      else if (status === 'Entrar no Patio') tagCls = 'tag-patio';
 
       // Check-in
       let checkinHtml = '<span style="color:#333">—</span>';
@@ -838,11 +838,11 @@
       // Botão de ação de status
       let btnStatusHtml = '';
       if (status === 'Aguardando') {
-        btnStatusHtml = `<button class="btn-patio" onclick="alterarStatus('${rota}','Entrar no pátio')">▶ Chamar</button>`;
-      } else if (status === 'Entrar no pátio') {
+        btnStatusHtml = `<button class="btn-patio" onclick="alterarStatus('${rota}','Entrar no Patio')">▶ Chamar</button>`;
+      } else if (status === 'Entrar no Patio') {
         btnStatusHtml = `<button class="btn-voltar-patio" onclick="alterarStatus('${rota}','Aguardando')">↩ Aguardar</button>`;
       } else if (status === 'Carregar') {
-        btnStatusHtml = `<button class="btn-voltar-patio" onclick="alterarStatus('${rota}','Entrar no pátio')">↩ Pátio</button>`;
+        btnStatusHtml = `<button class="btn-voltar-patio" onclick="alterarStatus('${rota}','Entrar no Patio')">↩ Pátio</button>`;
       }
 
       html += `<tr>
