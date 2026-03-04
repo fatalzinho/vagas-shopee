@@ -4,24 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vagas Guichê</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-
 <style>
 :root {
   --laranja: #EE4D2D;
-  --laranja2: #ff6b47;
-
   --bg: #f4f6f9;
   --card: #ffffff;
   --borda: #e5e7eb;
-
   --texto: #1a1a1a;
   --texto-dim: #6b7280;
-
   --verde: #16a34a;
   --azul: #2563eb;
-  --amarelo: #d97706;
 }
 
 body.dark {
@@ -32,245 +25,267 @@ body.dark {
   --texto-dim: #94a3b8;
 }
 
-* {
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+* { margin:0; padding:0; box-sizing:border-box; }
 
 body {
   background: var(--bg);
   color: var(--texto);
   font-family: 'Noto Sans', sans-serif;
-  min-height:100vh;
+  min-height: 100vh;
   transition: background .3s, color .3s;
 }
 
-/* ================= HEADER ================= */
-
+/* ── HEADER ── */
 .header {
   background: var(--card);
   border-bottom: 2px solid var(--laranja);
-  padding:14px 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  position:sticky;
-  top:0;
-  z-index:100;
-  box-shadow:0 4px 20px rgba(0,0,0,.08);
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 4px 20px rgba(0,0,0,.08);
 }
 
-.header-logo {
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
+.header-logo { display: flex; align-items: center; gap: 10px; }
 
 .dot {
-  width:10px;
-  height:10px;
-  background:var(--laranja);
-  border-radius:50%;
-  box-shadow:0 0 10px var(--laranja);
-  animation:pulse 2s infinite;
+  width: 10px; height: 10px;
+  background: var(--laranja); border-radius: 50%;
+  box-shadow: 0 0 10px var(--laranja);
+  animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
-  0%,100%{opacity:1;transform:scale(1);}
-  50%{opacity:.5;transform:scale(.8);}
+  0%,100%{ opacity:1; transform:scale(1); }
+  50%{ opacity:.5; transform:scale(.8); }
 }
 
 .header-logo h1 {
-  font-family:'Rajdhani',sans-serif;
-  font-size:22px;
-  font-weight:700;
-  letter-spacing:2px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 22px; font-weight: 700; letter-spacing: 2px;
 }
 
-.header-logo span {
-  color:var(--laranja);
-}
-
-.header-right {
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
-
-.header-status {
-  font-size:12px;
-  color:var(--texto-dim);
-  text-align:right;
-}
-
-.header-status strong {
-  display:block;
-  color:var(--verde);
-  font-size:11px;
-}
+.header-logo span { color: var(--laranja); }
+.header-right { display: flex; align-items: center; gap: 12px; }
+.header-status { font-size: 12px; color: var(--texto-dim); text-align: right; }
+.header-status strong { display: block; color: var(--verde); font-size: 11px; }
 
 .btn-theme {
-  background:transparent;
-  border:1px solid var(--borda);
-  color:var(--texto);
-  padding:6px 10px;
-  border-radius:8px;
-  cursor:pointer;
-  font-size:16px;
-  transition:all .2s;
+  background: transparent; border: 1px solid var(--borda);
+  color: var(--texto); padding: 6px 10px; border-radius: 8px;
+  cursor: pointer; font-size: 16px; transition: all .2s;
 }
+.btn-theme:hover { background: var(--laranja); color: white; border-color: var(--laranja); }
 
-.btn-theme:hover {
-  background:var(--laranja);
-  color:white;
-  border-color:var(--laranja);
-}
-
-/* ================= CONFIG BAR ================= */
-
+/* ── CONFIG BAR ── */
 .config-bar {
-  background:var(--card);
-  border-bottom:1px solid var(--borda);
-  padding:14px 20px;
+  background: var(--card);
+  border-bottom: 1px solid var(--borda);
+  padding: 12px 16px;
 }
 
-.config-linha1 {
-  display:flex;
-  gap:8px;
+.config-linha1 { display: flex; gap: 8px; align-items: center; }
+
+.config-bar input[type="text"] {
+  flex: 1;
+  background: var(--bg); border: 1px solid var(--borda);
+  border-radius: 8px; padding: 8px 10px;
+  color: var(--texto); font-size: 14px;
+  font-family: 'Noto Sans', sans-serif;
 }
 
-input, select {
-  background:var(--bg);
-  border:1px solid var(--borda);
-  border-radius:8px;
-  padding:8px 10px;
-  color:var(--texto);
-  font-size:14px;
+.config-bar select {
+  background: var(--bg); border: 1px solid var(--borda);
+  border-radius: 8px; padding: 8px 4px;
+  color: var(--texto); font-size: 14px;
+  appearance: none; text-align: center;
+  font-family: 'Noto Sans', sans-serif;
 }
 
-input:focus, select:focus {
-  outline:none;
-  border-color:var(--laranja);
+.config-bar input:focus, .config-bar select:focus {
+  outline: none; border-color: var(--laranja);
 }
 
-.sel-letra{width:70px;text-align:center;}
-.sel-num{width:70px;text-align:center;}
+.sel-letra { width: 64px; }
+.sel-num   { width: 64px; }
 
 .btn-notif {
-  background:var(--verde);
-  border:none;
-  color:white;
-  padding:8px 14px;
-  border-radius:8px;
-  font-weight:600;
-  cursor:pointer;
-  transition:.2s;
+  background: var(--verde); border: none; color: white;
+  padding: 8px 14px; border-radius: 8px;
+  font-weight: 600; cursor: pointer; font-size: 14px;
+  transition: .2s; white-space: nowrap;
+  font-family: 'Noto Sans', sans-serif;
+}
+.btn-notif:hover { opacity: .9; }
+.btn-notif.ativo { background: var(--azul); }
+
+#statusNotif {
+  margin-top: 6px; font-size: 13px;
+  color: var(--verde); display: none;
 }
 
-.btn-notif:hover{opacity:.9;}
-
-.btn-notif.ativo{background:var(--azul);}
-
-/* ================= TABELA ================= */
-
-.table-wrapper {
-  padding:20px;
+/* Entrada/Saída */
+.es-bar {
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 8px; font-size: 12px;
+  color: var(--texto-dim); text-transform: uppercase;
+  letter-spacing: .5px;
 }
+
+.es-tag {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 14px; font-weight: 700;
+  background: rgba(238,77,45,.1);
+  border: 1px solid rgba(238,77,45,.3);
+  color: var(--laranja);
+  padding: 2px 10px; border-radius: 6px;
+}
+
+.es-tag.vazio {
+  background: transparent;
+  border-color: var(--borda);
+  color: var(--texto-dim);
+}
+
+/* ── TABELA ── */
+.table-wrapper { padding: 12px 16px 24px; }
 
 table {
-  width:100%;
-  border-collapse:separate;
-  border-spacing:0 8px;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 6px;
 }
 
 th {
-  background:linear-gradient(135deg,#1a5490,#0d3a6b);
-  color:white;
-  padding:12px;
-  font-size:13px;
-  text-transform:uppercase;
+  background: linear-gradient(135deg, #1a5490, #0d3a6b);
+  color: white;
+  padding: 12px 10px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  white-space: nowrap;
+  text-align: center;
 }
 
-body.dark th {
-  background:linear-gradient(135deg,#0f172a,#1e293b);
-}
+body.dark th { background: linear-gradient(135deg, #0f172a, #1e293b); }
+
+th:first-child { border-radius: 8px 0 0 8px; }
+th:last-child  { border-radius: 0 8px 8px 0; }
 
 td {
-  background:var(--card);
-  padding:12px;
-  text-align:center;
-  font-size:14px;
+  background: var(--card);
+  padding: 11px 8px;
+  text-align: center;
+  font-size: 13px;
+  white-space: nowrap;
+  border-bottom: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,.05);
 }
 
-tbody tr td:first-child {border-radius:10px 0 0 10px;}
-tbody tr td:last-child {border-radius:0 10px 10px 0;}
+tbody tr td:first-child { border-radius: 8px 0 0 8px; }
+tbody tr td:last-child  { border-radius: 0 8px 8px 0; }
 
-tbody tr:hover td {
-  transform:scale(1.01);
-  transition:.15s;
-}
+tbody tr:hover td { background: #eaf0f9; }
+body.dark tbody tr:hover td { background: #263548; }
 
-.minha-linha td {
-  outline:2px solid #ff9800;
-  background:#fff3cd;
-}
-
-body.dark .minha-linha td {
-  background:#3f2f00;
-}
+.minha-linha td { background: #fff3cd; }
+.minha-linha td:first-child { border-left: 4px solid #ff9800; }
+body.dark .minha-linha td { background: #3f2f00; }
+.minha-linha:hover td { background: #ffe8a1 !important; }
 
 .vaga-cell {
-  background:#111;
-  color:white;
-  padding:4px 12px;
-  border-radius:6px;
-  font-weight:bold;
-  font-size:18px;
+  background: #222; color: white;
+  padding: 3px 10px; border-radius: 6px;
+  font-weight: bold; font-size: 15px;
+  display: inline-block; min-width: 34px;
 }
 
 .tag-carregar {
-  background:linear-gradient(135deg,#4CAF50,#45a049);
-  color:white;
-  padding:4px 10px;
-  border-radius:6px;
-  font-weight:bold;
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  color: white; padding: 3px 10px;
+  border-radius: 6px; font-weight: bold; font-size: 12px;
 }
 
 .tag-patio {
-  background:linear-gradient(135deg,#2196F3,#1976D2);
-  color:white;
-  padding:4px 10px;
-  border-radius:6px;
-  font-weight:bold;
+  background: linear-gradient(135deg, #2196F3, #1976D2);
+  color: white; padding: 3px 10px;
+  border-radius: 6px; font-weight: bold; font-size: 12px;
 }
 
-/* ================= TRANSIÇÃO SUAVE ================= */
-
-body, .header, .config-bar, td {
-  transition:background .3s,color .3s;
+/* ── TOAST ── */
+.toast-container {
+  position: fixed; top: 14px; right: 14px;
+  z-index: 9999; display: flex; flex-direction: column;
+  gap: 8px; pointer-events: none; max-width: 260px;
 }
 
+.toast {
+  background: #333; color: white;
+  padding: 10px 14px; border-radius: 8px;
+  font-size: 13px; font-weight: 600;
+  animation: slideIn .3s ease; pointer-events: auto;
+  box-shadow: 0 4px 16px rgba(0,0,0,.2);
+  border-left: 3px solid #888;
+}
+
+.toast.vaga  { border-left-color: #4CAF50; background: #1a3320; }
+.toast.patio { border-left-color: #2196F3; background: #0d2137; }
+.toast.saindo { animation: slideOut .3s ease forwards; }
+
+@keyframes slideIn  { from{transform:translateX(300px);opacity:0} to{transform:translateX(0);opacity:1} }
+@keyframes slideOut { from{transform:translateX(0);opacity:1} to{transform:translateX(300px);opacity:0} }
+
+/* ── ALERTA ── */
+.alerta-rota {
+  position: fixed; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  color: white; padding: 36px 52px;
+  border-radius: 20px; font-size: 26px; font-weight: bold;
+  box-shadow: 0 10px 40px rgba(0,0,0,.4);
+  z-index: 10000; text-align: center;
+  animation: popIn .3s ease;
+}
+
+.alerta-rota.patio { background: linear-gradient(135deg, #2196F3, #1976D2); }
+
+@keyframes popIn {
+  from{ transform:translate(-50%,-50%) scale(.8); opacity:0 }
+  to  { transform:translate(-50%,-50%) scale(1);  opacity:1 }
+}
+
+.btn-fechar {
+  position: absolute; top: 12px; right: 12px;
+  background: rgba(255,255,255,.3); border: none; color: white;
+  font-size: 24px; font-weight: bold;
+  width: 36px; height: 36px; border-radius: 50%;
+  cursor: pointer; line-height: 36px;
+}
+.btn-fechar:hover { background: rgba(255,255,255,.5); }
+
+.loading { text-align: center; padding: 40px; color: var(--texto-dim); }
+
+body, .header, .config-bar, td { transition: background .3s, color .3s; }
 </style>
 </head>
-
 <body>
 
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- HEADER -->
 <div class="header">
   <div class="header-logo">
     <div class="dot"></div>
     <h1>VAGAS <span>GUICHÊ</span></h1>
   </div>
-
   <div class="header-right">
-    <div class="header-status" id="headerStatus">
-      <span>⏳ Conectando...</span>
-    </div>
-
+    <div class="header-status" id="headerStatus">⏳ Conectando...</div>
     <button class="btn-theme" onclick="toggleTheme()" id="btnTheme">🌙</button>
   </div>
 </div>
 
+<!-- CONFIG -->
 <div class="config-bar">
   <div class="config-linha1">
     <input type="text" id="nomeInput" placeholder="Seu nome" maxlength="20">
@@ -279,73 +294,65 @@ body, .header, .config-bar, td {
     <button class="btn-notif" id="btnAtivar" onclick="salvar()">🔔 Ativar</button>
   </div>
   <div id="statusNotif"></div>
+  <div class="es-bar">
+    <span>ENTRADA:</span> <span class="es-tag vazio" id="esEntrada">—</span>
+    <span>SAÍDA:</span>   <span class="es-tag vazio" id="esSaida">—</span>
+  </div>
 </div>
 
+<!-- TABELA -->
 <div class="table-wrapper">
-  <div id="conteudo">⏳ Carregando...</div>
+  <div id="conteudo" class="loading">⏳ Carregando...</div>
 </div>
 
 <script>
-
-/* ===== THEME ===== */
-
-function toggleTheme() {
-  const body = document.body;
-  const btn  = document.getElementById('btnTheme');
-
-  body.classList.toggle('dark');
-
-  const dark = body.classList.contains('dark');
-  localStorage.setItem('theme', dark ? 'dark' : 'light');
-  btn.textContent = dark ? '☀️' : '🌙';
-}
-
-(function(){
-  const theme = localStorage.getItem('theme');
-  if(theme === 'dark'){
-    document.body.classList.add('dark');
-    document.getElementById('btnTheme').textContent = '☀️';
+  // ── TEMA ──
+  function toggleTheme() {
+    document.body.classList.toggle('dark');
+    const dark = document.body.classList.contains('dark');
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+    document.getElementById('btnTheme').textContent = dark ? '☀️' : '🌙';
   }
-})();
 
+  (function(){
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+      document.getElementById('btnTheme').textContent = '☀️';
+    }
+  })();
 
+  // ── CONFIG ──
+  const GITHUB_USER = 'fatalzinho';
+  const GITHUB_REPO = 'vagas-shopee';
+  const VAGAS_JSON  = 'vagas.json';
+  const POLL_MS     = 8000;
 
-  const GITHUB_USER  = 'fatalzinho';
-  const GITHUB_REPO  = 'vagas-shopee';
-  const VAGAS_JSON   = 'vagas.json';
-  const CHECKIN_JSON = 'checkin.json';
-  const POLL_MS      = 8000;
+  const _a = "github_pat_11ALMWKTY0G9";
+  const _b = "OjT6yy0nSZ_B19VqwI1RzJi";
+  const _c = "WzE3h3EmW4Q4Tc3LUMITki7";
+  const _d = "Kc2q3SvKI3DZ3YUHPteRDSNm";
+  const READONLY_TOKEN = _a+_b+_c+_d;
 
   // Preenche selects
   'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(l => {
-    ['letraSelect','inputLetra'].forEach(id => {
-      const o = document.createElement('option');
-      o.value = l; o.textContent = l;
-      document.getElementById(id).appendChild(o);
-    });
+    const o = document.createElement('option');
+    o.value = l; o.textContent = l;
+    document.getElementById('letraSelect').appendChild(o);
   });
-  for (let i=1;i<=50;i++) {
-    ['numeroSelect','inputNumero'].forEach(id => {
-      const o = document.createElement('option');
-      o.value = i; o.textContent = i;
-      document.getElementById(id).appendChild(o);
-    });
+  for (let i = 1; i <= 50; i++) {
+    const o = document.createElement('option');
+    o.value = i; o.textContent = i;
+    document.getElementById('numeroSelect').appendChild(o);
   }
 
   let nome = localStorage.getItem('nome') || '';
   let rota = localStorage.getItem('rota') || '';
   let dadosAnteriores = [];
   let primeira = true;
-  let meuCheckin = null;
 
   if (nome) document.getElementById('nomeInput').value = nome;
-  const letraSalva = localStorage.getItem('letra');
-  const numSalvo   = localStorage.getItem('numero');
-  if (letraSalva) document.getElementById('letraSelect').value = letraSalva;
-  if (numSalvo)   document.getElementById('numeroSelect').value = numSalvo;
-
-  const saved = localStorage.getItem('meuCheckin');
-  if (saved) { meuCheckin = JSON.parse(saved); atualizarBotao(); }
+  if (localStorage.getItem('letra'))  document.getElementById('letraSelect').value  = localStorage.getItem('letra');
+  if (localStorage.getItem('numero')) document.getElementById('numeroSelect').value = localStorage.getItem('numero');
 
   if (nome && rota) {
     document.getElementById('btnAtivar').textContent = '✅ Ativo';
@@ -375,7 +382,7 @@ function toggleTheme() {
         await navigator.wakeLock.request('screen');
         document.addEventListener('visibilitychange', async () => {
           if (document.visibilityState === 'visible')
-            await navigator.wakeLock.request('screen').catch(()=>{});
+            await navigator.wakeLock.request('screen').catch(() => {});
         });
       }
     } catch(e) {}
@@ -388,40 +395,6 @@ function toggleTheme() {
     primeira = true;
   }
 
-  function abrirModal() {
-    if (meuCheckin) {
-      document.getElementById('inputId').value   = meuCheckin.id   || '';
-      document.getElementById('inputNome').value = meuCheckin.nome || '';
-      const [l,n] = (meuCheckin.rota||'').split('-');
-      document.getElementById('inputLetra').value  = l || '';
-      document.getElementById('inputNumero').value = n || '';
-    }
-    document.getElementById('modalOverlay').classList.add('ativo');
-  }
-
-  function fecharModal() {
-    document.getElementById('modalOverlay').classList.remove('ativo');
-  }
-
-  function enviarCheckin() {
-    const id    = document.getElementById('inputId').value.trim();
-    const nome2 = document.getElementById('inputNome').value.trim();
-    const letra = document.getElementById('inputLetra').value;
-    const num   = document.getElementById('inputNumero').value;
-
-    if (!id||!nome2||!letra||!num) { toast('⚠️ Preencha todos os campos!'); return; }
-
-    meuCheckin = { id, nome: nome2, rota: `${letra}-${num}`, ts: Date.now() };
-    localStorage.setItem('meuCheckin', JSON.stringify(meuCheckin));
-    fecharModal();
-    atualizarBotao();
-    toast('✅ Check-in enviado! Aguardando confirmação...', 'vaga');
-  }
-
-  function atualizarBotao() {
-    if (meuCheckin) document.getElementById('btnCheckin').textContent = '✏️ ALTERAR';
-  }
-
   function toast(msg, tipo='') {
     const c  = document.getElementById('toastContainer');
     const el = document.createElement('div');
@@ -430,53 +403,52 @@ function toggleTheme() {
     setTimeout(() => { el.classList.add('saindo'); setTimeout(() => el.remove(), 300); }, 4000);
   }
 
-  function alerta(msg) {
+  function alerta(msg, tipo='') {
     const div = document.createElement('div');
-    div.className = 'alerta-rota';
+    div.className = `alerta-rota ${tipo}`;
     const btn = document.createElement('button');
     btn.className = 'btn-fechar'; btn.innerHTML = '×';
     btn.onclick = () => div.remove();
     div.innerHTML = msg; div.appendChild(btn);
     document.body.appendChild(div);
-    setTimeout(() => { if(div.parentNode) div.remove(); }, 10000);
+    setTimeout(() => { if (div.parentNode) div.remove(); }, 10000);
   }
 
   function falar(texto) {
     if (!('speechSynthesis' in window)) return;
     const u = new SpeechSynthesisUtterance(texto);
-    u.lang='pt-BR'; u.rate=0.9; u.pitch=1.2; u.volume=1.0;
+    u.lang = 'pt-BR'; u.rate = 0.9; u.pitch = 1.2; u.volume = 1.0;
     u.onend = () => setTimeout(() => {
       const u2 = new SpeechSynthesisUtterance(texto);
-      u2.lang='pt-BR'; u2.rate=0.9; u2.pitch=1.2;
+      u2.lang = 'pt-BR'; u2.rate = 0.9; u2.pitch = 1.2;
       window.speechSynthesis.speak(u2);
     }, 500);
     window.speechSynthesis.speak(u);
   }
 
   function notificar(tipo, vaga) {
-    const t = tipo === 'patio'
-      ? { voz: `${nome}! Rota ${rota}. Entrar no pátio!`,
-          alerta: `📍 ${nome}!<br>Rota ${rota}<br>ENTRAR NO PÁTIO`,
-          n: [`📍 ${nome}!`, `Rota ${rota} ENTRAR NO PÁTIO`] }
-      : { voz: `${nome}! Rota ${rota}. Vaga ${vaga}. Pode carregar!`,
-          alerta: `🎯 ${nome}!<br>Rota ${rota}<br>VAGA ${vaga}<br>PODE CARREGAR!`,
-          n: [`🎯 ${nome}!`, `Rota ${rota} VAGA ${vaga} PODE CARREGAR!`] };
+    const isPatio  = tipo === 'patio';
+    const voz      = isPatio
+      ? `${nome}! Rota ${rota}. Entrar no patio!`
+      : `${nome}! Rota ${rota}. Vaga ${vaga}. Pode carregar!`;
+    const alertaMsg = isPatio
+      ? `📍 ${nome}!<br>Rota ${rota}<br>ENTRAR NO PATIO`
+      : `🎯 ${nome}!<br>Rota ${rota}<br>VAGA ${vaga}<br>PODE CARREGAR!`;
 
-    falar(t.voz);
+    falar(voz);
+
     if (Notification.permission === 'granted') {
       try {
-        const n = new Notification(t.n[0], { body: t.n[1], tag: `${tipo}-${rota}`, requireInteraction: true });
+        const n = new Notification(isPatio ? `📍 ${nome}!` : `🎯 ${nome}!`, {
+          body: isPatio ? `Rota ${rota} ENTRAR NO PATIO` : `Rota ${rota} VAGA ${vaga} PODE CARREGAR!`,
+          tag: `${tipo}-${rota}`, requireInteraction: true
+        });
         n.onclick = () => { window.focus(); n.close(); };
       } catch(e) {}
     }
-    alerta(t.alerta);
-  }
 
-  const _a = "github_pat_11ALMWKTY0G9";
-  const _b = "OjT6yy0nSZ_B19VqwI1RzJi";
-  const _c = "WzE3h3EmW4Q4Tc3LUMITki7";
-  const _d = "Kc2q3SvKI3DZ3YUHPteRDSNm";
-  const READONLY_TOKEN = _a+_b+_c+_d;
+    alerta(alertaMsg, isPatio ? 'patio' : '');
+  }
 
   async function fetchJson(arq) {
     const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${arq}`;
@@ -498,24 +470,21 @@ function toggleTheme() {
     else         { sEl.textContent = '—';     sEl.classList.add('vazio');   }
   }
 
-  function processar(vagas, checkins) {
+  function processar(vagas) {
     const linhas = vagas.data;
 
     if (!linhas || linhas.length < 4) {
       document.getElementById('conteudo').innerHTML = `
         <div class="loading">
           <p style="font-size:44px;margin-bottom:12px">🌙</p>
-          <p style="font-size:18px;font-weight:bold;color:#aaa">Operações encerradas hoje</p>
-          <p style="font-size:13px;color:#666;margin-top:8px">Sistema retorna amanhã às 4:30 da manhã.</p>
+          <p style="font-size:18px;font-weight:bold">Operações encerradas hoje</p>
+          <p style="font-size:13px;color:#666;margin-top:8px">Sistema retorna amanhã às 4:30.</p>
         </div>`;
       document.getElementById('headerStatus').innerHTML = '🌙 Encerrado';
       return;
     }
 
-
-    // Entrada/saida global vem do vagas.json
     atualizarES(vagas.entrada || '', vagas.saida || '');
-
 
     const novos = [];
     let html = `<table>
@@ -526,7 +495,7 @@ function toggleTheme() {
 
       const turno   = linha[0] || '';
       const r       = linha[2] || '';
-      const v       = linha[3] !== undefined ? linha[3] : '-';
+      const v       = (linha[3] !== undefined && linha[3] !== '') ? linha[3] : '';
       const s       = linha[4] || '';
       const checkin = linha[5];
 
@@ -536,22 +505,20 @@ function toggleTheme() {
 
       if (!primeira && ant) {
         if (s === 'Patio' && ant.status !== 'Patio')
-          toast(`<strong>${r}</strong> → Entrar no pátio`, 'patio');
-        if (v !== '-' && ant.vaga !== String(v))
+          toast(`<strong>${r}</strong> → Entrar no patio`, 'patio');
+        if (v !== '' && ant.vaga !== String(v))
           toast(`<strong>${r}</strong> → Vaga ${v}`, 'vaga');
       }
 
       if (ehMinha && !primeira && ant) {
-        if (s === 'Patio' && ant.status !== 'Patio')
-          notificar('patio');
-        if (v !== '-' && ant.vaga !== String(v))
-          notificar('vaga', v);
+        if (s === 'Patio' && ant.status !== 'Patio') notificar('patio');
+        if (v !== '' && ant.vaga !== String(v))       notificar('vaga', v);
       }
 
       novos.push({ chave, vaga: String(v), status: s });
 
       let cls = '';
-      if (s === 'Carregar') cls = 'tag-carregar';
+      if (s === 'Carregar')   cls = 'tag-carregar';
       else if (s === 'Patio') cls = 'tag-patio';
 
       let checkinHtml = '';
@@ -561,9 +528,9 @@ function toggleTheme() {
       html += `<tr class="${ehMinha ? 'minha-linha' : ''}">
         <td>${turno}</td>
         <td><strong>${r}</strong></td>
-        <td><span class="vaga-cell">${v}</span></td>
+        <td>${v ? `<span class="vaga-cell">${v}</span>` : '—'}</td>
         <td><span class="${cls}">${s}</span></td>
-        <td style="font-size:17px">${checkinHtml}</td>
+        <td style="font-size:16px">${checkinHtml}</td>
       </tr>`;
     });
 
@@ -575,22 +542,19 @@ function toggleTheme() {
     const agora = new Date(vagas.lastUpdate).toLocaleString('pt-BR');
     const et    = vagas.estadoSistema || '';
     let emoji   = '⏸️ Standby';
-    if      (et.includes('ATIVO'))                        emoji = '🟢 Operando';
-    else if (et === 'AGUARDANDO_AM')                      emoji = '⏳ Aguardando AM';
-    else if (et === 'AM_COMPLETO')                        emoji = '☕ Intervalo';
-    else if (et === 'ENCERRADO' || et === 'PM_COMPLETO')  emoji = '🌙 Encerrado';
+    if      (et.includes('ATIVO'))                       emoji = '🟢 Operando';
+    else if (et === 'AGUARDANDO_AM')                     emoji = '⏳ Aguardando AM';
+    else if (et === 'AM_COMPLETO')                       emoji = '☕ Intervalo';
+    else if (et === 'ENCERRADO' || et === 'PM_COMPLETO') emoji = '🌙 Encerrado';
 
     document.getElementById('headerStatus').innerHTML =
-      `<strong>🟢 AO VIVO</strong>${emoji} • ${agora}`;
+      `<strong>🟢 AO VIVO</strong> ${emoji} • ${agora}`;
   }
 
   async function atualizar() {
     try {
-      const [vagas, checkins] = await Promise.all([
-        fetchJson(VAGAS_JSON),
-        fetchJson(CHECKIN_JSON).catch(() => ({ checkins: [] }))
-      ]);
-      processar(vagas, checkins);
+      const vagas = await fetchJson(VAGAS_JSON);
+      processar(vagas);
     } catch(e) {
       document.getElementById('headerStatus').innerHTML =
         `<span style="color:#ef4444">⚠️ Sem conexão</span>`;
