@@ -3,27 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin — Guichê</title>
+<title>Vagas Guichê</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
   --laranja: #EE4D2D;
-  --laranja2: #ff6b47;
   --bg: #f4f6f9;
   --card: #ffffff;
-  --card2: #f0f2f5;
   --borda: #e5e7eb;
   --texto: #1a1a1a;
   --texto-dim: #6b7280;
   --verde: #16a34a;
   --azul: #2563eb;
-  --amarelo: #d97706;
 }
 
 body.dark {
   --bg: #0f172a;
   --card: #1e293b;
-  --card2: #162032;
   --borda: #334155;
   --texto: #f1f5f9;
   --texto-dim: #94a3b8;
@@ -43,24 +39,37 @@ body {
 .header {
   background: var(--card);
   border-bottom: 2px solid var(--laranja);
-  padding: 12px 20px;
-  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   position: sticky; top: 0; z-index: 100;
   box-shadow: 0 4px 20px rgba(0,0,0,.08);
 }
 
 .header-logo { display: flex; align-items: center; gap: 10px; }
 
-.header-logo h1 {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: 20px; font-weight: 700;
-  letter-spacing: 2px; text-transform: uppercase;
+.dot {
+  width: 10px; height: 10px;
+  background: var(--laranja); border-radius: 50%;
+  box-shadow: 0 0 10px var(--laranja);
+  animation: pulse 2s infinite;
 }
 
-.header-logo h1 span { color: var(--laranja); }
+@keyframes pulse {
+  0%,100%{ opacity:1; transform:scale(1); }
+  50%{ opacity:.5; transform:scale(.8); }
+}
 
+.header-logo h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 22px; font-weight: 700; letter-spacing: 2px;
+}
+
+.header-logo span { color: var(--laranja); }
 .header-right { display: flex; align-items: center; gap: 12px; }
-.header-status { font-size: 12px; color: var(--texto-dim); }
+.header-status { font-size: 12px; color: var(--texto-dim); text-align: right; }
+.header-status strong { display: block; color: var(--verde); font-size: 11px; }
 
 .btn-theme {
   background: transparent; border: 1px solid var(--borda);
@@ -69,166 +78,78 @@ body {
 }
 .btn-theme:hover { background: var(--laranja); color: white; border-color: var(--laranja); }
 
-/* ── SEÇÕES ── */
-.secao {
+/* ── CONFIG BAR ── */
+.config-bar {
   background: var(--card);
-  border: 1px solid var(--borda);
-  border-radius: 10px;
-  margin: 12px 14px;
-  overflow: hidden;
-  transition: background .3s;
-}
-
-.secao-titulo {
-  background: var(--card2);
-  padding: 10px 16px;
-  font-family: 'Rajdhani', sans-serif;
-  font-size: 13px; font-weight: 700;
-  letter-spacing: 1.5px; text-transform: uppercase;
-  color: var(--texto-dim);
   border-bottom: 1px solid var(--borda);
-  display: flex; align-items: center; justify-content: space-between;
-  transition: background .3s;
+  padding: 12px 16px;
 }
 
-.secao-body { padding: 12px 16px; }
+.config-linha1 { display: flex; gap: 8px; align-items: center; }
 
-/* ── INPUTS ── */
-.campo-label {
-  font-size: 10px; font-weight: 600;
-  letter-spacing: 1px; text-transform: uppercase;
-  color: var(--texto-dim); margin-bottom: 4px; display: block;
-}
-
-select, input[type="text"], input[type="password"] {
-  background: var(--bg);
-  border: 1px solid var(--borda);
-  border-radius: 6px;
-  padding: 8px 10px;
-  color: var(--texto);
+.config-bar input[type="text"] {
+  flex: 1;
+  background: var(--bg); border: 1px solid var(--borda);
+  border-radius: 8px; padding: 8px 10px;
+  color: var(--texto); font-size: 14px;
   font-family: 'Noto Sans', sans-serif;
-  font-size: 14px;
-  appearance: none;
-  transition: border-color .2s, background .3s;
 }
 
-select:focus, input:focus { outline: none; border-color: var(--laranja); }
+.config-bar select {
+  background: var(--bg); border: 1px solid var(--borda);
+  border-radius: 8px; padding: 8px 4px;
+  color: var(--texto); font-size: 14px;
+  appearance: none; text-align: center;
+  font-family: 'Noto Sans', sans-serif;
+}
 
-/* ── BOTÕES ── */
-.btn {
-  border: none; border-radius: 6px; cursor: pointer;
+.config-bar input:focus, .config-bar select:focus {
+  outline: none; border-color: var(--laranja);
+}
+
+.sel-letra { width: 64px; }
+.sel-num   { width: 64px; }
+
+.btn-notif {
+  background: var(--verde); border: none; color: white;
+  padding: 8px 14px; border-radius: 8px;
+  font-weight: 600; cursor: pointer; font-size: 14px;
+  transition: .2s; white-space: nowrap;
+  font-family: 'Noto Sans', sans-serif;
+}
+.btn-notif:hover { opacity: .9; }
+.btn-notif.ativo { background: var(--azul); }
+
+#statusNotif {
+  margin-top: 6px; font-size: 13px;
+  color: var(--verde); display: none;
+}
+
+/* Entrada/Saída */
+.es-bar {
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 8px; font-size: 12px;
+  color: var(--texto-dim); text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.es-tag {
   font-family: 'Rajdhani', sans-serif;
-  font-weight: 700; letter-spacing: 1px;
-  transition: all .2s; white-space: nowrap;
-  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 14px; font-weight: 700;
+  background: rgba(238,77,45,.1);
+  border: 1px solid rgba(238,77,45,.3);
+  color: var(--laranja);
+  padding: 2px 10px; border-radius: 6px;
 }
 
-.btn-laranja { background: var(--laranja); color: white; }
-.btn-laranja:hover { background: var(--laranja2); }
-.btn-verde { background: var(--verde); color: white; }
-.btn-verde:hover { background: #15803d; }
-.btn-cinza {
+.es-tag.vazio {
   background: transparent;
-  border: 1px solid var(--borda) !important;
+  border-color: var(--borda);
   color: var(--texto-dim);
 }
-.btn-cinza:hover { border-color: #999 !important; color: var(--texto); }
-
-.btn-lg { padding: 10px 18px; font-size: 15px; }
-.btn-md { padding: 8px 14px; font-size: 14px; }
-.btn-sm { padding: 5px 10px; font-size: 12px; }
-.btn:disabled { opacity: .35; cursor: not-allowed; }
-
-/* ── TOKEN ── */
-.token-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.token-row input { flex: 1; min-width: 200px; font-family: monospace; font-size: 13px; }
-.token-ok { display: none; align-items: center; gap: 6px; font-size: 12px; color: var(--verde); }
-.token-ok.ativo { display: flex; }
-
-/* ── ENTRADA/SAÍDA ── */
-.es-row { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
-.es-grupo { display: flex; flex-direction: column; gap: 4px; }
-.es-grupo select { min-width: 120px; }
-#esAtualLabel { font-size: 11px; color: var(--verde); font-weight: 400; letter-spacing: 0; }
-
-/* ── GERADOR ── */
-.gerador-row { display: flex; align-items: flex-end; gap: 10px; flex-wrap: wrap; }
-.gerador-grupo { display: flex; flex-direction: column; gap: 4px; }
-.sep { font-size: 12px; color: var(--texto-dim); padding-bottom: 10px; white-space: nowrap; }
-.sel-turno { min-width: 80px; }
-.sel-letra { min-width: 68px; }
-.sel-num   { min-width: 68px; }
-
-/* ── LAYOUT PRINCIPAL ── */
-.main {
-  display: grid;
-  grid-template-columns: 290px 1fr;
-  gap: 14px;
-  padding: 0 14px 24px;
-}
-
-@media (max-width: 860px) { .main { grid-template-columns: 1fr; } }
-
-/* ── FILA ── */
-.painel-fila {
-  background: var(--card);
-  border: 1px solid var(--borda);
-  border-radius: 10px;
-  overflow: hidden;
-  align-self: start;
-  transition: background .3s;
-}
-
-.fila-vazia { padding: 36px 16px; text-align: center; color: var(--texto-dim); font-size: 13px; }
-.fila-vazia p:first-child { font-size: 28px; margin-bottom: 8px; }
-
-.checkin-card {
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--borda);
-  animation: fadeIn .3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity:0; transform:translateY(-6px); }
-  to   { opacity:1; transform:translateY(0); }
-}
-
-.checkin-card:last-child { border-bottom: none; }
-.card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
-.card-nome { font-weight: 600; font-size: 14px; }
-.card-rota { font-family: 'Rajdhani', sans-serif; font-size: 18px; font-weight: 700; color: var(--laranja); }
-.card-meta { font-size: 11px; color: var(--texto-dim); margin-bottom: 10px; }
-
-.cf-group { margin-bottom: 8px; }
-.cf-group label { display: block; font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--texto-dim); margin-bottom: 4px; }
-.cf-group input { width: 100%; background: var(--bg); border: 1px solid var(--borda); border-radius: 5px; padding: 7px 10px; color: var(--texto); font-size: 13px; }
-
-.btn-ok-card {
-  width: 100%; background: var(--verde); border: none; color: white;
-  padding: 9px; border-radius: 6px; cursor: pointer;
-  font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 700;
-  letter-spacing: 1px; transition: all .2s; margin-top: 2px;
-}
-.btn-ok-card:hover { background: #15803d; }
-.btn-ok-card:disabled { opacity: .4; cursor: not-allowed; }
-
-.btn-rejeitar-card {
-  width: 100%; background: transparent; border: 1px solid var(--borda);
-  color: var(--texto-dim); padding: 6px; border-radius: 6px;
-  cursor: pointer; font-size: 11px; margin-top: 5px; transition: all .2s;
-}
-.btn-rejeitar-card:hover { border-color: #ef4444; color: #ef4444; }
 
 /* ── TABELA ── */
-.painel-tabela {
-  background: var(--card);
-  border: 1px solid var(--borda);
-  border-radius: 10px;
-  overflow: hidden;
-  transition: background .3s;
-}
-
-.table-scroll { overflow-x: auto; padding: 12px; }
+.table-wrapper { padding: 12px 16px 24px; }
 
 table {
   width: 100%;
@@ -254,13 +175,12 @@ th:last-child  { border-radius: 0 8px 8px 0; }
 
 td {
   background: var(--card);
-  padding: 10px 8px;
+  padding: 11px 8px;
   text-align: center;
   font-size: 13px;
   white-space: nowrap;
   border-bottom: none;
-  box-shadow: 0 2px 4px rgba(0,0,0,.04);
-  transition: background .15s;
+  box-shadow: 0 2px 4px rgba(0,0,0,.05);
 }
 
 tbody tr td:first-child { border-radius: 8px 0 0 8px; }
@@ -269,271 +189,120 @@ tbody tr td:last-child  { border-radius: 0 8px 8px 0; }
 tbody tr:hover td { background: #eaf0f9; }
 body.dark tbody tr:hover td { background: #263548; }
 
-/* Tags */
-.tag {
-  display: inline-block; border-radius: 5px;
-  padding: 3px 8px; font-size: 11px; font-weight: 600; white-space: nowrap;
-}
+.minha-linha td { background: #fff3cd; }
+.minha-linha td:first-child { border-left: 4px solid #ff9800; }
+body.dark .minha-linha td { background: #3f2f00; }
+.minha-linha:hover td { background: #ffe8a1 !important; }
 
-.tag-aguardando { background: #f0f0f0; color: #888; border: 1px solid #ddd; }
-body.dark .tag-aguardando { background: #1e293b; color: #64748b; border-color: #334155; }
-
-.tag-patio {
-  background: linear-gradient(135deg, #2196F3, #1976D2);
-  color: white; border: none;
+.vaga-cell {
+  background: #222; color: white;
+  padding: 3px 10px; border-radius: 6px;
+  font-weight: bold; font-size: 15px;
+  display: inline-block; min-width: 34px;
 }
 
 .tag-carregar {
   background: linear-gradient(135deg, #4CAF50, #45a049);
-  color: white; border: none;
+  color: white; padding: 3px 10px;
+  border-radius: 6px; font-weight: bold; font-size: 12px;
 }
 
-/* Input gaiola inline */
-.input-gaiola {
-  background: var(--bg); border: 1px solid var(--borda);
-  border-radius: 4px; padding: 5px 8px;
-  color: var(--texto); font-size: 13px;
-  font-family: 'Rajdhani', sans-serif; font-weight: 700;
-  width: 64px; text-align: center; cursor: pointer;
-  transition: border-color .2s;
+.tag-patio {
+  background: linear-gradient(135deg, #2196F3, #1976D2);
+  color: white; padding: 3px 10px;
+  border-radius: 6px; font-weight: bold; font-size: 12px;
 }
-.input-gaiola:hover { border-color: var(--laranja); }
-.input-gaiola.preenchido { border-color: rgba(76,175,80,.5); color: var(--verde); }
-
-/* Botões de status inline */
-.btn-patio {
-  background: rgba(33,150,243,.12); border: 1px solid rgba(33,150,243,.3);
-  color: #1976D2; border-radius: 4px; padding: 4px 8px;
-  font-size: 11px; font-weight: 600; cursor: pointer;
-  transition: all .2s; white-space: nowrap; font-family: 'Noto Sans', sans-serif;
-}
-.btn-patio:hover { background: rgba(33,150,243,.25); }
-.btn-patio:disabled { opacity: .4; cursor: not-allowed; }
-
-.btn-voltar-patio {
-  background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.2);
-  color: var(--amarelo); border-radius: 4px; padding: 4px 8px;
-  font-size: 11px; font-weight: 600; cursor: pointer;
-  transition: all .2s; white-space: nowrap; font-family: 'Noto Sans', sans-serif;
-}
-.btn-voltar-patio:hover { background: rgba(245,158,11,.2); }
-.btn-voltar-patio:disabled { opacity: .4; cursor: not-allowed; }
-
-/* ── POPUP GAIOLA ── */
-.popup-overlay {
-  display: none; position: fixed; inset: 0;
-  background: rgba(0,0,0,.5); z-index: 1000;
-  align-items: center; justify-content: center;
-  backdrop-filter: blur(4px);
-}
-.popup-overlay.ativo { display: flex; }
-
-.popup {
-  background: var(--card);
-  border: 1px solid var(--borda);
-  border-top: 3px solid var(--laranja);
-  border-radius: 12px; padding: 24px;
-  width: 90%; max-width: 340px;
-  animation: slideUp .25s ease;
-  transition: background .3s;
-}
-
-@keyframes slideUp {
-  from { transform: translateY(16px); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
-}
-
-.popup h3 {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: 18px; font-weight: 700; letter-spacing: 1px; margin-bottom: 16px;
-}
-.popup h3 span { color: var(--laranja); }
-
-.popup-field { margin-bottom: 14px; }
-.popup-field label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--texto-dim); margin-bottom: 5px; }
-.popup-field input {
-  width: 100%; background: var(--bg); border: 1px solid var(--borda);
-  border-radius: 6px; padding: 9px 12px; color: var(--texto);
-  font-family: 'Rajdhani', sans-serif; font-size: 20px; font-weight: 700; text-align: center;
-}
-.popup-field input:focus { outline: none; border-color: var(--laranja); }
-
-.popup-btns { display: flex; gap: 10px; margin-top: 18px; }
 
 /* ── TOAST ── */
 .toast-container {
   position: fixed; top: 14px; right: 14px;
   z-index: 9999; display: flex; flex-direction: column;
-  gap: 8px; pointer-events: none; max-width: 280px;
+  gap: 8px; pointer-events: none; max-width: 260px;
 }
 
 .toast {
-  background: var(--card); border: 1px solid var(--borda);
-  border-left: 3px solid var(--laranja); color: var(--texto);
-  padding: 10px 14px; border-radius: 8px; font-size: 13px;
-  animation: toastIn .3s ease; pointer-events: auto;
-  box-shadow: 0 4px 16px rgba(0,0,0,.12);
-}
-.toast.verde { border-left-color: var(--verde); }
-.toast.erro  { border-left-color: #ef4444; }
-.toast.saindo { animation: toastOut .3s ease forwards; }
-
-@keyframes toastIn  { from{transform:translateX(300px);opacity:0} to{transform:translateX(0);opacity:1} }
-@keyframes toastOut { from{transform:translateX(0);opacity:1} to{transform:translateX(300px);opacity:0} }
-
-.loading { text-align:center; padding:40px; color:var(--texto-dim); }
-
-.badge-num {
-  background: var(--laranja); color: white;
-  font-family: 'Rajdhani', sans-serif;
-  font-size: 12px; font-weight: 700;
-  padding: 2px 8px; border-radius: 20px;
+  background: #333; color: white;
+  padding: 10px 14px; border-radius: 8px;
+  font-size: 13px; font-weight: 600;
+  animation: slideIn .3s ease; pointer-events: auto;
+  box-shadow: 0 4px 16px rgba(0,0,0,.2);
+  border-left: 3px solid #888;
 }
 
-body, .header, .secao, .painel-fila, .painel-tabela, td, select, input {
-  transition: background .3s, color .3s, border-color .3s;
+.toast.vaga  { border-left-color: #4CAF50; background: #1a3320; }
+.toast.patio { border-left-color: #2196F3; background: #0d2137; }
+.toast.saindo { animation: slideOut .3s ease forwards; }
+
+@keyframes slideIn  { from{transform:translateX(300px);opacity:0} to{transform:translateX(0);opacity:1} }
+@keyframes slideOut { from{transform:translateX(0);opacity:1} to{transform:translateX(300px);opacity:0} }
+
+/* ── ALERTA ── */
+.alerta-rota {
+  position: fixed; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  color: white; padding: 36px 52px;
+  border-radius: 20px; font-size: 26px; font-weight: bold;
+  box-shadow: 0 10px 40px rgba(0,0,0,.4);
+  z-index: 10000; text-align: center;
+  animation: popIn .3s ease;
 }
+
+.alerta-rota.patio { background: linear-gradient(135deg, #2196F3, #1976D2); }
+
+@keyframes popIn {
+  from{ transform:translate(-50%,-50%) scale(.8); opacity:0 }
+  to  { transform:translate(-50%,-50%) scale(1);  opacity:1 }
+}
+
+.btn-fechar {
+  position: absolute; top: 12px; right: 12px;
+  background: rgba(255,255,255,.3); border: none; color: white;
+  font-size: 24px; font-weight: bold;
+  width: 36px; height: 36px; border-radius: 50%;
+  cursor: pointer; line-height: 36px;
+}
+.btn-fechar:hover { background: rgba(255,255,255,.5); }
+
+.loading { text-align: center; padding: 40px; color: var(--texto-dim); }
+
+body, .header, .config-bar, td { transition: background .3s, color .3s; }
 </style>
 </head>
 <body>
 
 <div class="toast-container" id="toastContainer"></div>
 
-<!-- POPUP GAIOLA -->
-<div class="popup-overlay" id="popupOverlay">
-  <div class="popup">
-    <h3>GAIOLA — <span id="popupRota"></span></h3>
-    <div class="popup-field">
-      <label>Número da Gaiola</label>
-      <input type="text" id="popupGaiola" placeholder="Ex: C5" maxlength="6"
-        onkeydown="if(event.key==='Enter') salvarGaiola()">
-    </div>
-    <div class="popup-btns">
-      <button class="btn btn-cinza btn-md" style="flex:1" onclick="fecharPopup()">Cancelar</button>
-      <button class="btn btn-verde btn-md" style="flex:2" onclick="salvarGaiola()">✓ SALVAR — CARREGAR</button>
-    </div>
-  </div>
-</div>
-
 <!-- HEADER -->
 <div class="header">
   <div class="header-logo">
-    <h1>ADMIN <span>GUICHÊ</span></h1>
+    <div class="dot"></div>
+    <h1>VAGAS <span>GUICHÊ</span></h1>
   </div>
   <div class="header-right">
-    <span class="header-status" id="headerStatus">⏳ Conectando...</span>
+    <div class="header-status" id="headerStatus">⏳ Conectando...</div>
     <button class="btn-theme" onclick="toggleTheme()" id="btnTheme">🌙</button>
   </div>
 </div>
 
-<!-- TOKEN -->
-<div class="secao">
-  <div class="secao-titulo">🔑 TOKEN GITHUB</div>
-  <div class="secao-body">
-    <div class="token-row">
-      <input type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
-      <button class="btn btn-laranja btn-md" onclick="salvarToken()">Salvar</button>
-      <div class="token-ok" id="tokenOk">
-        ✅ Configurado
-        <button onclick="limparToken()" style="background:none;border:none;color:#aaa;cursor:pointer;font-size:11px;margin-left:4px">trocar</button>
-      </div>
-    </div>
+<!-- CONFIG -->
+<div class="config-bar">
+  <div class="config-linha1">
+    <input type="text" id="nomeInput" placeholder="Seu nome" maxlength="20">
+    <select id="letraSelect" class="sel-letra"><option value="">Letra</option></select>
+    <select id="numeroSelect" class="sel-num"><option value="">Nº</option></select>
+    <button class="btn-notif" id="btnAtivar" onclick="salvar()">🔔 Ativar</button>
+  </div>
+  <div id="statusNotif"></div>
+  <div class="es-bar">
+    <span>ENTRADA:</span> <span class="es-tag vazio" id="esEntrada">—</span>
+    <span>SAÍDA:</span>   <span class="es-tag vazio" id="esSaida">—</span>
   </div>
 </div>
 
-<!-- ENTRADA/SAÍDA GLOBAL -->
-<div class="secao">
-  <div class="secao-titulo">
-    🚪 ENTRADA / SAÍDA GLOBAL
-    <span id="esAtualLabel"></span>
-  </div>
-  <div class="secao-body">
-    <div class="es-row">
-      <div class="es-grupo">
-        <label class="campo-label">Entrada</label>
-        <select id="selEntrada">
-          <option value="">-- Selecione --</option>
-          <option value="Fundos">Fundos</option>
-          <option value="Frente">Frente</option>
-        </select>
-      </div>
-      <div class="es-grupo">
-        <label class="campo-label">Saída</label>
-        <select id="selSaida">
-          <option value="">-- Selecione --</option>
-          <option value="Fundos">Fundos</option>
-          <option value="Frente">Frente</option>
-        </select>
-      </div>
-      <button class="btn btn-verde btn-md" onclick="salvarEntradaSaida()">💾 Salvar</button>
-    </div>
-  </div>
-</div>
-
-<!-- GERADOR DE TURNO -->
-<div class="secao">
-  <div class="secao-titulo">⚙️ GERAR TURNO</div>
-  <div class="secao-body">
-    <div class="gerador-row">
-      <div class="gerador-grupo">
-        <label class="campo-label">Turno</label>
-        <select id="selTurno" class="sel-turno">
-          <option value="AM">AM</option>
-          <option value="SD">SD</option>
-          <option value="PM">PM</option>
-        </select>
-      </div>
-      <span class="sep">De:</span>
-      <div class="gerador-grupo">
-        <label class="campo-label">Letra</label>
-        <select id="selLetraInicio" class="sel-letra"></select>
-      </div>
-      <div class="gerador-grupo">
-        <label class="campo-label">Até nº</label>
-        <select id="selNumInicio" class="sel-num"></select>
-      </div>
-      <span class="sep">Até:</span>
-      <div class="gerador-grupo">
-        <label class="campo-label">Letra</label>
-        <select id="selLetraFim" class="sel-letra"></select>
-      </div>
-      <div class="gerador-grupo">
-        <label class="campo-label">Até nº</label>
-        <select id="selNumFim" class="sel-num"></select>
-      </div>
-      <div style="display:flex;gap:8px;align-items:flex-end">
-        <button class="btn btn-laranja btn-lg" onclick="gerarTurno()">🚀 GERAR</button>
-        <button class="btn btn-cinza btn-lg" onclick="limparTurno()">🗑️ LIMPAR</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- LAYOUT PRINCIPAL -->
-<div class="main">
-
-  <!-- FILA CHECK-INS -->
-  <div class="painel-fila">
-    <div class="secao-titulo" style="border-radius:0">
-      <span>⏳ CHECK-INS PENDENTES</span>
-      <span class="badge-num" id="badgePendentes">0</span>
-    </div>
-    <div id="filaCheckins">
-      <div class="fila-vazia"><p>✅</p><p>Nenhum pendente</p></div>
-    </div>
-  </div>
-
-  <!-- TABELA -->
-  <div class="painel-tabela">
-    <div class="secao-titulo" style="border-radius:0">
-      <span>📋 TABELA DE VAGAS</span>
-      <span id="tsTabela" style="font-size:10px;font-weight:400;letter-spacing:0;color:var(--texto-dim)"></span>
-    </div>
-    <div class="table-scroll">
-      <div id="tabelaVagas" class="loading"><p>Carregando...</p></div>
-    </div>
-  </div>
-
+<!-- TABELA -->
+<div class="table-wrapper">
+  <div id="conteudo" class="loading">⏳ Carregando...</div>
 </div>
 
 <script>
@@ -541,12 +310,12 @@ body, .header, .secao, .painel-fila, .painel-tabela, td, select, input {
   function toggleTheme() {
     document.body.classList.toggle('dark');
     const dark = document.body.classList.contains('dark');
-    localStorage.setItem('adminTheme', dark ? 'dark' : 'light');
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
     document.getElementById('btnTheme').textContent = dark ? '☀️' : '🌙';
   }
 
   (function(){
-    if (localStorage.getItem('adminTheme') === 'dark') {
+    if (localStorage.getItem('theme') === 'dark') {
       document.body.classList.add('dark');
       document.getElementById('btnTheme').textContent = '☀️';
     }
@@ -556,397 +325,258 @@ body, .header, .secao, .painel-fila, .painel-tabela, td, select, input {
   const GITHUB_USER = 'fatalzinho';
   const GITHUB_REPO = 'vagas-shopee';
   const VAGAS_JSON  = 'vagas.json';
-  const POLL_MS     = 7000;
-  const LETRAS      = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  const POLL_MS     = 8000;
 
-  let githubToken      = localStorage.getItem('adminToken') || '';
-  let vagasSha         = '';
-  let rotaPopup        = '';
-  let salvando         = false;
-  const filaStatus     = [];
-  let processandoFila  = false;
+  const _a = "github_pat_11ALMWKTY0G9";
+  const _b = "OjT6yy0nSZ_B19VqwI1RzJi";
+  const _c = "WzE3h3EmW4Q4Tc3LUMITki7";
+  const _d = "Kc2q3SvKI3DZ3YUHPteRDSNm";
+  const READONLY_TOKEN = _a+_b+_c+_d;
 
-  // Preenche selects letra/número
-  LETRAS.forEach(l => {
-    ['selLetraInicio','selLetraFim'].forEach(id => {
-      const o = document.createElement('option');
-      o.value = l; o.textContent = l;
-      document.getElementById(id).appendChild(o);
-    });
+  // Preenche selects
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(l => {
+    const o = document.createElement('option');
+    o.value = l; o.textContent = l;
+    document.getElementById('letraSelect').appendChild(o);
   });
   for (let i = 1; i <= 50; i++) {
-    ['selNumInicio','selNumFim'].forEach(id => {
-      const o = document.createElement('option');
-      o.value = i; o.textContent = i;
-      document.getElementById(id).appendChild(o);
-    });
+    const o = document.createElement('option');
+    o.value = i; o.textContent = i;
+    document.getElementById('numeroSelect').appendChild(o);
   }
 
-  document.getElementById('selLetraFim').value  = 'D';
-  document.getElementById('selNumInicio').value = '28';
-  document.getElementById('selNumFim').value    = '10';
+  let nome = localStorage.getItem('nome') || '';
+  let rota = localStorage.getItem('rota') || '';
+  let dadosAnteriores = [];
+  let primeira = true;
 
-  if (githubToken) {
-    document.getElementById('tokenInput').value = githubToken;
-    document.getElementById('tokenOk').classList.add('ativo');
+  if (nome) document.getElementById('nomeInput').value = nome;
+  if (localStorage.getItem('letra'))  document.getElementById('letraSelect').value  = localStorage.getItem('letra');
+  if (localStorage.getItem('numero')) document.getElementById('numeroSelect').value = localStorage.getItem('numero');
+
+  if (nome && rota) {
+    document.getElementById('btnAtivar').textContent = '✅ Ativo';
+    document.getElementById('btnAtivar').classList.add('ativo');
+    document.getElementById('statusNotif').textContent = `🔔 ${nome} — Rota ${rota}`;
+    document.getElementById('statusNotif').style.display = 'block';
   }
 
-  // ── TOKEN ──
-  function salvarToken() {
-    const t = document.getElementById('tokenInput').value.trim();
-    if (!t) { toast('⚠️ Digite o token!'); return; }
-    githubToken = t;
-    localStorage.setItem('adminToken', t);
-    document.getElementById('tokenOk').classList.add('ativo');
-    toast('✅ Token salvo!', 'verde');
+  async function salvar() {
+    nome = document.getElementById('nomeInput').value.trim();
+    const letra  = document.getElementById('letraSelect').value;
+    const numero = document.getElementById('numeroSelect').value;
+
+    if (!nome)             { alert('⚠️ Digite seu nome!'); return; }
+    if (!letra || !numero) { alert('⚠️ Selecione letra e número!'); return; }
+
+    rota = `${letra}-${numero}`;
+    localStorage.setItem('nome', nome);
+    localStorage.setItem('rota', rota);
+    localStorage.setItem('letra', letra);
+    localStorage.setItem('numero', numero);
+
+    if ('Notification' in window) await Notification.requestPermission();
+
+    try {
+      if ('wakeLock' in navigator) {
+        await navigator.wakeLock.request('screen');
+        document.addEventListener('visibilitychange', async () => {
+          if (document.visibilityState === 'visible')
+            await navigator.wakeLock.request('screen').catch(() => {});
+        });
+      }
+    } catch(e) {}
+
+    document.getElementById('btnAtivar').textContent = '✅ Ativo';
+    document.getElementById('btnAtivar').classList.add('ativo');
+    document.getElementById('statusNotif').textContent = `🔔 ${nome} — Rota ${rota}`;
+    document.getElementById('statusNotif').style.display = 'block';
+    alert(`✅ ${nome}, notificações ativadas para rota ${rota}!\n📱 Tela ficará ligada.`);
+    primeira = true;
   }
 
-  function limparToken() {
-    githubToken = '';
-    localStorage.removeItem('adminToken');
-    document.getElementById('tokenInput').value = '';
-    document.getElementById('tokenOk').classList.remove('ativo');
-  }
-
-  // ── TOAST ──
   function toast(msg, tipo='') {
-    const c = document.getElementById('toastContainer');
+    const c  = document.getElementById('toastContainer');
     const el = document.createElement('div');
-    el.className = `toast ${tipo}`; el.textContent = msg;
+    el.className = `toast ${tipo}`; el.innerHTML = msg;
     c.appendChild(el);
     setTimeout(() => { el.classList.add('saindo'); setTimeout(() => el.remove(), 300); }, 4000);
   }
 
-  // ── API GITHUB ──
-  async function fetchVagasComSha() {
-    const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${VAGAS_JSON}`;
-    const r = await fetch(url, { headers: { Authorization: `token ${githubToken}` }, cache: 'no-store' });
+  function alerta(msg, tipo='') {
+    const div = document.createElement('div');
+    div.className = `alerta-rota ${tipo}`;
+    const btn = document.createElement('button');
+    btn.className = 'btn-fechar'; btn.innerHTML = '×';
+    btn.onclick = () => div.remove();
+    div.innerHTML = msg; div.appendChild(btn);
+    document.body.appendChild(div);
+    setTimeout(() => { if (div.parentNode) div.remove(); }, 10000);
+  }
+
+  function falar(texto) {
+    if (!('speechSynthesis' in window)) return;
+    const u = new SpeechSynthesisUtterance(texto);
+    u.lang = 'pt-BR'; u.rate = 0.9; u.pitch = 1.2; u.volume = 1.0;
+    u.onend = () => setTimeout(() => {
+      const u2 = new SpeechSynthesisUtterance(texto);
+      u2.lang = 'pt-BR'; u2.rate = 0.9; u2.pitch = 1.2;
+      window.speechSynthesis.speak(u2);
+    }, 500);
+    window.speechSynthesis.speak(u);
+  }
+
+  function notificar(tipo, vaga) {
+    const isPatio  = tipo === 'patio';
+    const voz      = isPatio
+      ? `${nome}! Rota ${rota}. Entrar no patio!`
+      : `${nome}! Rota ${rota}. Vaga ${vaga}. Pode carregar!`;
+    const alertaMsg = isPatio
+      ? `📍 ${nome}!<br>Rota ${rota}<br>ENTRAR NO PATIO`
+      : `🎯 ${nome}!<br>Rota ${rota}<br>VAGA ${vaga}<br>PODE CARREGAR!`;
+
+    falar(voz);
+
+    if (Notification.permission === 'granted') {
+      try {
+        const n = new Notification(isPatio ? `📍 ${nome}!` : `🎯 ${nome}!`, {
+          body: isPatio ? `Rota ${rota} ENTRAR NO PATIO` : `Rota ${rota} VAGA ${vaga} PODE CARREGAR!`,
+          tag: `${tipo}-${rota}`, requireInteraction: true
+        });
+        n.onclick = () => { window.focus(); n.close(); };
+      } catch(e) {}
+    }
+
+    alerta(alertaMsg, isPatio ? 'patio' : '');
+  }
+
+  async function fetchJson(arq) {
+    const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${arq}`;
+    const r = await fetch(url, {
+      cache: 'no-store',
+      headers: { Authorization: `token ${READONLY_TOKEN}` }
+    });
     if (!r.ok) throw new Error(r.status);
     const data = await r.json();
-    vagasSha = data.sha;
     return JSON.parse(atob(data.content.replace(/\n/g, '')));
   }
 
-  async function salvarVagasJson(payload) {
-    if (!githubToken) { toast('⚠️ Configure o token!', 'erro'); return false; }
-    const url  = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${VAGAS_JSON}`;
-    const body = JSON.stringify(payload, null, 2);
-    const r = await fetch(url, {
-      method: 'PUT',
-      headers: { Authorization: `token ${githubToken}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        message: 'Admin: atualiza vagas.json',
-        content: btoa(unescape(encodeURIComponent(body))),
-        sha: vagasSha
-      })
-    });
-    if (!r.ok) { const e = await r.json(); throw new Error(e.message || r.status); }
-    const res = await r.json();
-    vagasSha = res.content.sha;
-    return true;
-  }
+  let esAnterior = { entrada: '', saida: '' };
 
-  // ── ENTRADA/SAÍDA ──
-  async function salvarEntradaSaida() {
-    if (!githubToken) { toast('⚠️ Configure o token!', 'erro'); return; }
-    const entrada = document.getElementById('selEntrada').value;
-    const saida   = document.getElementById('selSaida').value;
-    if (!entrada || !saida) { toast('⚠️ Selecione Entrada e Saída!'); return; }
-    try {
-      const dados = await fetchVagasComSha();
-      dados.entrada = entrada; dados.saida = saida;
-      dados.lastUpdate = new Date().toISOString();
-      await salvarVagasJson(dados);
-      toast(`✅ Entrada: ${entrada} | Saída: ${saida}`, 'verde');
-      document.getElementById('esAtualLabel').textContent = `✅ ${entrada} → ${saida}`;
-    } catch(e) { toast(`❌ ${e.message}`, 'erro'); }
-  }
+  function atualizarES(entrada, saida) {
+    const eEl = document.getElementById('esEntrada');
+    const sEl = document.getElementById('esSaida');
 
-  // ── GERAR TURNO ──
-  async function gerarTurno() {
-    if (!githubToken) { toast('⚠️ Configure o token!', 'erro'); return; }
-    const turno    = document.getElementById('selTurno').value;
-    const letraIni = document.getElementById('selLetraInicio').value;
-    const numIni   = parseInt(document.getElementById('selNumInicio').value);
-    const letraFim = document.getElementById('selLetraFim').value;
-    const numFim   = parseInt(document.getElementById('selNumFim').value);
-    const idxIni   = LETRAS.indexOf(letraIni);
-    const idxFim   = LETRAS.indexOf(letraFim);
+    const entradaMudou = entrada && entrada !== esAnterior.entrada;
+    const saidaMudou   = saida   && saida   !== esAnterior.saida;
 
-    if (idxFim < idxIni) { toast('⚠️ Letra final deve ser >= letra inicial!'); return; }
-    if (!confirm(`Gerar turno ${turno}: ${letraIni}1 até ${letraFim}${numFim}?\nIsso substituirá a tabela atual!`)) return;
+    if (entrada) { eEl.textContent = entrada; eEl.classList.remove('vazio'); }
+    else         { eEl.textContent = '—';     eEl.classList.add('vazio');   }
+    if (saida)   { sEl.textContent = saida;   sEl.classList.remove('vazio'); }
+    else         { sEl.textContent = '—';     sEl.classList.add('vazio');   }
 
-    const linhas = [];
-    for (let i = idxIni; i <= idxFim; i++) {
-      const letra  = LETRAS[i];
-      const maxNum = (i === idxFim) ? numFim : numIni;
-      for (let n = 1; n <= maxNum; n++) {
-        linhas.push([turno, '', `${letra}-${n}`, '', 'Aguardando', false]);
+    // Só fala se mudou e já teve algum dado antes (não na primeira carga)
+    if (esAnterior.entrada !== '' || esAnterior.saida !== '') {
+      if (entradaMudou && saidaMudou) {
+        falar(`Entrada ${entrada}. Saida ${saida}.`);
+        toast(`🚪 Entrada: <strong>${entrada}</strong> | Saída: <strong>${saida}</strong>`);
+      } else if (entradaMudou) {
+        falar(`Entrada ${entrada}.`);
+        toast(`🚪 Entrada: <strong>${entrada}</strong>`);
+      } else if (saidaMudou) {
+        falar(`Saida ${saida}.`);
+        toast(`🚪 Saída: <strong>${saida}</strong>`);
       }
     }
 
-    // Valida entrada e saída
-    const entrada = document.getElementById('selEntrada').value;
-    const saida   = document.getElementById('selSaida').value;
-    if (!entrada || !saida) {
-      toast('⚠️ Preencha Entrada e Saída antes de gerar o turno!', 'erro');
-      // Destaca os selects
-      ['selEntrada','selSaida'].forEach(id => {
-        const el = document.getElementById(id);
-        if (!el.value) { el.style.borderColor='#ef4444'; setTimeout(()=>el.style.borderColor='',3000); }
-      });
-      return;
-    }
-
-    try {
-      const dados = await fetchVagasComSha();
-      dados.data = [
-        ['', '', 'HUB - LPR-18 Maringá', '', turno, ''],
-        ['TURNO', 'Driver', 'ROTA', 'VAGA', 'STATUS', 'Check-in feito?'],
-        ['', '', '', '', '', ''],
-        ...linhas
-      ];
-      dados.entrada       = entrada;
-      dados.saida         = saida;
-      dados.lastUpdate    = new Date().toISOString();
-      dados.estadoSistema = `${turno}_ATIVO`;
-      await salvarVagasJson(dados);
-      document.getElementById('esAtualLabel').textContent = `✅ ${entrada} → ${saida}`;
-      toast(`✅ Turno ${turno} gerado — ${linhas.length} rotas! | Entrada: ${entrada} | Saída: ${saida}`, 'verde');
-    } catch(e) { toast(`❌ ${e.message}`, 'erro'); }
+    esAnterior = { entrada: entrada || esAnterior.entrada, saida: saida || esAnterior.saida };
   }
 
-  // ── LIMPAR TURNO ──
-  async function limparTurno() {
-    if (!githubToken) { toast('⚠️ Configure o token!', 'erro'); return; }
-    if (!confirm('Limpar toda a tabela atual?\nEntrada e Saída também serão apagadas!')) return;
-    try {
-      const dados = await fetchVagasComSha();
-      dados.data = [
-        ['', '', 'HUB - LPR-18 Maringá', '', 'AGUARDANDO', ''],
-        ['TURNO', 'Driver', 'ROTA', 'VAGA', 'STATUS', 'Check-in feito?'],
-        ['', '', '', '', '', '']
-      ];
-      dados.entrada       = '';
-      dados.saida         = '';
-      dados.lastUpdate    = new Date().toISOString();
-      dados.estadoSistema = 'AGUARDANDO';
-      await salvarVagasJson(dados);
-      // Limpa os selects visuais
-      document.getElementById('selEntrada').value = '';
-      document.getElementById('selSaida').value   = '';
-      document.getElementById('esAtualLabel').textContent = '';
-      toast('🗑️ Tabela limpa — Entrada e Saída resetadas!', 'verde');
-    } catch(e) { toast(`❌ ${e.message}`, 'erro'); }
-  }
-
-  // ── POPUP GAIOLA ──
-  function abrirPopupGaiola(rota, gaiola) {
-    rotaPopup = rota;
-    document.getElementById('popupRota').textContent = rota;
-    document.getElementById('popupGaiola').value     = gaiola || '';
-    document.getElementById('popupOverlay').classList.add('ativo');
-    setTimeout(() => document.getElementById('popupGaiola').focus(), 100);
-  }
-
-  function fecharPopup() {
-    document.getElementById('popupOverlay').classList.remove('ativo');
-    rotaPopup = '';
-  }
-
-  async function salvarGaiola() {
-    if (!rotaPopup || salvando) return;
-    const gaiola    = document.getElementById('popupGaiola').value.trim();
-    const novoStatus = gaiola ? 'Carregar' : 'Patio';
-    salvando = true;
-    try {
-      const dados  = await fetchVagasComSha();
-      const linhas = dados.data || [];
-      const idx    = linhas.findIndex((l, i) => i >= 3 && l[2] === rotaPopup);
-      if (idx >= 0) { linhas[idx][3] = gaiola; linhas[idx][4] = novoStatus; }
-      dados.data = linhas; dados.lastUpdate = new Date().toISOString();
-      await salvarVagasJson(dados);
-      toast(gaiola ? `✅ ${rotaPopup} → Gaiola ${gaiola} — Carregar!` : `✅ ${rotaPopup} → Patio`, 'verde');
-      fecharPopup();
-    } catch(e) { toast(`❌ ${e.message}`, 'erro'); }
-    finally { salvando = false; }
-  }
-
-  // ── STATUS COM FILA ──
-  function alterarStatus(rota, novoStatus) {
-    const idx = filaStatus.findIndex(f => f.rota === rota);
-    if (idx >= 0) filaStatus[idx].novoStatus = novoStatus;
-    else filaStatus.push({ rota, novoStatus });
-    toast(`⏳ ${rota} → ${novoStatus}...`);
-    processarFila();
-  }
-
-  async function processarFila() {
-    if (processandoFila || filaStatus.length === 0) return;
-    processandoFila = true;
-
-    document.querySelectorAll('.btn-patio, .btn-voltar-patio').forEach(b => {
-      b.disabled = true; b.style.opacity = '0.4';
-    });
-
-    try {
-      const dados  = await fetchVagasComSha();
-      const linhas = dados.data || [];
-      const aplicados = [];
-
-      while (filaStatus.length > 0) {
-        const { rota, novoStatus } = filaStatus.shift();
-        const i = linhas.findIndex((l, idx) => idx >= 3 && l[2] === rota);
-        if (i >= 0) { linhas[i][4] = novoStatus; aplicados.push(`${rota}→${novoStatus}`); }
-      }
-
-      dados.data = linhas; dados.lastUpdate = new Date().toISOString();
-      await salvarVagasJson(dados);
-      toast(`✅ Salvo: ${aplicados.join(', ')}`, 'verde');
-    } catch(e) { toast(`❌ ${e.message}`, 'erro'); }
-    finally {
-      processandoFila = false;
-      document.querySelectorAll('.btn-patio, .btn-voltar-patio').forEach(b => {
-        b.disabled = false; b.style.opacity = '';
-      });
-      if (filaStatus.length > 0) processarFila();
-    }
-  }
-
-  // ── CONFIRMAR CHECK-IN ──
-  async function confirmarCheckin(rota, btnEl) {
-    if (!githubToken || salvando) { toast('⚠️ Configure o token!', 'erro'); return; }
-    const gaiola = document.getElementById(`gaiola-card-${rota}`).value.trim();
-    if (!gaiola) { toast('⚠️ Informe a gaiola!'); return; }
-
-    btnEl.disabled = true; btnEl.textContent = '⏳...';
-    salvando = true;
-    try {
-      const dados  = await fetchVagasComSha();
-      const linhas = dados.data || [];
-      const idx    = linhas.findIndex((l, i) => i >= 3 && l[2] === rota);
-      if (idx >= 0) { linhas[idx][3] = gaiola; linhas[idx][4] = 'Carregar'; linhas[idx][5] = true; }
-      dados.data = linhas; dados.lastUpdate = new Date().toISOString();
-      await salvarVagasJson(dados);
-      toast(`✅ ${rota} confirmado — Gaiola ${gaiola}!`, 'verde');
-      const card = document.getElementById(`card-${rota}`);
-      if (card) { card.style.transition='all .3s'; card.style.opacity='0'; card.style.transform='translateX(-20px)'; setTimeout(()=>card.remove(),300); }
-    } catch(e) {
-      toast(`❌ ${e.message}`, 'erro');
-      btnEl.disabled = false; btnEl.textContent = '✓ OK — CONFIRMAR';
-    } finally { salvando = false; }
-  }
-
-  function rejeitarCheckin(rota) {
-    if (!confirm(`Ignorar check-in de ${rota}?`)) return;
-    const card = document.getElementById(`card-${rota}`);
-    if (card) { card.style.transition='all .3s'; card.style.opacity='0'; setTimeout(()=>card.remove(),300); }
-  }
-
-  // ── FILA ──
-  function renderFila(pendentes) {
-    document.getElementById('badgePendentes').textContent = pendentes.length;
-    if (!pendentes.length) {
-      document.getElementById('filaCheckins').innerHTML =
-        `<div class="fila-vazia"><p>✅</p><p>Nenhum pendente</p></div>`;
-      return;
-    }
-    document.getElementById('filaCheckins').innerHTML = pendentes.map(c => {
-      const ts = c.ts ? new Date(c.ts).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}) : '';
-      return `<div class="checkin-card" id="card-${c.rota}">
-        <div class="card-top">
-          <span class="card-nome">${c.nome}</span>
-          <span class="card-rota">${c.rota}</span>
-        </div>
-        <div class="card-meta">ID: ${c.id}${ts?' • '+ts:''}</div>
-        <div class="cf-group">
-          <label>Gaiola</label>
-          <input type="text" id="gaiola-card-${c.rota}" placeholder="Ex: C5" maxlength="6">
-        </div>
-        <button class="btn-ok-card" onclick="confirmarCheckin('${c.rota}',this)">✓ OK — CONFIRMAR</button>
-        <button class="btn-rejeitar-card" onclick="rejeitarCheckin('${c.rota}')">Ignorar</button>
-      </div>`;
-    }).join('');
-  }
-
-  // ── TABELA ──
-  function renderTabela(vagas) {
+  function processar(vagas) {
     const linhas = vagas.data;
+
     if (!linhas || linhas.length < 4) {
-      document.getElementById('tabelaVagas').innerHTML =
-        '<div class="loading"><p style="color:#aaa">Sem dados — gere um turno acima</p></div>';
+      document.getElementById('conteudo').innerHTML = `
+        <div class="loading">
+          <p style="font-size:44px;margin-bottom:12px">🌙</p>
+          <p style="font-size:18px;font-weight:bold">Operações encerradas hoje</p>
+          <p style="font-size:13px;color:#666;margin-top:8px">Sistema retorna amanhã às 4:30.</p>
+        </div>`;
+      document.getElementById('headerStatus').innerHTML = '🌙 Encerrado';
       return;
     }
 
-    let html = `<table><thead><tr>
-      <th>Turno</th><th>Driver</th><th>Rota</th>
-      <th>Gaiola</th><th>Status</th><th>✓</th>
-    </tr></thead><tbody>`;
+    atualizarES(vagas.entrada || '', vagas.saida || '');
+
+    const novos = [];
+    let html = `<table>
+      <tr><th>TURNO</th><th>ROTA</th><th>VAGA</th><th>STATUS</th><th>✓</th></tr>`;
 
     linhas.slice(3).forEach(linha => {
       if (!linha || !linha[2]) return;
+
       const turno   = linha[0] || '';
-      const driver  = linha[1] || '';
-      const rota    = linha[2] || '';
-      const gaiola  = linha[3] || '';
-      const status  = linha[4] || 'Aguardando';
+      const r       = linha[2] || '';
+      const v       = (linha[3] !== undefined && linha[3] !== '') ? linha[3] : '';
+      const s       = linha[4] || '';
       const checkin = linha[5];
 
-      let tagCls = 'tag-aguardando';
-      if (status === 'Carregar') tagCls = 'tag-carregar';
-      else if (status === 'Patio') tagCls = 'tag-patio';
+      const chave   = `${turno}-${r}`;
+      const ant     = dadosAnteriores.find(d => d.chave === chave);
+      const ehMinha = rota && r && r.toUpperCase() === rota.toUpperCase();
 
-      let checkinHtml = '<span style="color:#ccc">—</span>';
+      if (!primeira && ant) {
+        if (s === 'Patio' && ant.status !== 'Patio')
+          toast(`<strong>${r}</strong> → Entrar no patio`, 'patio');
+        if (v !== '' && ant.vaga !== String(v))
+          toast(`<strong>${r}</strong> → Vaga ${v}`, 'vaga');
+      }
+
+      if (ehMinha && !primeira && ant) {
+        if (s === 'Patio' && ant.status !== 'Patio') notificar('patio');
+        if (v !== '' && ant.vaga !== String(v))       notificar('vaga', v);
+      }
+
+      novos.push({ chave, vaga: String(v), status: s });
+
+      let cls = '';
+      if (s === 'Carregar')   cls = 'tag-carregar';
+      else if (s === 'Patio') cls = 'tag-patio';
+
+      let checkinHtml = '';
       if      (checkin === true  || checkin === 'TRUE')  checkinHtml = '✅';
       else if (checkin === false || checkin === 'FALSE') checkinHtml = '❌';
 
-      let btnStatusHtml = '';
-      if (status === 'Aguardando') {
-        btnStatusHtml = `<button class="btn-patio" onclick="alterarStatus('${rota}','Patio')">▶ Chamar</button>`;
-      } else if (status === 'Patio') {
-        btnStatusHtml = `<button class="btn-voltar-patio" onclick="alterarStatus('${rota}','Aguardando')">↩ Aguardar</button>`;
-      } else if (status === 'Carregar') {
-        btnStatusHtml = `<button class="btn-voltar-patio" onclick="alterarStatus('${rota}','Patio')">↩ Patio</button>`;
-      }
-
-      html += `<tr>
+      html += `<tr class="${ehMinha ? 'minha-linha' : ''}">
         <td>${turno}</td>
-        <td style="font-size:11px;color:var(--texto-dim)">${driver}</td>
-        <td><strong style="font-family:'Rajdhani',sans-serif;font-size:14px">${rota}</strong></td>
-        <td>
-          <input class="input-gaiola ${gaiola?'preenchido':''}" type="text"
-            value="${gaiola}" placeholder="—" readonly
-            onclick="abrirPopupGaiola('${rota}','${gaiola}')">
-        </td>
-        <td>
-          <span class="tag ${tagCls}" style="margin-right:4px">${status}</span>
-          ${btnStatusHtml}
-        </td>
-        <td style="font-size:15px">${checkinHtml}</td>
+        <td><strong>${r}</strong></td>
+        <td>${v ? `<span class="vaga-cell">${v}</span>` : '—'}</td>
+        <td><span class="${cls}">${s}</span></td>
+        <td style="font-size:16px">${checkinHtml}</td>
       </tr>`;
     });
 
-    html += '</tbody></table>';
-    document.getElementById('tabelaVagas').innerHTML = html;
-    document.getElementById('tsTabela').textContent =
-      new Date(vagas.lastUpdate).toLocaleTimeString('pt-BR');
+    html += '</table>';
+    document.getElementById('conteudo').innerHTML = html;
+    dadosAnteriores = novos;
+    primeira = false;
+
+    const agora = new Date(vagas.lastUpdate).toLocaleString('pt-BR');
+    const et    = vagas.estadoSistema || '';
+    let emoji   = '⏸️ Standby';
+    if      (et.includes('ATIVO'))                       emoji = '🟢 Operando';
+    else if (et === 'AGUARDANDO_AM')                     emoji = '⏳ Aguardando AM';
+    else if (et === 'AM_COMPLETO')                       emoji = '☕ Intervalo';
+    else if (et === 'ENCERRADO' || et === 'PM_COMPLETO') emoji = '🌙 Encerrado';
+
+    document.getElementById('headerStatus').innerHTML =
+      `<strong>🟢 AO VIVO</strong> ${emoji} • ${agora}`;
   }
 
-  // ── POLLING ──
   async function atualizar() {
     try {
-      const vagas = await fetchVagasComSha();
-      renderTabela(vagas);
-      renderFila([]);
-
-      if (vagas.entrada) {
-        document.getElementById('selEntrada').value = vagas.entrada;
-        document.getElementById('selSaida').value   = vagas.saida || '';
-        document.getElementById('esAtualLabel').textContent = `✅ ${vagas.entrada} → ${vagas.saida}`;
-      }
-
-      document.getElementById('headerStatus').innerHTML =
-        `<span style="color:var(--verde)">🟢 AO VIVO</span> • ${new Date(vagas.lastUpdate).toLocaleTimeString('pt-BR')}`;
+      const vagas = await fetchJson(VAGAS_JSON);
+      processar(vagas);
     } catch(e) {
       document.getElementById('headerStatus').innerHTML =
         `<span style="color:#ef4444">⚠️ Sem conexão</span>`;
