@@ -149,7 +149,11 @@ body {
 }
 
 /* ── TABELA ── */
-.table-wrapper { padding: 12px 16px 24px; }
+.table-wrapper {
+  padding: 12px 16px 24px;
+  overflow-y: auto;
+  max-height: calc(100vh - 160px); /* altura da viewport menos header+config */
+}
 
 table {
   width: 100%;
@@ -267,6 +271,18 @@ body.dark .minha-linha td { background: #3f2f00; }
 .loading { text-align: center; padding: 40px; color: var(--texto-dim); }
 
 body, .header, .config-bar, td { transition: background .3s, color .3s; }
+
+/* Alerta entrada/saída */
+.alerta-es {
+  position: fixed; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, #EE4D2D, #cc3b1f);
+  color: white; padding: 32px 48px;
+  border-radius: 20px; font-size: 24px; font-weight: bold;
+  box-shadow: 0 10px 40px rgba(0,0,0,.4);
+  z-index: 10000; text-align: center;
+  animation: popIn .3s ease;
+}
 </style>
 </head>
 <body>
@@ -403,6 +419,17 @@ body, .header, .config-bar, td { transition: background .3s, color .3s; }
     setTimeout(() => { el.classList.add('saindo'); setTimeout(() => el.remove(), 300); }, 4000);
   }
 
+  function alertaES(msg) {
+    const div = document.createElement('div');
+    div.className = 'alerta-es';
+    const btn = document.createElement('button');
+    btn.className = 'btn-fechar'; btn.innerHTML = '×';
+    btn.onclick = () => div.remove();
+    div.innerHTML = msg; div.appendChild(btn);
+    document.body.appendChild(div);
+    setTimeout(() => { if (div.parentNode) div.remove(); }, 6000);
+  }
+
   function alerta(msg, tipo='') {
     const div = document.createElement('div');
     div.className = `alerta-rota ${tipo}`;
@@ -480,12 +507,15 @@ body, .header, .config-bar, td { transition: background .3s, color .3s; }
       if (entradaMudou && saidaMudou) {
         falar(`Entrada ${entrada}. Saida ${saida}.`);
         toast(`🚪 Entrada: <strong>${entrada}</strong> | Saída: <strong>${saida}</strong>`);
+        alertaES(`🚪 ENTRADA: ${entrada}<br>SAÍDA: ${saida}`);
       } else if (entradaMudou) {
         falar(`Entrada ${entrada}.`);
         toast(`🚪 Entrada: <strong>${entrada}</strong>`);
+        alertaES(`🚪 ENTRADA: ${entrada}`);
       } else if (saidaMudou) {
         falar(`Saida ${saida}.`);
         toast(`🚪 Saída: <strong>${saida}</strong>`);
+        alertaES(`🚪 SAÍDA: ${saida}`);
       }
     }
 
