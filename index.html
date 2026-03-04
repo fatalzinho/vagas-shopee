@@ -461,13 +461,35 @@ body, .header, .config-bar, td { transition: background .3s, color .3s; }
     return JSON.parse(atob(data.content.replace(/\n/g, '')));
   }
 
+  let esAnterior = { entrada: '', saida: '' };
+
   function atualizarES(entrada, saida) {
     const eEl = document.getElementById('esEntrada');
     const sEl = document.getElementById('esSaida');
+
+    const entradaMudou = entrada && entrada !== esAnterior.entrada;
+    const saidaMudou   = saida   && saida   !== esAnterior.saida;
+
     if (entrada) { eEl.textContent = entrada; eEl.classList.remove('vazio'); }
     else         { eEl.textContent = '—';     eEl.classList.add('vazio');   }
     if (saida)   { sEl.textContent = saida;   sEl.classList.remove('vazio'); }
     else         { sEl.textContent = '—';     sEl.classList.add('vazio');   }
+
+    // Só fala se mudou e já teve algum dado antes (não na primeira carga)
+    if (esAnterior.entrada !== '' || esAnterior.saida !== '') {
+      if (entradaMudou && saidaMudou) {
+        falar(`Entrada ${entrada}. Saida ${saida}.`);
+        toast(`🚪 Entrada: <strong>${entrada}</strong> | Saída: <strong>${saida}</strong>`);
+      } else if (entradaMudou) {
+        falar(`Entrada ${entrada}.`);
+        toast(`🚪 Entrada: <strong>${entrada}</strong>`);
+      } else if (saidaMudou) {
+        falar(`Saida ${saida}.`);
+        toast(`🚪 Saída: <strong>${saida}</strong>`);
+      }
+    }
+
+    esAnterior = { entrada: entrada || esAnterior.entrada, saida: saida || esAnterior.saida };
   }
 
   function processar(vagas) {
