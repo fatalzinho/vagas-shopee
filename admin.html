@@ -9,15 +9,15 @@
     :root {
       --laranja: #EE4D2D;
       --laranja2: #ff6b47;
-      --preto: #0a0a0a;
-      --card: #141414;
-      --card2: #1a1a1a;
-      --borda: #262626;
-      --texto: #f0ece4;
-      --texto-dim: #666;
-      --verde: #22c55e;
-      --azul: #3b82f6;
-      --amarelo: #f59e0b;
+      --preto: #f4f4f4;
+      --card: #ffffff;
+      --card2: #f0f0f0;
+      --borda: #e0e0e0;
+      --texto: #1a1a1a;
+      --texto-dim: #888;
+      --verde: #16a34a;
+      --azul: #2563eb;
+      --amarelo: #d97706;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -77,7 +77,7 @@
     }
 
     select, input[type="text"], input[type="password"] {
-      background: #1e1e1e;
+      background: #f0f0f0;
       border: 1px solid var(--borda);
       border-radius: 6px;
       padding: 8px 10px;
@@ -175,7 +175,7 @@
 
     .cf-group { margin-bottom: 8px; }
     .cf-group label { display: block; font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--texto-dim); margin-bottom: 4px; }
-    .cf-group input { width: 100%; background: #0f0f0f; border: 1px solid var(--borda); border-radius: 5px; padding: 7px 10px; color: var(--texto); font-size: 13px; }
+    .cf-group input { width: 100%; background: #f5f5f5; border: 1px solid var(--borda); border-radius: 5px; padding: 7px 10px; color: var(--texto); font-size: 13px; }
 
     .btn-ok-card {
       width: 100%; background: var(--verde); border: none; color: white;
@@ -201,7 +201,7 @@
     table { width: 100%; border-collapse: collapse; }
 
     thead th {
-      background: var(--card2); color: var(--texto-dim);
+      background: linear-gradient(135deg,#EE4D2D,#cc3b1f); color: white;
       font-family: 'Rajdhani', sans-serif;
       font-size: 11px; font-weight: 600;
       letter-spacing: 1.5px; text-transform: uppercase;
@@ -212,7 +212,7 @@
 
     tbody td {
       padding: 8px 10px; text-align: center;
-      border-bottom: 1px solid #1a1a1a;
+      border-bottom: 1px solid #ebebeb;
       vertical-align: middle; font-size: 13px;
     }
 
@@ -224,13 +224,13 @@
       padding: 3px 8px; font-size: 11px; font-weight: 600; white-space: nowrap;
     }
 
-    .tag-aguardando { background: rgba(102,102,102,.12); color: var(--texto-dim); border: 1px solid var(--borda); }
-    .tag-patio      { background: rgba(59,130,246,.12);  color: var(--azul);      border: 1px solid rgba(59,130,246,.25); }
-    .tag-carregar   { background: rgba(34,197,94,.12);   color: var(--verde);     border: 1px solid rgba(34,197,94,.25); }
+    .tag-aguardando { background: rgba(0,0,0,.06); color: #888; border: 1px solid #ccc; }
+    .tag-patio      { background: rgba(37,99,235,.12);   color: #1d4ed8;            border: 1px solid rgba(37,99,235,.3); }
+    .tag-carregar   { background: rgba(22,163,74,.12);   color: #15803d;            border: 1px solid rgba(22,163,74,.3); }
 
     /* Input gaiola inline */
     .input-gaiola {
-      background: #111; border: 1px solid var(--borda);
+      background: #f8f8f8; border: 1px solid var(--borda);
       border-radius: 4px; padding: 5px 8px;
       color: var(--texto); font-size: 13px; font-family: 'Rajdhani', sans-serif;
       font-weight: 700; width: 64px; text-align: center;
@@ -295,7 +295,7 @@
 
     .popup-field { margin-bottom: 14px; }
     .popup-field label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--texto-dim); margin-bottom: 5px; }
-    .popup-field input { width: 100%; background: #1e1e1e; border: 1px solid var(--borda); border-radius: 6px; padding: 9px 12px; color: var(--texto); font-family: 'Rajdhani', sans-serif; font-size: 20px; font-weight: 700; text-align: center; }
+    .popup-field input { width: 100%; background: #f0f0f0; border: 1px solid var(--borda); border-radius: 6px; padding: 9px 12px; color: var(--texto); font-family: 'Rajdhani', sans-serif; font-size: 20px; font-weight: 700; text-align: center; }
     .popup-field input:focus { outline: none; border-color: var(--laranja); }
 
     .popup-btns { display: flex; gap: 10px; margin-top: 18px; }
@@ -312,7 +312,7 @@
       border-left: 3px solid var(--laranja); color: var(--texto);
       padding: 10px 14px; border-radius: 8px; font-size: 13px;
       animation: toastIn .3s ease; pointer-events: auto;
-      box-shadow: 0 4px 16px rgba(0,0,0,.5);
+      box-shadow: 0 4px 16px rgba(0,0,0,.12);
     }
 
     .toast.verde { border-left-color: var(--verde); }
