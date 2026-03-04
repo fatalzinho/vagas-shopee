@@ -1,1 +1,11 @@
-
+{
+  "entrada": "",
+  "saida": "",
+  "estadoSistema": "AGUARDANDO",
+  "lastUpdate": "2026-03-03T00:00:00.000Z",
+  "data": [
+    ["", "", "HUB - LPR-18 Maringa", "", "AGUARDANDO", ""],
+    ["TURNO", "Driver", "ROTA", "VAGA", "STATUS", "Check-in feito?"],
+    ["", "", "", "", "", ""]
+  ]
+}
