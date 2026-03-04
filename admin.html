@@ -873,7 +873,7 @@
   // ── POLLING ──
   async function atualizar() {
     try {
-      const vagas = await fetchJson(VAGAS_JSON);
+      const vagas = await fetchVagasComSha();
 
       renderTabela(vagas);
       renderFila([]); // TODO: fila real quando resolver comunicação motorista→admin
