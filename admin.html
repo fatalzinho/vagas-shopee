@@ -685,6 +685,19 @@ body, .header, .secao, .painel-fila, .painel-tabela, td, select, input {
       }
     }
 
+    // Valida entrada e saída
+    const entrada = document.getElementById('selEntrada').value;
+    const saida   = document.getElementById('selSaida').value;
+    if (!entrada || !saida) {
+      toast('⚠️ Preencha Entrada e Saída antes de gerar o turno!', 'erro');
+      // Destaca os selects
+      ['selEntrada','selSaida'].forEach(id => {
+        const el = document.getElementById(id);
+        if (!el.value) { el.style.borderColor='#ef4444'; setTimeout(()=>el.style.borderColor='',3000); }
+      });
+      return;
+    }
+
     try {
       const dados = await fetchVagasComSha();
       dados.data = [
@@ -693,17 +706,20 @@ body, .header, .secao, .painel-fila, .painel-tabela, td, select, input {
         ['', '', '', '', '', ''],
         ...linhas
       ];
+      dados.entrada       = entrada;
+      dados.saida         = saida;
       dados.lastUpdate    = new Date().toISOString();
       dados.estadoSistema = `${turno}_ATIVO`;
       await salvarVagasJson(dados);
-      toast(`✅ Turno ${turno} gerado — ${linhas.length} rotas!`, 'verde');
+      document.getElementById('esAtualLabel').textContent = `✅ ${entrada} → ${saida}`;
+      toast(`✅ Turno ${turno} gerado — ${linhas.length} rotas! | Entrada: ${entrada} | Saída: ${saida}`, 'verde');
     } catch(e) { toast(`❌ ${e.message}`, 'erro'); }
   }
 
   // ── LIMPAR TURNO ──
   async function limparTurno() {
     if (!githubToken) { toast('⚠️ Configure o token!', 'erro'); return; }
-    if (!confirm('Limpar toda a tabela atual?')) return;
+    if (!confirm('Limpar toda a tabela atual?\nEntrada e Saída também serão apagadas!')) return;
     try {
       const dados = await fetchVagasComSha();
       dados.data = [
@@ -711,10 +727,16 @@ body, .header, .secao, .painel-fila, .painel-tabela, td, select, input {
         ['TURNO', 'Driver', 'ROTA', 'VAGA', 'STATUS', 'Check-in feito?'],
         ['', '', '', '', '', '']
       ];
+      dados.entrada       = '';
+      dados.saida         = '';
       dados.lastUpdate    = new Date().toISOString();
       dados.estadoSistema = 'AGUARDANDO';
       await salvarVagasJson(dados);
-      toast('🗑️ Tabela limpa!', 'verde');
+      // Limpa os selects visuais
+      document.getElementById('selEntrada').value = '';
+      document.getElementById('selSaida').value   = '';
+      document.getElementById('esAtualLabel').textContent = '';
+      toast('🗑️ Tabela limpa — Entrada e Saída resetadas!', 'verde');
     } catch(e) { toast(`❌ ${e.message}`, 'erro'); }
   }
 
