@@ -298,12 +298,22 @@
 
     tbody tr:nth-child(odd)  { background: #ffffff; }
     tbody tr:nth-child(even) { background: #f4f7fb; }
-    tbody tr { transition: background .15s; }
+    tbody tr {
+      transition: background .15s;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+    }
     tbody tr:hover { background: #eaf0f9 !important; }
+
+    /* Espaço entre linhas — efeito card separado */
+    table { border-spacing: 0 6px; border-collapse: separate; }
+    thead tr { box-shadow: none; }
+    tbody td { border-bottom: none; }
+    tbody td:first-child { border-radius: 8px 0 0 8px; }
+    tbody td:last-child  { border-radius: 0 8px 8px 0; }
 
     .minha-linha {
       background: #fff3cd !important;
-      border-left: 5px solid #ff9800;
+      outline: 2px solid #ff9800;
       font-weight: 600;
     }
 
