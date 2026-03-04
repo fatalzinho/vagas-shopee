@@ -201,7 +201,7 @@
     table { width: 100%; border-collapse: collapse; }
 
     thead th {
-      background: linear-gradient(135deg,#EE4D2D,#cc3b1f); color: white;
+      background: linear-gradient(135deg, #1a5490 0%, #0d3a6b 100%); color: white;
       font-family: 'Rajdhani', sans-serif;
       font-size: 11px; font-weight: 600;
       letter-spacing: 1.5px; text-transform: uppercase;
@@ -216,7 +216,19 @@
       vertical-align: middle; font-size: 13px;
     }
 
-    tbody tr:hover { background: #161616; }
+    tbody tr:nth-child(odd)  { background: #ffffff; }
+    tbody tr:nth-child(even) { background: #f4f7fb; }
+    tbody tr {
+      transition: background .15s;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+    }
+    tbody tr:hover { background: #eaf0f9 !important; }
+
+    .table-scroll table { border-spacing: 0 6px; border-collapse: separate; }
+    thead tr { box-shadow: none; }
+    tbody td { border-bottom: none; }
+    tbody td:first-child { border-radius: 8px 0 0 8px; }
+    tbody td:last-child  { border-radius: 0 8px 8px 0; }
 
     /* Tags de status */
     .tag {
@@ -224,9 +236,9 @@
       padding: 3px 8px; font-size: 11px; font-weight: 600; white-space: nowrap;
     }
 
-    .tag-aguardando { background: rgba(0,0,0,.06); color: #888; border: 1px solid #ccc; }
-    .tag-patio      { background: rgba(37,99,235,.12);   color: #1d4ed8;            border: 1px solid rgba(37,99,235,.3); }
-    .tag-carregar   { background: rgba(22,163,74,.12);   color: #15803d;            border: 1px solid rgba(22,163,74,.3); }
+    .tag-aguardando { background: #f0f0f0; color: #888; border: 1px solid #ddd; }
+    .tag-patio      { background: linear-gradient(135deg,#2196F3,#1976D2); color: white; border: none; }
+    .tag-carregar   { background: linear-gradient(135deg,#4CAF50,#45a049); color: white; border: none; }
 
     /* Input gaiola inline */
     .input-gaiola {
@@ -698,24 +710,52 @@
     }
   }
 
-  // ── MUDAR STATUS MANUAL (Aguardando ↔ Patio) ──
-  async function alterarStatus(rota, novoStatus) {
-    if (!githubToken) { toast('⚠️ Configure o token!', 'erro'); return; }
-    if (salvando) return;
-    salvando = true;
+  // ── MUDAR STATUS MANUAL — fila pra evitar pulos ──
+  const filaStatus = [];
+  let processandoFila = false;
+
+  function alterarStatus(rota, novoStatus) {
+    const idx = filaStatus.findIndex(f => f.rota === rota);
+    if (idx >= 0) filaStatus[idx].novoStatus = novoStatus;
+    else filaStatus.push({ rota, novoStatus });
+    // Feedback visual imediato no botão
+    toast(`⏳ ${rota} → ${novoStatus}...`);
+    processarFila();
+  }
+
+  async function processarFila() {
+    if (processandoFila || filaStatus.length === 0) return;
+    processandoFila = true;
+
+    // Desabilita botões durante salvamento
+    document.querySelectorAll('.btn-patio, .btn-voltar-patio').forEach(b => {
+      b.disabled = true; b.style.opacity = '0.4';
+    });
+
     try {
       const dados  = await fetchVagasComSha();
       const linhas = dados.data || [];
-      const idx    = linhas.findIndex((l, i) => i >= 3 && l[2] === rota);
-      if (idx >= 0) linhas[idx][4] = novoStatus;
+
+      // Aplica todos os itens da fila de uma vez
+      const aplicados = [];
+      while (filaStatus.length > 0) {
+        const { rota, novoStatus } = filaStatus.shift();
+        const i = linhas.findIndex((l, idx) => idx >= 3 && l[2] === rota);
+        if (i >= 0) { linhas[i][4] = novoStatus; aplicados.push(`${rota}→${novoStatus}`); }
+      }
+
       dados.data       = linhas;
       dados.lastUpdate = new Date().toISOString();
       await salvarVagasJson(dados);
-      toast(`✅ ${rota} → ${novoStatus}`, 'verde');
+      toast(`✅ Salvo: ${aplicados.join(', ')}`, 'verde');
     } catch(e) {
       toast(`❌ ${e.message}`, 'erro');
     } finally {
-      salvando = false;
+      processandoFila = false;
+      document.querySelectorAll('.btn-patio, .btn-voltar-patio').forEach(b => {
+        b.disabled = false; b.style.opacity = '';
+      });
+      if (filaStatus.length > 0) processarFila();
     }
   }
 
