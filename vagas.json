@@ -3,7 +3,7 @@
     [
       "",
       "",
-      "HUB - LPR-18 MaringÃÂÃÂ¡",
+      "HUB - LPR-18 MaringÃÂÃÂÃÂÃÂ¡",
       "",
       "AM",
       ""
@@ -29,7 +29,7 @@
       "",
       "A-1",
       "",
-      "Entrar no pÃÂ¡tio",
+      "Entrar no pÃÂÃÂ¡tio",
       false
     ],
     [
@@ -37,7 +37,7 @@
       "",
       "A-2",
       "",
-      "Entrar no pÃ¡tio",
+      "Entrar no pÃÂ¡tio",
       false
     ],
     [
@@ -53,7 +53,7 @@
       "",
       "A-4",
       "",
-      "Entrar no pátio",
+      "Entrar no pÃ¡tio",
       false
     ],
     [
@@ -69,7 +69,7 @@
       "",
       "A-6",
       "",
-      "Aguardando",
+      "Entrar no pátio",
       false
     ],
     [
@@ -553,6 +553,6 @@
       false
     ]
   ],
-  "lastUpdate": "2026-03-04T00:12:11.486Z",
+  "lastUpdate": "2026-03-04T00:12:13.125Z",
   "estadoSistema": "AM_ATIVO"
 }
