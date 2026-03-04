@@ -3,7 +3,7 @@
     [
       "",
       "",
-      "HUB - LPR-18 MaringÃ¡",
+      "HUB - LPR-18 MaringÃÂ¡",
       "",
       "AM",
       ""
@@ -29,7 +29,7 @@
       "",
       "A-1",
       "",
-      "Entrar no pátio",
+      "Entrar no pÃ¡tio",
       false
     ],
     [
@@ -37,7 +37,7 @@
       "",
       "A-2",
       "",
-      "Aguardando",
+      "Entrar no pátio",
       false
     ],
     [
@@ -105,6 +105,6 @@
       false
     ]
   ],
-  "lastUpdate": "2026-03-04T00:13:20.172Z",
+  "lastUpdate": "2026-03-04T00:13:26.036Z",
   "estadoSistema": "AM_ATIVO"
 }
