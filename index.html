@@ -656,8 +656,7 @@
     });
     if (!r.ok) throw new Error(r.status);
     const data = await r.json();
-    return JSON.parse(atob(data.content.replace(/
-/g,'')));
+    return JSON.parse(atob(data.content.replace(/\n/g, '')));
   }
 
   function atualizarES(entrada, saida) {
