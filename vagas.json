@@ -3,7 +3,7 @@
     [
       "",
       "",
-      "HUB - LPR-18 MaringÃÂÃÂÃÂÃÂ¡",
+      "HUB - LPR-18 MaringÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¡",
       "",
       "AM",
       ""
@@ -37,7 +37,7 @@
       "",
       "A-2",
       "",
-      "Aguardando",
+      "Patio",
       false
     ],
     [
@@ -105,7 +105,7 @@
       false
     ]
   ],
-  "lastUpdate": "2026-03-04T01:22:05.243Z",
+  "lastUpdate": "2026-03-04T01:22:18.991Z",
   "estadoSistema": "AM_ATIVO",
   "entrada": "Fundos",
   "saida": "Fundos"
