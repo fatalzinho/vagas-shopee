@@ -5,7 +5,7 @@
       "",
       "HUB - LPR-18 Maringá",
       "",
-      "AGUARDANDO",
+      "AM",
       ""
     ],
     [
@@ -23,8 +23,88 @@
       "",
       "",
       ""
+    ],
+    [
+      "AM",
+      "",
+      "A-1",
+      "",
+      "Aguardando",
+      false
+    ],
+    [
+      "AM",
+      "",
+      "A-2",
+      "",
+      "Aguardando",
+      false
+    ],
+    [
+      "AM",
+      "",
+      "A-3",
+      "",
+      "Aguardando",
+      false
+    ],
+    [
+      "AM",
+      "",
+      "A-4",
+      "",
+      "Aguardando",
+      false
+    ],
+    [
+      "AM",
+      "",
+      "A-5",
+      "",
+      "Aguardando",
+      false
+    ],
+    [
+      "AM",
+      "",
+      "A-6",
+      "",
+      "Aguardando",
+      false
+    ],
+    [
+      "AM",
+      "",
+      "A-7",
+      "",
+      "Aguardando",
+      false
+    ],
+    [
+      "AM",
+      "",
+      "A-8",
+      "",
+      "Aguardando",
+      false
+    ],
+    [
+      "AM",
+      "",
+      "A-9",
+      "",
+      "Aguardando",
+      false
+    ],
+    [
+      "AM",
+      "",
+      "A-10",
+      "",
+      "Aguardando",
+      false
     ]
   ],
-  "lastUpdate": "2026-03-04T01:07:48.237Z",
-  "estadoSistema": "AGUARDANDO"
+  "lastUpdate": "2026-03-04T01:08:04.004Z",
+  "estadoSistema": "AM_ATIVO"
 }
