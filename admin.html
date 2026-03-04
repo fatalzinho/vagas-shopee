@@ -393,6 +393,15 @@ body.dark .tag-aguardando { background: #1e293b; color: #64748b; border-color: #
 body, .header, .secao, .painel-fila, .painel-tabela, td, select, input {
   transition: background .3s, color .3s, border-color .3s;
 }
+
+.btn-checkin {
+  background: none; border: none; cursor: pointer;
+  font-size: 18px; padding: 4px 8px; border-radius: 6px;
+  transition: transform .15s, background .15s;
+  line-height: 1;
+}
+.btn-checkin:hover { background: rgba(0,0,0,.06); transform: scale(1.2); }
+.btn-checkin.ativo:hover { background: rgba(239,68,68,.08); }
 </style>
 </head>
 <body>
@@ -896,9 +905,12 @@ body, .header, .secao, .painel-fila, .painel-tabela, td, select, input {
       if (status === 'Carregar') tagCls = 'tag-carregar';
       else if (status === 'Patio') tagCls = 'tag-patio';
 
-      let checkinHtml = '<span style="color:#ccc">—</span>';
-      if      (checkin === true  || checkin === 'TRUE')  checkinHtml = '✅';
-      else if (checkin === false || checkin === 'FALSE') checkinHtml = '❌';
+      const checkinAtivo = checkin === true || checkin === 'TRUE';
+      const checkinHtml = `<button class="btn-checkin ${checkinAtivo?'ativo':''}"
+        onclick="toggleCheckin('${rota}',${checkinAtivo})"
+        title="Clique para alternar">
+        ${checkinAtivo ? '✅' : '❌'}
+      </button>`;
 
       let btnStatusHtml = '';
       if (status === 'Aguardando') {
@@ -922,7 +934,7 @@ body, .header, .secao, .painel-fila, .painel-tabela, td, select, input {
           <span class="tag ${tagCls}" style="margin-right:4px">${status}</span>
           ${btnStatusHtml}
         </td>
-        <td style="font-size:15px">${checkinHtml}</td>
+        <td>${checkinHtml}</td>
       </tr>`;
     });
 
@@ -930,6 +942,23 @@ body, .header, .secao, .painel-fila, .painel-tabela, td, select, input {
     document.getElementById('tabelaVagas').innerHTML = html;
     document.getElementById('tsTabela').textContent =
       new Date(vagas.lastUpdate).toLocaleTimeString('pt-BR');
+  }
+
+  // ── TOGGLE CHECK-IN ──
+  async function toggleCheckin(rota, atual) {
+    if (!githubToken) { toast('⚠️ Configure o token!', 'erro'); return; }
+    if (salvando) return;
+    salvando = true;
+    try {
+      const dados  = await fetchVagasComSha();
+      const linhas = dados.data || [];
+      const idx    = linhas.findIndex((l, i) => i >= 3 && l[2] === rota);
+      if (idx >= 0) linhas[idx][5] = !atual;
+      dados.data = linhas; dados.lastUpdate = new Date().toISOString();
+      await salvarVagasJson(dados);
+      toast(`${!atual ? '✅' : '❌'} Check-in ${rota} ${!atual ? 'marcado' : 'desmarcado'}`, 'verde');
+    } catch(e) { toast(`❌ ${e.message}`, 'erro'); }
+    finally { salvando = false; }
   }
 
   // ── POLLING ──
