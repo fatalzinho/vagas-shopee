@@ -3,7 +3,7 @@
     [
       "",
       "",
-      "HUB - LPR-18 Maringá",
+      "HUB - LPR-18 MaringÃ¡",
       "",
       "AM",
       ""
@@ -29,7 +29,7 @@
       "",
       "A-1",
       "",
-      "Aguardando",
+      "Entrar no pátio",
       false
     ],
     [
@@ -329,6 +329,6 @@
       false
     ]
   ],
-  "lastUpdate": "2026-03-04T00:17:03.812Z",
+  "lastUpdate": "2026-03-04T00:17:11.292Z",
   "estadoSistema": "AM_ATIVO"
 }
