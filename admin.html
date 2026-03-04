@@ -1,348 +1,399 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin — Guichê</title>
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --laranja: #EE4D2D;
-      --laranja2: #ff6b47;
-      --preto: #f4f4f4;
-      --card: #ffffff;
-      --card2: #f0f0f0;
-      --borda: #e0e0e0;
-      --texto: #1a1a1a;
-      --texto-dim: #888;
-      --verde: #16a34a;
-      --azul: #2563eb;
-      --amarelo: #d97706;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Guichê</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --laranja: #EE4D2D;
+  --laranja2: #ff6b47;
+  --bg: #f4f6f9;
+  --card: #ffffff;
+  --card2: #f0f2f5;
+  --borda: #e5e7eb;
+  --texto: #1a1a1a;
+  --texto-dim: #6b7280;
+  --verde: #16a34a;
+  --azul: #2563eb;
+  --amarelo: #d97706;
+}
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+body.dark {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --card2: #162032;
+  --borda: #334155;
+  --texto: #f1f5f9;
+  --texto-dim: #94a3b8;
+}
 
-    body {
-      background: var(--preto);
-      color: var(--texto);
-      font-family: 'Noto Sans', sans-serif;
-      min-height: 100vh;
-    }
+* { margin:0; padding:0; box-sizing:border-box; }
 
-    /* ── HEADER ── */
-    .header {
-      background: var(--card);
-      border-bottom: 2px solid var(--laranja);
-      padding: 12px 20px;
-      display: flex; align-items: center; justify-content: space-between;
-      position: sticky; top: 0; z-index: 100;
-    }
+body {
+  background: var(--bg);
+  color: var(--texto);
+  font-family: 'Noto Sans', sans-serif;
+  min-height: 100vh;
+  transition: background .3s, color .3s;
+}
 
-    .header h1 {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 20px; font-weight: 700;
-      letter-spacing: 2px; text-transform: uppercase;
-    }
+/* ── HEADER ── */
+.header {
+  background: var(--card);
+  border-bottom: 2px solid var(--laranja);
+  padding: 12px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 4px 20px rgba(0,0,0,.08);
+}
 
-    .header h1 span { color: var(--laranja); }
-    .header-status { font-size: 12px; color: var(--texto-dim); }
+.header-logo { display: flex; align-items: center; gap: 10px; }
 
-    /* ── SEÇÕES ── */
-    .secao {
-      background: var(--card);
-      border: 1px solid var(--borda);
-      border-radius: 10px;
-      margin: 12px 14px;
-      overflow: hidden;
-    }
+.header-logo h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 20px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+}
 
-    .secao-titulo {
-      background: var(--card2);
-      padding: 10px 16px;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 13px; font-weight: 700;
-      letter-spacing: 1.5px; text-transform: uppercase;
-      color: var(--texto-dim);
-      border-bottom: 1px solid var(--borda);
-      display: flex; align-items: center; justify-content: space-between;
-    }
+.header-logo h1 span { color: var(--laranja); }
 
-    .secao-body { padding: 12px 16px; }
+.header-right { display: flex; align-items: center; gap: 12px; }
+.header-status { font-size: 12px; color: var(--texto-dim); }
 
-    /* ── INPUTS ── */
-    .campo-label {
-      font-size: 10px; font-weight: 600;
-      letter-spacing: 1px; text-transform: uppercase;
-      color: var(--texto-dim); margin-bottom: 4px; display: block;
-    }
+.btn-theme {
+  background: transparent; border: 1px solid var(--borda);
+  color: var(--texto); padding: 6px 10px; border-radius: 8px;
+  cursor: pointer; font-size: 16px; transition: all .2s;
+}
+.btn-theme:hover { background: var(--laranja); color: white; border-color: var(--laranja); }
 
-    select, input[type="text"], input[type="password"] {
-      background: #f0f0f0;
-      border: 1px solid var(--borda);
-      border-radius: 6px;
-      padding: 8px 10px;
-      color: var(--texto);
-      font-family: 'Noto Sans', sans-serif;
-      font-size: 14px;
-      appearance: none; -webkit-appearance: none;
-      transition: border-color .2s;
-    }
+/* ── SEÇÕES ── */
+.secao {
+  background: var(--card);
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  margin: 12px 14px;
+  overflow: hidden;
+  transition: background .3s;
+}
 
-    select:focus, input:focus { outline: none; border-color: var(--laranja); }
+.secao-titulo {
+  background: var(--card2);
+  padding: 10px 16px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--texto-dim);
+  border-bottom: 1px solid var(--borda);
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background .3s;
+}
 
-    /* ── BOTÕES ── */
-    .btn {
-      border: none; border-radius: 6px; cursor: pointer;
-      font-family: 'Rajdhani', sans-serif;
-      font-weight: 700; letter-spacing: 1px;
-      transition: all .2s; white-space: nowrap;
-      display: inline-flex; align-items: center; gap: 5px;
-    }
+.secao-body { padding: 12px 16px; }
 
-    .btn-laranja { background: var(--laranja); color: white; }
-    .btn-laranja:hover { background: var(--laranja2); }
-    .btn-verde { background: var(--verde); color: white; }
-    .btn-verde:hover { background: #16a34a; }
-    .btn-azul { background: var(--azul); color: white; }
-    .btn-azul:hover { background: #2563eb; }
-    .btn-cinza { background: transparent; border: 1px solid var(--borda) !important; color: var(--texto-dim); }
-    .btn-cinza:hover { border-color: #555 !important; color: var(--texto); }
-    .btn-amarelo { background: var(--amarelo); color: #111; }
-    .btn-amarelo:hover { background: #d97706; }
+/* ── INPUTS ── */
+.campo-label {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: var(--texto-dim); margin-bottom: 4px; display: block;
+}
 
-    .btn-lg { padding: 10px 18px; font-size: 15px; }
-    .btn-md { padding: 8px 14px; font-size: 14px; }
-    .btn-sm { padding: 5px 10px; font-size: 12px; }
-    .btn:disabled { opacity: .35; cursor: not-allowed; }
+select, input[type="text"], input[type="password"] {
+  background: var(--bg);
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+  padding: 8px 10px;
+  color: var(--texto);
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 14px;
+  appearance: none;
+  transition: border-color .2s, background .3s;
+}
 
-    /* ── TOKEN ── */
-    .token-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .token-row input { flex: 1; min-width: 200px; font-family: monospace; font-size: 13px; }
-    .token-ok { display: none; align-items: center; gap: 6px; font-size: 12px; color: var(--verde); }
-    .token-ok.ativo { display: flex; }
+select:focus, input:focus { outline: none; border-color: var(--laranja); }
 
-    /* ── ENTRADA/SAÍDA ── */
-    .es-row { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
-    .es-grupo { display: flex; flex-direction: column; gap: 4px; }
-    .es-grupo select { min-width: 120px; }
+/* ── BOTÕES ── */
+.btn {
+  border: none; border-radius: 6px; cursor: pointer;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700; letter-spacing: 1px;
+  transition: all .2s; white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 5px;
+}
 
-    /* ── GERADOR ── */
-    .gerador-row { display: flex; align-items: flex-end; gap: 10px; flex-wrap: wrap; }
-    .gerador-grupo { display: flex; flex-direction: column; gap: 4px; }
-    .sep { font-size: 12px; color: var(--texto-dim); padding-bottom: 10px; white-space: nowrap; }
-    .sel-turno { min-width: 80px; }
-    .sel-letra { min-width: 68px; }
-    .sel-num   { min-width: 68px; }
+.btn-laranja { background: var(--laranja); color: white; }
+.btn-laranja:hover { background: var(--laranja2); }
+.btn-verde { background: var(--verde); color: white; }
+.btn-verde:hover { background: #15803d; }
+.btn-cinza {
+  background: transparent;
+  border: 1px solid var(--borda) !important;
+  color: var(--texto-dim);
+}
+.btn-cinza:hover { border-color: #999 !important; color: var(--texto); }
 
-    /* ── LAYOUT PRINCIPAL ── */
-    .main {
-      display: grid;
-      grid-template-columns: 290px 1fr;
-      gap: 14px;
-      padding: 0 14px 14px;
-    }
+.btn-lg { padding: 10px 18px; font-size: 15px; }
+.btn-md { padding: 8px 14px; font-size: 14px; }
+.btn-sm { padding: 5px 10px; font-size: 12px; }
+.btn:disabled { opacity: .35; cursor: not-allowed; }
 
-    @media (max-width: 860px) { .main { grid-template-columns: 1fr; } }
+/* ── TOKEN ── */
+.token-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.token-row input { flex: 1; min-width: 200px; font-family: monospace; font-size: 13px; }
+.token-ok { display: none; align-items: center; gap: 6px; font-size: 12px; color: var(--verde); }
+.token-ok.ativo { display: flex; }
 
-    /* ── FILA ── */
-    .painel-fila {
-      background: var(--card);
-      border: 1px solid var(--borda);
-      border-radius: 10px;
-      overflow: hidden;
-      align-self: start;
-    }
+/* ── ENTRADA/SAÍDA ── */
+.es-row { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
+.es-grupo { display: flex; flex-direction: column; gap: 4px; }
+.es-grupo select { min-width: 120px; }
+#esAtualLabel { font-size: 11px; color: var(--verde); font-weight: 400; letter-spacing: 0; }
 
-    .fila-vazia { padding: 36px 16px; text-align: center; color: var(--texto-dim); font-size: 13px; }
-    .fila-vazia p:first-child { font-size: 28px; margin-bottom: 8px; }
+/* ── GERADOR ── */
+.gerador-row { display: flex; align-items: flex-end; gap: 10px; flex-wrap: wrap; }
+.gerador-grupo { display: flex; flex-direction: column; gap: 4px; }
+.sep { font-size: 12px; color: var(--texto-dim); padding-bottom: 10px; white-space: nowrap; }
+.sel-turno { min-width: 80px; }
+.sel-letra { min-width: 68px; }
+.sel-num   { min-width: 68px; }
 
-    .checkin-card {
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--borda);
-      animation: fadeIn .3s ease;
-    }
+/* ── LAYOUT PRINCIPAL ── */
+.main {
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  gap: 14px;
+  padding: 0 14px 24px;
+}
 
-    @keyframes fadeIn {
-      from { opacity:0; transform:translateY(-6px); }
-      to   { opacity:1; transform:translateY(0); }
-    }
+@media (max-width: 860px) { .main { grid-template-columns: 1fr; } }
 
-    .checkin-card:last-child { border-bottom: none; }
-    .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
-    .card-nome { font-weight: 600; font-size: 14px; }
-    .card-rota { font-family: 'Rajdhani', sans-serif; font-size: 18px; font-weight: 700; color: var(--laranja); }
-    .card-meta { font-size: 11px; color: var(--texto-dim); margin-bottom: 10px; }
+/* ── FILA ── */
+.painel-fila {
+  background: var(--card);
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  overflow: hidden;
+  align-self: start;
+  transition: background .3s;
+}
 
-    .cf-group { margin-bottom: 8px; }
-    .cf-group label { display: block; font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--texto-dim); margin-bottom: 4px; }
-    .cf-group input { width: 100%; background: #f5f5f5; border: 1px solid var(--borda); border-radius: 5px; padding: 7px 10px; color: var(--texto); font-size: 13px; }
+.fila-vazia { padding: 36px 16px; text-align: center; color: var(--texto-dim); font-size: 13px; }
+.fila-vazia p:first-child { font-size: 28px; margin-bottom: 8px; }
 
-    .btn-ok-card {
-      width: 100%; background: var(--verde); border: none; color: white;
-      padding: 9px; border-radius: 6px; cursor: pointer;
-      font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 1px;
-      transition: all .2s; margin-top: 2px;
-    }
+.checkin-card {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--borda);
+  animation: fadeIn .3s ease;
+}
 
-    .btn-ok-card:hover { background: #16a34a; }
-    .btn-ok-card:disabled { opacity: .4; cursor: not-allowed; }
+@keyframes fadeIn {
+  from { opacity:0; transform:translateY(-6px); }
+  to   { opacity:1; transform:translateY(0); }
+}
 
-    .btn-rejeitar-card {
-      width: 100%; background: transparent; border: 1px solid #222; color: var(--texto-dim);
-      padding: 6px; border-radius: 6px; cursor: pointer; font-size: 11px; margin-top: 5px; transition: all .2s;
-    }
+.checkin-card:last-child { border-bottom: none; }
+.card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.card-nome { font-weight: 600; font-size: 14px; }
+.card-rota { font-family: 'Rajdhani', sans-serif; font-size: 18px; font-weight: 700; color: var(--laranja); }
+.card-meta { font-size: 11px; color: var(--texto-dim); margin-bottom: 10px; }
 
-    .btn-rejeitar-card:hover { border-color: #ef4444; color: #ef4444; }
+.cf-group { margin-bottom: 8px; }
+.cf-group label { display: block; font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--texto-dim); margin-bottom: 4px; }
+.cf-group input { width: 100%; background: var(--bg); border: 1px solid var(--borda); border-radius: 5px; padding: 7px 10px; color: var(--texto); font-size: 13px; }
 
-    /* ── TABELA ── */
-    .painel-tabela { background: var(--card); border: 1px solid var(--borda); border-radius: 10px; overflow: hidden; }
-    .table-scroll { overflow-x: auto; }
+.btn-ok-card {
+  width: 100%; background: var(--verde); border: none; color: white;
+  padding: 9px; border-radius: 6px; cursor: pointer;
+  font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 700;
+  letter-spacing: 1px; transition: all .2s; margin-top: 2px;
+}
+.btn-ok-card:hover { background: #15803d; }
+.btn-ok-card:disabled { opacity: .4; cursor: not-allowed; }
 
-    table { width: 100%; border-collapse: collapse; }
+.btn-rejeitar-card {
+  width: 100%; background: transparent; border: 1px solid var(--borda);
+  color: var(--texto-dim); padding: 6px; border-radius: 6px;
+  cursor: pointer; font-size: 11px; margin-top: 5px; transition: all .2s;
+}
+.btn-rejeitar-card:hover { border-color: #ef4444; color: #ef4444; }
 
-    thead th {
-      background: linear-gradient(135deg, #1a5490 0%, #0d3a6b 100%); color: white;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 11px; font-weight: 600;
-      letter-spacing: 1.5px; text-transform: uppercase;
-      padding: 10px 10px; text-align: center;
-      border-bottom: 1px solid var(--borda); white-space: nowrap;
-      position: sticky; top: 0; z-index: 10;
-    }
+/* ── TABELA ── */
+.painel-tabela {
+  background: var(--card);
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: background .3s;
+}
 
-    tbody td {
-      padding: 8px 10px; text-align: center;
-      border-bottom: 1px solid #ebebeb;
-      vertical-align: middle; font-size: 13px;
-    }
+.table-scroll { overflow-x: auto; padding: 12px; }
 
-    tbody tr:nth-child(odd)  { background: #ffffff; }
-    tbody tr:nth-child(even) { background: #f4f7fb; }
-    tbody tr {
-      transition: background .15s;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.06);
-    }
-    tbody tr:hover { background: #eaf0f9 !important; }
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 6px;
+}
 
-    .table-scroll table { border-spacing: 0 6px; border-collapse: separate; }
-    thead tr { box-shadow: none; }
-    tbody td { border-bottom: none; }
-    tbody td:first-child { border-radius: 8px 0 0 8px; }
-    tbody td:last-child  { border-radius: 0 8px 8px 0; }
+th {
+  background: linear-gradient(135deg, #1a5490, #0d3a6b);
+  color: white;
+  padding: 12px 10px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  white-space: nowrap;
+  text-align: center;
+}
 
-    /* Tags de status */
-    .tag {
-      display: inline-block; border-radius: 4px;
-      padding: 3px 8px; font-size: 11px; font-weight: 600; white-space: nowrap;
-    }
+body.dark th { background: linear-gradient(135deg, #0f172a, #1e293b); }
 
-    .tag-aguardando { background: #f0f0f0; color: #888; border: 1px solid #ddd; }
-    .tag-patio      { background: linear-gradient(135deg,#2196F3,#1976D2); color: white; border: none; }
-    .tag-carregar   { background: linear-gradient(135deg,#4CAF50,#45a049); color: white; border: none; }
+th:first-child { border-radius: 8px 0 0 8px; }
+th:last-child  { border-radius: 0 8px 8px 0; }
 
-    /* Input gaiola inline */
-    .input-gaiola {
-      background: #f8f8f8; border: 1px solid var(--borda);
-      border-radius: 4px; padding: 5px 8px;
-      color: var(--texto); font-size: 13px; font-family: 'Rajdhani', sans-serif;
-      font-weight: 700; width: 64px; text-align: center;
-      transition: border-color .2s;
-    }
+td {
+  background: var(--card);
+  padding: 10px 8px;
+  text-align: center;
+  font-size: 13px;
+  white-space: nowrap;
+  border-bottom: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,.04);
+  transition: background .15s;
+}
 
-    .input-gaiola:focus { outline: none; border-color: var(--laranja); }
-    .input-gaiola.preenchido { border-color: rgba(34,197,94,.4); color: var(--verde); }
+tbody tr td:first-child { border-radius: 8px 0 0 8px; }
+tbody tr td:last-child  { border-radius: 0 8px 8px 0; }
 
-    /* Botão entrar no pátio inline */
-    .btn-patio {
-      background: rgba(59,130,246,.15); border: 1px solid rgba(59,130,246,.3);
-      color: var(--azul); border-radius: 4px; padding: 4px 8px;
-      font-size: 11px; font-weight: 600; cursor: pointer;
-      transition: all .2s; white-space: nowrap;
-      font-family: 'Noto Sans', sans-serif;
-    }
+tbody tr:hover td { background: #eaf0f9; }
+body.dark tbody tr:hover td { background: #263548; }
 
-    .btn-patio:hover { background: rgba(59,130,246,.25); }
+/* Tags */
+.tag {
+  display: inline-block; border-radius: 5px;
+  padding: 3px 8px; font-size: 11px; font-weight: 600; white-space: nowrap;
+}
 
-    .btn-voltar-patio {
-      background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.2);
-      color: var(--amarelo); border-radius: 4px; padding: 4px 8px;
-      font-size: 11px; font-weight: 600; cursor: pointer;
-      transition: all .2s; white-space: nowrap;
-      font-family: 'Noto Sans', sans-serif;
-    }
+.tag-aguardando { background: #f0f0f0; color: #888; border: 1px solid #ddd; }
+body.dark .tag-aguardando { background: #1e293b; color: #64748b; border-color: #334155; }
 
-    .btn-voltar-patio:hover { background: rgba(245,158,11,.2); }
+.tag-patio {
+  background: linear-gradient(135deg, #2196F3, #1976D2);
+  color: white; border: none;
+}
 
-    /* ── POPUP GAIOLA ── */
-    .popup-overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,.8); z-index: 1000;
-      align-items: center; justify-content: center;
-      backdrop-filter: blur(4px);
-    }
+.tag-carregar {
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  color: white; border: none;
+}
 
-    .popup-overlay.ativo { display: flex; }
+/* Input gaiola inline */
+.input-gaiola {
+  background: var(--bg); border: 1px solid var(--borda);
+  border-radius: 4px; padding: 5px 8px;
+  color: var(--texto); font-size: 13px;
+  font-family: 'Rajdhani', sans-serif; font-weight: 700;
+  width: 64px; text-align: center; cursor: pointer;
+  transition: border-color .2s;
+}
+.input-gaiola:hover { border-color: var(--laranja); }
+.input-gaiola.preenchido { border-color: rgba(76,175,80,.5); color: var(--verde); }
 
-    .popup {
-      background: var(--card);
-      border: 1px solid var(--borda);
-      border-top: 3px solid var(--laranja);
-      border-radius: 12px; padding: 24px;
-      width: 90%; max-width: 340px;
-      animation: slideUp .25s ease;
-    }
+/* Botões de status inline */
+.btn-patio {
+  background: rgba(33,150,243,.12); border: 1px solid rgba(33,150,243,.3);
+  color: #1976D2; border-radius: 4px; padding: 4px 8px;
+  font-size: 11px; font-weight: 600; cursor: pointer;
+  transition: all .2s; white-space: nowrap; font-family: 'Noto Sans', sans-serif;
+}
+.btn-patio:hover { background: rgba(33,150,243,.25); }
+.btn-patio:disabled { opacity: .4; cursor: not-allowed; }
 
-    @keyframes slideUp {
-      from { transform: translateY(16px); opacity: 0; }
-      to   { transform: translateY(0);    opacity: 1; }
-    }
+.btn-voltar-patio {
+  background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.2);
+  color: var(--amarelo); border-radius: 4px; padding: 4px 8px;
+  font-size: 11px; font-weight: 600; cursor: pointer;
+  transition: all .2s; white-space: nowrap; font-family: 'Noto Sans', sans-serif;
+}
+.btn-voltar-patio:hover { background: rgba(245,158,11,.2); }
+.btn-voltar-patio:disabled { opacity: .4; cursor: not-allowed; }
 
-    .popup h3 {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 18px; font-weight: 700; letter-spacing: 1px;
-      margin-bottom: 16px;
-    }
+/* ── POPUP GAIOLA ── */
+.popup-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,.5); z-index: 1000;
+  align-items: center; justify-content: center;
+  backdrop-filter: blur(4px);
+}
+.popup-overlay.ativo { display: flex; }
 
-    .popup h3 span { color: var(--laranja); }
+.popup {
+  background: var(--card);
+  border: 1px solid var(--borda);
+  border-top: 3px solid var(--laranja);
+  border-radius: 12px; padding: 24px;
+  width: 90%; max-width: 340px;
+  animation: slideUp .25s ease;
+  transition: background .3s;
+}
 
-    .popup-field { margin-bottom: 14px; }
-    .popup-field label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--texto-dim); margin-bottom: 5px; }
-    .popup-field input { width: 100%; background: #f0f0f0; border: 1px solid var(--borda); border-radius: 6px; padding: 9px 12px; color: var(--texto); font-family: 'Rajdhani', sans-serif; font-size: 20px; font-weight: 700; text-align: center; }
-    .popup-field input:focus { outline: none; border-color: var(--laranja); }
+@keyframes slideUp {
+  from { transform: translateY(16px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
 
-    .popup-btns { display: flex; gap: 10px; margin-top: 18px; }
+.popup h3 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 18px; font-weight: 700; letter-spacing: 1px; margin-bottom: 16px;
+}
+.popup h3 span { color: var(--laranja); }
 
-    /* ── TOAST ── */
-    .toast-container {
-      position: fixed; top: 14px; right: 14px;
-      z-index: 9999; display: flex; flex-direction: column;
-      gap: 8px; pointer-events: none; max-width: 280px;
-    }
+.popup-field { margin-bottom: 14px; }
+.popup-field label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--texto-dim); margin-bottom: 5px; }
+.popup-field input {
+  width: 100%; background: var(--bg); border: 1px solid var(--borda);
+  border-radius: 6px; padding: 9px 12px; color: var(--texto);
+  font-family: 'Rajdhani', sans-serif; font-size: 20px; font-weight: 700; text-align: center;
+}
+.popup-field input:focus { outline: none; border-color: var(--laranja); }
 
-    .toast {
-      background: var(--card); border: 1px solid var(--borda);
-      border-left: 3px solid var(--laranja); color: var(--texto);
-      padding: 10px 14px; border-radius: 8px; font-size: 13px;
-      animation: toastIn .3s ease; pointer-events: auto;
-      box-shadow: 0 4px 16px rgba(0,0,0,.12);
-    }
+.popup-btns { display: flex; gap: 10px; margin-top: 18px; }
 
-    .toast.verde { border-left-color: var(--verde); }
-    .toast.erro  { border-left-color: #ef4444; }
-    .toast.saindo { animation: toastOut .3s ease forwards; }
+/* ── TOAST ── */
+.toast-container {
+  position: fixed; top: 14px; right: 14px;
+  z-index: 9999; display: flex; flex-direction: column;
+  gap: 8px; pointer-events: none; max-width: 280px;
+}
 
-    @keyframes toastIn  { from{transform:translateX(300px);opacity:0} to{transform:translateX(0);opacity:1} }
-    @keyframes toastOut { from{transform:translateX(0);opacity:1} to{transform:translateX(300px);opacity:0} }
+.toast {
+  background: var(--card); border: 1px solid var(--borda);
+  border-left: 3px solid var(--laranja); color: var(--texto);
+  padding: 10px 14px; border-radius: 8px; font-size: 13px;
+  animation: toastIn .3s ease; pointer-events: auto;
+  box-shadow: 0 4px 16px rgba(0,0,0,.12);
+}
+.toast.verde { border-left-color: var(--verde); }
+.toast.erro  { border-left-color: #ef4444; }
+.toast.saindo { animation: toastOut .3s ease forwards; }
 
-    .loading { text-align:center; padding:40px; color:var(--texto-dim); }
+@keyframes toastIn  { from{transform:translateX(300px);opacity:0} to{transform:translateX(0);opacity:1} }
+@keyframes toastOut { from{transform:translateX(0);opacity:1} to{transform:translateX(300px);opacity:0} }
 
-    .badge-num {
-      background: var(--laranja); color: white;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 12px; font-weight: 700;
-      padding: 2px 8px; border-radius: 20px;
-    }
-  </style>
+.loading { text-align:center; padding:40px; color:var(--texto-dim); }
+
+.badge-num {
+  background: var(--laranja); color: white;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 12px; font-weight: 700;
+  padding: 2px 8px; border-radius: 20px;
+}
+
+body, .header, .secao, .painel-fila, .painel-tabela, td, select, input {
+  transition: background .3s, color .3s, border-color .3s;
+}
+</style>
 </head>
 <body>
 
@@ -366,8 +417,13 @@
 
 <!-- HEADER -->
 <div class="header">
-  <h1>ADMIN <span>GUICHÊ</span></h1>
-  <div class="header-status" id="headerStatus">⏳ Conectando...</div>
+  <div class="header-logo">
+    <h1>ADMIN <span>GUICHÊ</span></h1>
+  </div>
+  <div class="header-right">
+    <span class="header-status" id="headerStatus">⏳ Conectando...</span>
+    <button class="btn-theme" onclick="toggleTheme()" id="btnTheme">🌙</button>
+  </div>
 </div>
 
 <!-- TOKEN -->
@@ -379,7 +435,7 @@
       <button class="btn btn-laranja btn-md" onclick="salvarToken()">Salvar</button>
       <div class="token-ok" id="tokenOk">
         ✅ Configurado
-        <button onclick="limparToken()" style="background:none;border:none;color:#555;cursor:pointer;font-size:11px;margin-left:4px">trocar</button>
+        <button onclick="limparToken()" style="background:none;border:none;color:#aaa;cursor:pointer;font-size:11px;margin-left:4px">trocar</button>
       </div>
     </div>
   </div>
@@ -389,7 +445,7 @@
 <div class="secao">
   <div class="secao-titulo">
     🚪 ENTRADA / SAÍDA GLOBAL
-    <span id="esAtualLabel" style="font-size:10px;font-weight:400;letter-spacing:0;color:var(--verde)"></span>
+    <span id="esAtualLabel"></span>
   </div>
   <div class="secao-body">
     <div class="es-row">
@@ -427,9 +483,7 @@
           <option value="PM">PM</option>
         </select>
       </div>
-
       <span class="sep">De:</span>
-
       <div class="gerador-grupo">
         <label class="campo-label">Letra</label>
         <select id="selLetraInicio" class="sel-letra"></select>
@@ -438,9 +492,7 @@
         <label class="campo-label">Até nº</label>
         <select id="selNumInicio" class="sel-num"></select>
       </div>
-
       <span class="sep">Até:</span>
-
       <div class="gerador-grupo">
         <label class="campo-label">Letra</label>
         <select id="selLetraFim" class="sel-letra"></select>
@@ -449,7 +501,6 @@
         <label class="campo-label">Até nº</label>
         <select id="selNumFim" class="sel-num"></select>
       </div>
-
       <div style="display:flex;gap:8px;align-items:flex-end">
         <button class="btn btn-laranja btn-lg" onclick="gerarTurno()">🚀 GERAR</button>
         <button class="btn btn-cinza btn-lg" onclick="limparTurno()">🗑️ LIMPAR</button>
@@ -476,7 +527,7 @@
   <div class="painel-tabela">
     <div class="secao-titulo" style="border-radius:0">
       <span>📋 TABELA DE VAGAS</span>
-      <span id="tsTabela" style="color:var(--texto-dim);font-size:10px;font-weight:400;letter-spacing:0"></span>
+      <span id="tsTabela" style="font-size:10px;font-weight:400;letter-spacing:0;color:var(--texto-dim)"></span>
     </div>
     <div class="table-scroll">
       <div id="tabelaVagas" class="loading"><p>Carregando...</p></div>
@@ -486,6 +537,21 @@
 </div>
 
 <script>
+  // ── TEMA ──
+  function toggleTheme() {
+    document.body.classList.toggle('dark');
+    const dark = document.body.classList.contains('dark');
+    localStorage.setItem('adminTheme', dark ? 'dark' : 'light');
+    document.getElementById('btnTheme').textContent = dark ? '☀️' : '🌙';
+  }
+
+  (function(){
+    if (localStorage.getItem('adminTheme') === 'dark') {
+      document.body.classList.add('dark');
+      document.getElementById('btnTheme').textContent = '☀️';
+    }
+  })();
+
   // ── CONFIG ──
   const GITHUB_USER = 'fatalzinho';
   const GITHUB_REPO = 'vagas-shopee';
@@ -493,12 +559,14 @@
   const POLL_MS     = 7000;
   const LETRAS      = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
-  let githubToken  = localStorage.getItem('adminToken') || '';
-  let vagasSha     = '';
-  let rotaPopup    = '';   // rota que abriu o popup de gaiola
-  let salvando     = false; // evita chamadas simultâneas
+  let githubToken      = localStorage.getItem('adminToken') || '';
+  let vagasSha         = '';
+  let rotaPopup        = '';
+  let salvando         = false;
+  const filaStatus     = [];
+  let processandoFila  = false;
 
-  // Preenche selects de letra/número
+  // Preenche selects letra/número
   LETRAS.forEach(l => {
     ['selLetraInicio','selLetraFim'].forEach(id => {
       const o = document.createElement('option');
@@ -506,7 +574,6 @@
       document.getElementById(id).appendChild(o);
     });
   });
-
   for (let i = 1; i <= 50; i++) {
     ['selNumInicio','selNumFim'].forEach(id => {
       const o = document.createElement('option');
@@ -515,17 +582,16 @@
     });
   }
 
-  // Defaults razoáveis
   document.getElementById('selLetraFim').value  = 'D';
   document.getElementById('selNumInicio').value = '28';
   document.getElementById('selNumFim').value    = '10';
 
-  // Token
   if (githubToken) {
     document.getElementById('tokenInput').value = githubToken;
     document.getElementById('tokenOk').classList.add('ativo');
   }
 
+  // ── TOKEN ──
   function salvarToken() {
     const t = document.getElementById('tokenInput').value.trim();
     if (!t) { toast('⚠️ Digite o token!'); return; }
@@ -552,20 +618,13 @@
   }
 
   // ── API GITHUB ──
-  async function fetchJson(arq) {
-    const url = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${arq}?t=${Date.now()}`;
-    const r = await fetch(url, { cache: 'no-store' });
-    if (!r.ok) throw new Error(r.status);
-    return r.json();
-  }
-
   async function fetchVagasComSha() {
     const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${VAGAS_JSON}`;
-    const r = await fetch(url, { headers: { Authorization: `token ${githubToken}` } });
+    const r = await fetch(url, { headers: { Authorization: `token ${githubToken}` }, cache: 'no-store' });
     if (!r.ok) throw new Error(r.status);
     const data = await r.json();
     vagasSha = data.sha;
-    return JSON.parse(atob(data.content.replace(/\n/g,'')));
+    return JSON.parse(atob(data.content.replace(/\n/g, '')));
   }
 
   async function salvarVagasJson(payload) {
@@ -587,7 +646,7 @@
     return true;
   }
 
-  // ── ENTRADA/SAÍDA GLOBAL ──
+  // ── ENTRADA/SAÍDA ──
   async function salvarEntradaSaida() {
     if (!githubToken) { toast('⚠️ Configure o token!', 'erro'); return; }
     const entrada = document.getElementById('selEntrada').value;
@@ -595,27 +654,24 @@
     if (!entrada || !saida) { toast('⚠️ Selecione Entrada e Saída!'); return; }
     try {
       const dados = await fetchVagasComSha();
-      dados.entrada    = entrada;
-      dados.saida      = saida;
+      dados.entrada = entrada; dados.saida = saida;
       dados.lastUpdate = new Date().toISOString();
       await salvarVagasJson(dados);
       toast(`✅ Entrada: ${entrada} | Saída: ${saida}`, 'verde');
-      document.getElementById('esAtualLabel').textContent = `✅ Entrada: ${entrada} | Saída: ${saida}`;
+      document.getElementById('esAtualLabel').textContent = `✅ ${entrada} → ${saida}`;
     } catch(e) { toast(`❌ ${e.message}`, 'erro'); }
   }
 
   // ── GERAR TURNO ──
   async function gerarTurno() {
     if (!githubToken) { toast('⚠️ Configure o token!', 'erro'); return; }
-
-    const turno      = document.getElementById('selTurno').value;
-    const letraIni   = document.getElementById('selLetraInicio').value;
-    const numIni     = parseInt(document.getElementById('selNumInicio').value);
-    const letraFim   = document.getElementById('selLetraFim').value;
-    const numFim     = parseInt(document.getElementById('selNumFim').value);
-
-    const idxIni = LETRAS.indexOf(letraIni);
-    const idxFim = LETRAS.indexOf(letraFim);
+    const turno    = document.getElementById('selTurno').value;
+    const letraIni = document.getElementById('selLetraInicio').value;
+    const numIni   = parseInt(document.getElementById('selNumInicio').value);
+    const letraFim = document.getElementById('selLetraFim').value;
+    const numFim   = parseInt(document.getElementById('selNumFim').value);
+    const idxIni   = LETRAS.indexOf(letraIni);
+    const idxFim   = LETRAS.indexOf(letraFim);
 
     if (idxFim < idxIni) { toast('⚠️ Letra final deve ser >= letra inicial!'); return; }
     if (!confirm(`Gerar turno ${turno}: ${letraIni}1 até ${letraFim}${numFim}?\nIsso substituirá a tabela atual!`)) return;
@@ -665,8 +721,8 @@
   // ── POPUP GAIOLA ──
   function abrirPopupGaiola(rota, gaiola) {
     rotaPopup = rota;
-    document.getElementById('popupRota').textContent  = rota;
-    document.getElementById('popupGaiola').value      = gaiola || '';
+    document.getElementById('popupRota').textContent = rota;
+    document.getElementById('popupGaiola').value     = gaiola || '';
     document.getElementById('popupOverlay').classList.add('ativo');
     setTimeout(() => document.getElementById('popupGaiola').focus(), 100);
   }
@@ -677,48 +733,28 @@
   }
 
   async function salvarGaiola() {
-    if (!rotaPopup) return;
-    if (salvando)  return;
-
-    const gaiola = document.getElementById('popupGaiola').value.trim();
-
-    // Se vazio, muda pra "Patio" (motorista desceu, vaga não pronta)
+    if (!rotaPopup || salvando) return;
+    const gaiola    = document.getElementById('popupGaiola').value.trim();
     const novoStatus = gaiola ? 'Carregar' : 'Patio';
-
     salvando = true;
     try {
       const dados  = await fetchVagasComSha();
       const linhas = dados.data || [];
       const idx    = linhas.findIndex((l, i) => i >= 3 && l[2] === rotaPopup);
-      if (idx >= 0) {
-        linhas[idx][3] = gaiola;      // vaga/gaiola
-        linhas[idx][4] = novoStatus;  // status automático
-      }
-      dados.data       = linhas;
-      dados.lastUpdate = new Date().toISOString();
+      if (idx >= 0) { linhas[idx][3] = gaiola; linhas[idx][4] = novoStatus; }
+      dados.data = linhas; dados.lastUpdate = new Date().toISOString();
       await salvarVagasJson(dados);
-
-      const msg = gaiola
-        ? `✅ ${rotaPopup} → Gaiola ${gaiola} — Carregar!`
-        : `✅ ${rotaPopup} → Patio`;
-      toast(msg, 'verde');
+      toast(gaiola ? `✅ ${rotaPopup} → Gaiola ${gaiola} — Carregar!` : `✅ ${rotaPopup} → Patio`, 'verde');
       fecharPopup();
-    } catch(e) {
-      toast(`❌ ${e.message}`, 'erro');
-    } finally {
-      salvando = false;
-    }
+    } catch(e) { toast(`❌ ${e.message}`, 'erro'); }
+    finally { salvando = false; }
   }
 
-  // ── MUDAR STATUS MANUAL — fila pra evitar pulos ──
-  const filaStatus = [];
-  let processandoFila = false;
-
+  // ── STATUS COM FILA ──
   function alterarStatus(rota, novoStatus) {
     const idx = filaStatus.findIndex(f => f.rota === rota);
     if (idx >= 0) filaStatus[idx].novoStatus = novoStatus;
     else filaStatus.push({ rota, novoStatus });
-    // Feedback visual imediato no botão
     toast(`⏳ ${rota} → ${novoStatus}...`);
     processarFila();
   }
@@ -727,7 +763,6 @@
     if (processandoFila || filaStatus.length === 0) return;
     processandoFila = true;
 
-    // Desabilita botões durante salvamento
     document.querySelectorAll('.btn-patio, .btn-voltar-patio').forEach(b => {
       b.disabled = true; b.style.opacity = '0.4';
     });
@@ -735,22 +770,19 @@
     try {
       const dados  = await fetchVagasComSha();
       const linhas = dados.data || [];
-
-      // Aplica todos os itens da fila de uma vez
       const aplicados = [];
+
       while (filaStatus.length > 0) {
         const { rota, novoStatus } = filaStatus.shift();
         const i = linhas.findIndex((l, idx) => idx >= 3 && l[2] === rota);
         if (i >= 0) { linhas[i][4] = novoStatus; aplicados.push(`${rota}→${novoStatus}`); }
       }
 
-      dados.data       = linhas;
-      dados.lastUpdate = new Date().toISOString();
+      dados.data = linhas; dados.lastUpdate = new Date().toISOString();
       await salvarVagasJson(dados);
       toast(`✅ Salvo: ${aplicados.join(', ')}`, 'verde');
-    } catch(e) {
-      toast(`❌ ${e.message}`, 'erro');
-    } finally {
+    } catch(e) { toast(`❌ ${e.message}`, 'erro'); }
+    finally {
       processandoFila = false;
       document.querySelectorAll('.btn-patio, .btn-voltar-patio').forEach(b => {
         b.disabled = false; b.style.opacity = '';
@@ -761,54 +793,35 @@
 
   // ── CONFIRMAR CHECK-IN ──
   async function confirmarCheckin(rota, btnEl) {
-    if (!githubToken) { toast('⚠️ Configure o token!', 'erro'); return; }
-    if (salvando) return;
+    if (!githubToken || salvando) { toast('⚠️ Configure o token!', 'erro'); return; }
     const gaiola = document.getElementById(`gaiola-card-${rota}`).value.trim();
     if (!gaiola) { toast('⚠️ Informe a gaiola!'); return; }
 
     btnEl.disabled = true; btnEl.textContent = '⏳...';
     salvando = true;
-
     try {
       const dados  = await fetchVagasComSha();
       const linhas = dados.data || [];
       const idx    = linhas.findIndex((l, i) => i >= 3 && l[2] === rota);
-      if (idx >= 0) {
-        linhas[idx][3] = gaiola;
-        linhas[idx][4] = 'Carregar';
-        linhas[idx][5] = true;
-      }
-      dados.data       = linhas;
-      dados.lastUpdate = new Date().toISOString();
+      if (idx >= 0) { linhas[idx][3] = gaiola; linhas[idx][4] = 'Carregar'; linhas[idx][5] = true; }
+      dados.data = linhas; dados.lastUpdate = new Date().toISOString();
       await salvarVagasJson(dados);
       toast(`✅ ${rota} confirmado — Gaiola ${gaiola}!`, 'verde');
-
       const card = document.getElementById(`card-${rota}`);
-      if (card) {
-        card.style.transition = 'all .3s';
-        card.style.opacity    = '0';
-        card.style.transform  = 'translateX(-20px)';
-        setTimeout(() => card.remove(), 300);
-      }
+      if (card) { card.style.transition='all .3s'; card.style.opacity='0'; card.style.transform='translateX(-20px)'; setTimeout(()=>card.remove(),300); }
     } catch(e) {
       toast(`❌ ${e.message}`, 'erro');
       btnEl.disabled = false; btnEl.textContent = '✓ OK — CONFIRMAR';
-    } finally {
-      salvando = false;
-    }
+    } finally { salvando = false; }
   }
 
   function rejeitarCheckin(rota) {
     if (!confirm(`Ignorar check-in de ${rota}?`)) return;
     const card = document.getElementById(`card-${rota}`);
-    if (card) {
-      card.style.transition = 'all .3s';
-      card.style.opacity = '0';
-      setTimeout(() => card.remove(), 300);
-    }
+    if (card) { card.style.transition='all .3s'; card.style.opacity='0'; setTimeout(()=>card.remove(),300); }
   }
 
-  // ── RENDERIZA FILA ──
+  // ── FILA ──
   function renderFila(pendentes) {
     document.getElementById('badgePendentes').textContent = pendentes.length;
     if (!pendentes.length) {
@@ -816,48 +829,40 @@
         `<div class="fila-vazia"><p>✅</p><p>Nenhum pendente</p></div>`;
       return;
     }
-
     document.getElementById('filaCheckins').innerHTML = pendentes.map(c => {
-      const ts = c.ts
-        ? new Date(c.ts).toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' })
-        : '';
-      return `
-        <div class="checkin-card" id="card-${c.rota}">
-          <div class="card-top">
-            <span class="card-nome">${c.nome}</span>
-            <span class="card-rota">${c.rota}</span>
-          </div>
-          <div class="card-meta">ID: ${c.id}${ts ? ' • ' + ts : ''}</div>
-          <div class="cf-group">
-            <label>Gaiola</label>
-            <input type="text" id="gaiola-card-${c.rota}" placeholder="Ex: C5" maxlength="6">
-          </div>
-          <button class="btn-ok-card" onclick="confirmarCheckin('${c.rota}', this)">
-            ✓ OK — CONFIRMAR
-          </button>
-          <button class="btn-rejeitar-card" onclick="rejeitarCheckin('${c.rota}')">Ignorar</button>
-        </div>`;
+      const ts = c.ts ? new Date(c.ts).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}) : '';
+      return `<div class="checkin-card" id="card-${c.rota}">
+        <div class="card-top">
+          <span class="card-nome">${c.nome}</span>
+          <span class="card-rota">${c.rota}</span>
+        </div>
+        <div class="card-meta">ID: ${c.id}${ts?' • '+ts:''}</div>
+        <div class="cf-group">
+          <label>Gaiola</label>
+          <input type="text" id="gaiola-card-${c.rota}" placeholder="Ex: C5" maxlength="6">
+        </div>
+        <button class="btn-ok-card" onclick="confirmarCheckin('${c.rota}',this)">✓ OK — CONFIRMAR</button>
+        <button class="btn-rejeitar-card" onclick="rejeitarCheckin('${c.rota}')">Ignorar</button>
+      </div>`;
     }).join('');
   }
 
-  // ── RENDERIZA TABELA ──
+  // ── TABELA ──
   function renderTabela(vagas) {
     const linhas = vagas.data;
-
     if (!linhas || linhas.length < 4) {
       document.getElementById('tabelaVagas').innerHTML =
-        '<div class="loading"><p style="color:#444">Sem dados — gere um turno acima</p></div>';
+        '<div class="loading"><p style="color:#aaa">Sem dados — gere um turno acima</p></div>';
       return;
     }
 
     let html = `<table><thead><tr>
       <th>Turno</th><th>Driver</th><th>Rota</th>
-      <th>Gaiola</th><th>Status</th><th>Check-in</th>
+      <th>Gaiola</th><th>Status</th><th>✓</th>
     </tr></thead><tbody>`;
 
     linhas.slice(3).forEach(linha => {
       if (!linha || !linha[2]) return;
-
       const turno   = linha[0] || '';
       const driver  = linha[1] || '';
       const rota    = linha[2] || '';
@@ -865,24 +870,21 @@
       const status  = linha[4] || 'Aguardando';
       const checkin = linha[5];
 
-      // Tag de status
       let tagCls = 'tag-aguardando';
-      if (status === 'Carregar')        tagCls = 'tag-carregar';
+      if (status === 'Carregar') tagCls = 'tag-carregar';
       else if (status === 'Patio') tagCls = 'tag-patio';
 
-      // Check-in
-      let checkinHtml = '<span style="color:#333">—</span>';
+      let checkinHtml = '<span style="color:#ccc">—</span>';
       if      (checkin === true  || checkin === 'TRUE')  checkinHtml = '✅';
       else if (checkin === false || checkin === 'FALSE') checkinHtml = '❌';
 
-      // Botão de ação de status
       let btnStatusHtml = '';
       if (status === 'Aguardando') {
         btnStatusHtml = `<button class="btn-patio" onclick="alterarStatus('${rota}','Patio')">▶ Chamar</button>`;
       } else if (status === 'Patio') {
         btnStatusHtml = `<button class="btn-voltar-patio" onclick="alterarStatus('${rota}','Aguardando')">↩ Aguardar</button>`;
       } else if (status === 'Carregar') {
-        btnStatusHtml = `<button class="btn-voltar-patio" onclick="alterarStatus('${rota}','Patio')">↩ Pátio</button>`;
+        btnStatusHtml = `<button class="btn-voltar-patio" onclick="alterarStatus('${rota}','Patio')">↩ Patio</button>`;
       }
 
       html += `<tr>
@@ -890,17 +892,15 @@
         <td style="font-size:11px;color:var(--texto-dim)">${driver}</td>
         <td><strong style="font-family:'Rajdhani',sans-serif;font-size:14px">${rota}</strong></td>
         <td>
-          <input class="input-gaiola ${gaiola ? 'preenchido' : ''}"
-            type="text" value="${gaiola}"
-            placeholder="—"
-            onclick="abrirPopupGaiola('${rota}','${gaiola}')"
-            readonly>
+          <input class="input-gaiola ${gaiola?'preenchido':''}" type="text"
+            value="${gaiola}" placeholder="—" readonly
+            onclick="abrirPopupGaiola('${rota}','${gaiola}')">
         </td>
         <td>
           <span class="tag ${tagCls}" style="margin-right:4px">${status}</span>
           ${btnStatusHtml}
         </td>
-        <td style="font-size:16px">${checkinHtml}</td>
+        <td style="font-size:15px">${checkinHtml}</td>
       </tr>`;
     });
 
@@ -914,20 +914,17 @@
   async function atualizar() {
     try {
       const vagas = await fetchVagasComSha();
-
       renderTabela(vagas);
-      renderFila([]); // TODO: fila real quando resolver comunicação motorista→admin
+      renderFila([]);
 
       if (vagas.entrada) {
         document.getElementById('selEntrada').value = vagas.entrada;
         document.getElementById('selSaida').value   = vagas.saida || '';
-        document.getElementById('esAtualLabel').textContent =
-          `✅ Entrada: ${vagas.entrada} | Saída: ${vagas.saida}`;
+        document.getElementById('esAtualLabel').textContent = `✅ ${vagas.entrada} → ${vagas.saida}`;
       }
 
       document.getElementById('headerStatus').innerHTML =
         `<span style="color:var(--verde)">🟢 AO VIVO</span> • ${new Date(vagas.lastUpdate).toLocaleTimeString('pt-BR')}`;
-
     } catch(e) {
       document.getElementById('headerStatus').innerHTML =
         `<span style="color:#ef4444">⚠️ Sem conexão</span>`;
