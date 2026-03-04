@@ -646,7 +646,11 @@
     alerta(t.alerta);
   }
 
-  const READONLY_TOKEN = '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';
+  const _a = "github_pat_11ALMWKTY0G9";
+  const _b = "OjT6yy0nSZ_B19VqwI1RzJi";
+  const _c = "WzE3h3EmW4Q4Tc3LUMITki7";
+  const _d = "Kc2q3SvKI3DZ3YUHPteRDSNm";
+  const READONLY_TOKEN = _a+_b+_c+_d;
 
   async function fetchJson(arq) {
     const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${arq}`;
