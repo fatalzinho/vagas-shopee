@@ -718,14 +718,14 @@
       const ehMinha = rota && r && r.toUpperCase() === rota.toUpperCase();
 
       if (!primeira && ant) {
-        if (s.toLowerCase().includes('pátio') && (!ant.status||!ant.status.toLowerCase().includes('pátio')))
+        if (s.toLowerCase().includes('pátio') && (!ant.status||!ant.status.toLowerCase().includes('patio')))
           toast(`<strong>${r}</strong> → Entrar no pátio`, 'patio');
         if (v !== '-' && ant.vaga !== String(v))
           toast(`<strong>${r}</strong> → Vaga ${v}`, 'vaga');
       }
 
       if (ehMinha && !primeira && ant) {
-        if (s.toLowerCase().includes('pátio') && (!ant.status||!ant.status.toLowerCase().includes('pátio')))
+        if (s.toLowerCase().includes('pátio') && (!ant.status||!ant.status.toLowerCase().includes('patio')))
           notificar('patio');
         if (v !== '-' && ant.vaga !== String(v))
           notificar('vaga', v);
@@ -735,7 +735,7 @@
 
       let cls = '';
       if (s.toLowerCase().includes('carregar')) cls = 'tag-carregar';
-      else if (s.toLowerCase().includes('pátio')||s.toLowerCase().includes('patio')) cls = 'tag-patio';
+      else if (s.toLowerCase().includes('patio')) cls = 'tag-patio';
 
       let checkinHtml = '';
       if      (checkin === true  || checkin === 'TRUE')  checkinHtml = '✅';
