@@ -646,11 +646,18 @@
     alerta(t.alerta);
   }
 
+  const READONLY_TOKEN = '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';
+
   async function fetchJson(arq) {
-    const url = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${arq}?t=${Date.now()}`;
-    const r = await fetch(url, { cache: 'no-store' });
+    const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${arq}`;
+    const r = await fetch(url, {
+      cache: 'no-store',
+      headers: { Authorization: `token ${READONLY_TOKEN}` }
+    });
     if (!r.ok) throw new Error(r.status);
-    return r.json();
+    const data = await r.json();
+    return JSON.parse(atob(data.content.replace(/
+/g,'')));
   }
 
   function atualizarES(entrada, saida) {
