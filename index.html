@@ -278,7 +278,7 @@
     table { width: 100%; border-collapse: collapse; }
 
     th {
-      background: linear-gradient(135deg,#1a3a5c,#0d2440);
+      background: linear-gradient(135deg,#1e3a5f,#162d4a);
       color: white;
       font-family: 'Rajdhani', sans-serif;
       font-size: 12px; font-weight: 600;
@@ -305,7 +305,7 @@
     .minha-linha:hover { background: rgba(238,77,45,.12) !important; }
 
     .vaga-cell {
-      background: #222; color: var(--texto);
+      background: #2a2a3a; color: var(--texto);
       font-family: 'Rajdhani', sans-serif;
       font-size: 18px; font-weight: 700;
       border-radius: 4px; display: inline-block;
@@ -313,13 +313,13 @@
     }
 
     .tag-carregar {
-      background: linear-gradient(135deg,#22c55e,#16a34a);
+      background: linear-gradient(135deg,#16a34a,#15803d);
       color: white; font-weight: bold;
       border-radius: 5px; padding: 3px 8px; font-size: 12px;
     }
 
     .tag-patio {
-      background: linear-gradient(135deg,#3b82f6,#1d4ed8);
+      background: linear-gradient(135deg,#2563eb,#1d4ed8);
       color: white; font-weight: bold;
       border-radius: 5px; padding: 3px 8px; font-size: 12px;
     }
@@ -686,29 +686,10 @@
       return;
     }
 
-    const mapaC = {};
-    if (checkins && checkins.checkins)
-      checkins.checkins.forEach(c => { mapaC[c.rota] = c; });
 
-    if (meuCheckin) {
-      const meuC = mapaC[meuCheckin.rota];
-      if (meuC && meuC.status === 'confirmado') {
-        atualizarES(meuC.entrada, meuC.saida);
-        document.getElementById('checkinBadge').innerHTML =
-          `<span class="badge confirmado">✅ Confirmado</span>`;
-      } else if (meuC && meuC.status === 'aguardando') {
-        atualizarES('', '');
-        document.getElementById('checkinBadge').innerHTML =
-          `<span class="badge aguardando">⏳ Aguardando</span>`;
-      } else {
-        atualizarES('', '');
-        document.getElementById('checkinBadge').innerHTML =
-          `<span class="badge aguardando">⏳ Pendente</span>`;
-      }
-    } else {
-      atualizarES('', '');
-      document.getElementById('checkinBadge').innerHTML = '';
-    }
+    // Entrada/saida global vem do vagas.json
+    atualizarES(vagas.entrada || '', vagas.saida || '');
+
 
     const novos = [];
     let html = `<table>
@@ -728,14 +709,14 @@
       const ehMinha = rota && r && r.toUpperCase() === rota.toUpperCase();
 
       if (!primeira && ant) {
-        if (s.toLowerCase().includes('pátio') && (!ant.status||!ant.status.toLowerCase().includes('patio')))
+        if (s === 'Patio' && ant.status !== 'Patio')
           toast(`<strong>${r}</strong> → Entrar no pátio`, 'patio');
         if (v !== '-' && ant.vaga !== String(v))
           toast(`<strong>${r}</strong> → Vaga ${v}`, 'vaga');
       }
 
       if (ehMinha && !primeira && ant) {
-        if (s.toLowerCase().includes('pátio') && (!ant.status||!ant.status.toLowerCase().includes('patio')))
+        if (s === 'Patio' && ant.status !== 'Patio')
           notificar('patio');
         if (v !== '-' && ant.vaga !== String(v))
           notificar('vaga', v);
@@ -744,8 +725,8 @@
       novos.push({ chave, vaga: String(v), status: s });
 
       let cls = '';
-      if (s.toLowerCase().includes('carregar')) cls = 'tag-carregar';
-      else if (s.toLowerCase().includes('patio')) cls = 'tag-patio';
+      if (s === 'Carregar') cls = 'tag-carregar';
+      else if (s === 'Patio') cls = 'tag-patio';
 
       let checkinHtml = '';
       if      (checkin === true  || checkin === 'TRUE')  checkinHtml = '✅';
