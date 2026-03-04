@@ -2,7 +2,7 @@
   "entrada": "Fundos",
   "saida": "Fundos",
   "estadoSistema": "AM_ATIVO",
-  "lastUpdate": "2026-03-04T03:01:00.468Z",
+  "lastUpdate": "2026-03-04T03:01:02.309Z",
   "data": [
     [
       "",
@@ -114,7 +114,7 @@
       "A-11",
       "",
       "Aguardando",
-      false
+      true
     ],
     [
       "AM",
