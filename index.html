@@ -283,17 +283,18 @@
     th {
       background: linear-gradient(135deg, #1a5490 0%, #0d3a6b 100%);
       color: white;
-      font-weight: 600; font-size: 14px;
+      font-weight: 600; font-size: 13px;
       text-transform: uppercase; letter-spacing: 0.5px;
-      padding: 15px 12px; text-align: center;
+      padding: 12px 8px; text-align: center;
       position: sticky; top: 0; z-index: 10;
-      border-bottom: none;
+      border-bottom: none; white-space: nowrap;
     }
 
     td {
-      padding: 13px 12px; text-align: center;
-      border-bottom: 1px solid #e8e8e8;
-      vertical-align: middle; font-size: 14px;
+      padding: 11px 8px; text-align: center;
+      border-bottom: none;
+      vertical-align: middle; font-size: 13px;
+      white-space: nowrap;
     }
 
     tbody tr:nth-child(odd)  { background: #ffffff; }
@@ -707,7 +708,7 @@
 
     const novos = [];
     let html = `<table>
-      <tr><th>TURNO</th><th>ROTA</th><th>VAGA</th><th>STATUS</th><th>CHECK-IN</th></tr>`;
+      <tr><th>TURNO</th><th>ROTA</th><th>VAGA</th><th>STATUS</th><th>✓</th></tr>`;
 
     linhas.slice(3).forEach(linha => {
       if (!linha || !linha[2]) return;
